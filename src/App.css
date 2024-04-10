@@ -1,0 +1,21 @@
+.main_nav {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0c223b;
+  border-bottom: 1px solid black;
+}
+
+.main_logo {
+  height: 100px;
+  width: auto;
+}
+
+.home_button {
+  margin-left: 40px;
+}
+
+.login_button {
+  margin-right: 40px;
+}

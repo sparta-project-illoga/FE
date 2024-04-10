@@ -1,0 +1,108 @@
+.profile_main {
+  width: 80%;
+  display: grid;
+  place-items: center;
+}
+
+.profile_header {
+    display: flex;
+
+  }
+  
+  .profile_img {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+  }
+  
+  .follow_info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .follow_count {
+    text-align: center;
+    margin-right: 20px;
+  }
+  
+  .count {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: gray;
+  }
+
+.profile_name {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.profile_name p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+  .follow_button {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .follow_button button {
+    padding: 10px 20px;
+    background-color: #48d9f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .introduction {
+    margin-top: 20px;
+    width: 400px;
+    text-align: center;
+    border-radius: 5px;
+    border: 0.5px solid black;
+  }
+  
+  .introduction p {
+    font-size: 14px;
+    color: #555555;
+  }
+
+  .profile_id {
+    font-size: 20px;
+    width: 35%;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    justify-content: center;
+    
+  }
+
+  .profile_array {
+    display: flex;
+    justify-content:space-between;
+    font-size: 20px;
+    width: 35%;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .profile_button {
+    display: flex;
+    margin-top: 40px;
+    gap: 5px;
+  }
