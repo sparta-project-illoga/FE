@@ -1,0 +1,19 @@
+/* .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.post_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 80%;
+} */
+
+.main {
+    display: grid;
+    place-items: center;
+    align-items: center;
+  }

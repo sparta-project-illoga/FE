@@ -1,0 +1,76 @@
+.login_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.login_title {
+    font-size: 40px;
+    font-weight: 800;
+    width: 400px;
+}
+
+.id_input {
+    width: 400px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.password_input {
+    width: 400px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.sns_kakao {
+    background-color: #fee102;
+    width: 400px;
+    height: 45px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    color: yellow-800;
+    margin-bottom: 10px;
+}
+
+.sns_naver {
+    background-color: #03c75a;
+    width: 400px;
+    height: 45px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.or_box {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.login_bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login_bottom p {
+    font-weight: bold;
+}
+
+.ask_signUp {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ask_signUp span {
+    margin-left: 40px;
+}
