@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/login.css";
+
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import BlueButton from "../component/BlueButton";
@@ -11,11 +12,15 @@ function Login() {
 
   const handleLogin = async () => {
     try {
+      console.log("handleLogin 실행됨");
+      console.log("email : ", email);
+      console.log("password : ", password);
       const response = await axios.post('http://localhost:3000/user/login', {
         email,
         password,
       });
 
+      console.log("login - response : ", response);
       console.log(response.data); // 응답 데이터 확인 예시
       navigate('/')
     } catch (error) {
@@ -60,7 +65,8 @@ function Login() {
         </div>
         <div>
           {/* <input type="checkbox" /> <label>자동로그인</label> | */}
-          <BlueButton onClick={handleLogin} content="로그인"/>
+          {/* <BlueButton onClick={handleLogin} content="로그인" /> */}
+          <button onClick={handleLogin}>로그인</button>
         </div>
 
         <div className="ask_signUp">

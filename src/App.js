@@ -4,6 +4,7 @@ import Login from "./page/Login";
 import Home from "./page/Home";
 import SignUp from "./page/SignUp";
 import Profile from "./page/Profile";
+import Plan from "./page/plan/Plan";
 import "./App.css";
 import mainlogo from "./asset/career com.jpg";
 
@@ -28,6 +29,9 @@ function App() {
           >
             | Login
           </Link>{" "}
+          <Link to="/plan" style={{ color: "purple", fontSize: "20px" }}>
+            Plan 생성
+          </Link>{" "}
         </div>
       </nav>
       <Routes>
@@ -35,6 +39,7 @@ function App() {
         <Route path="/login" element={<Login />} key="login-link" />
         <Route path="/signup" element={<SignUp />} key="signup-link" />
         <Route path="/profile" element={<Profile />} key="profile-link" />
+        <Route path="/plan/*" element={<Plan />} key="plan-link" />
       </Routes>
     </div>
   );
