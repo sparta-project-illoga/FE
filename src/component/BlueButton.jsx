@@ -4,7 +4,7 @@ import "./BlueButton.css"
 function BlueButton(props) {
   return (
     <div>
-      <button className="blueButton">{props.content}</button>
+      <button className="blueButton" onClick={props.onClick}>{props.content}</button>
     </div>
   );
 }

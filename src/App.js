@@ -5,7 +5,8 @@ import Home from "./page/Home";
 import SignUp from "./page/SignUp";
 import Profile from "./page/Profile";
 import "./App.css";
-import mainlogo from "./asset/career com.jpg";
+import mainlogo from "./asset/illoga_logo.jpg";
+import ModifyProfile from "./page/ModifyProfile";
 
 function App() {
   return (
@@ -18,15 +19,22 @@ function App() {
           {/* <Link to="/profile" style={{ color: "navy", fontSize: "20px" }}>
             Profile
           </Link>{" "} */}
-          <Link to="/signup" style={{ color: "white", fontSize: "20px" }}>
+          <Link to="/signup" style={{ color: "black", fontSize: "20px" }}>
             SignUp
           </Link>{" "}
           <Link
             to="/login"
             className="login_button"
-            style={{ color: "white", fontSize: "20px" }}
+            style={{ color: "black", fontSize: "20px" }}
           >
             | Login
+          </Link>{" "}
+          <Link
+            to="/profile"
+            className="profile_button"
+            style={{ color: "black", fontSize: "20px" }}
+          >
+            | profile
           </Link>{" "}
         </div>
       </nav>
@@ -35,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} key="login-link" />
         <Route path="/signup" element={<SignUp />} key="signup-link" />
         <Route path="/profile" element={<Profile />} key="profile-link" />
+        <Route path="/profile/modifyprofile" element={<ModifyProfile />} />
       </Routes>
     </div>
   );

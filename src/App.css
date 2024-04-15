@@ -3,13 +3,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0c223b;
   border-bottom: 1px solid black;
 }
 
 .main_logo {
-  height: 100px;
+  height: 101px;
   width: auto;
+  margin-left: 100px;
 }
 
 .home_button {
