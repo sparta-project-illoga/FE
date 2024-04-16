@@ -1,7 +1,8 @@
 .profile_main {
-  width: 80%;
+  width: 100%;
   display: grid;
   place-items: center;
+  margin-top: 50px
 }
 
 .profile_header {
@@ -37,12 +38,12 @@
   }
 
 .profile_name {
-  margin-top: 10px;
   text-align: center;
 }
 
 .profile_name p {
-  font-size: 16px;
+  margin-top: -5px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -105,4 +106,11 @@
     display: flex;
     margin-top: 40px;
     gap: 5px;
+  }
+
+  #profile_img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 100%;
   }

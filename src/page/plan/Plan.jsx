@@ -1,26 +1,55 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Cookies } from 'react-cookie';
 
 import "../../component/plan/Plan.css";
-import Activeness from "./Activeness";
-import Passivity from "./Passivity";
 
 function Plan() {
-    const [id, setId] = useState(null);
+    const cookies = new Cookies();
 
     //직접 생성/자동 생성 버튼 누르면 빈 plan 생성
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
+    const handleSubmit = async (type) => {
         try {
-            const response = await axios.post("http://localhost:3000/plan");
-            console.log("createPlan- response : ", response);
-            setId(response.data.id);
-            console.log("createPlan - id : ", response.data.id);
-            console.log("id 잘 저장되는지 확인 : ", id);
+            const token = cookies.get('access_token');
+
+            const response = await axios.post(
+                "http://localhost:3000/plan",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    withCredentials: true
+                }
+            )
+
+            const plan = response.data.createPlan.createPlan;
+            console.log("Plan - id : ", plan.id);
+            alert("플랜이 생성되었습니다.");
+
+            //직접인지 추천인지 나눠서 주소 이동
+            let url;
+            if (type === 'activeness') {
+                url = `/plan/activeness/${plan.id}`;
+            } else if (type === 'passivity') {
+                url = `/plan/passivity/${plan.id}`;
+            }
+            window.location.href = url;
+
         } catch (error) {
-            console.log("플랜 생성 에러 : ", error);
+
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                alert("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                alert("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                alert("오류가 발생했습니다: " + error.message);
+                console.error("플랜 생성 에러:", error);
+            }
         }
     }
 
@@ -29,28 +58,16 @@ function Plan() {
             <div className="Plan">
                 <div className="plan-buttons">
                     <div className="plan 직접 등록">
-                        {/* <Link to={`/plan/activeness/${id}`}> */}
-                        <Link to='/plan/activeness'>
-                            <button onClick={handleSubmit}>직접 등록</button>
-                        </Link>
+                        <button onClick={() => handleSubmit('activeness')}>직접 등록</button>
                     </div>
                     <div className="plan 추천 등록">
-                        {/* <Link to={`/plan/passivity/${id}`}> */}
-                        <Link to='/plan/passivity'>
-                            <button onClick={handleSubmit}>추천 등록</button>
-                        </Link>
+                        <button onClick={() => handleSubmit('passivity')}>추천 등록</button>
                     </div>
                 </div>
                 <Link to='/'>
                     <button className="cancel-button">플랜 생성 취소</button>
-                </Link>
+                </Link>{" "}
             </div>
-            {/* <Routes>
-                {/* <Route path={`/plan/activeness/:id`} element={<Activeness />} key="activeness-link" />
-                <Route path={`/plan/passivity/:id`} element={<Passivity />} key="passivity-link" /> */}
-            {/* <Route path='/activeness' element={<Activeness />} key="activeness-link" />
-                <Route path='/passivity' element={<Passivity />} key="passivity-link" />
-            </Routes> */}
         </>
     )
 }

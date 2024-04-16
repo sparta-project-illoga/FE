@@ -4,11 +4,13 @@ import "../style/login.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import BlueButton from "../component/BlueButton";
+import { useCookies } from 'react-cookie';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['Authorization']);
 
   const handleLogin = async () => {
     try {
@@ -20,8 +22,12 @@ function Login() {
         password,
       });
 
+<<<<<<< HEAD
       console.log("login - response : ", response);
       console.log(response.data); // 응답 데이터 확인 예시
+=======
+      setCookie('Authorization', `Bearer ${response.data.access_token}`, { path: '/' });
+>>>>>>> 71d1d0e976849faf571ad1dd6de847a7dfc76b29
       navigate('/')
     } catch (error) {
       console.error(error); // 에러 처리 예시
