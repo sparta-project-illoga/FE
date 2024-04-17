@@ -1,0 +1,11 @@
+.plan {
+    border: 1px solid #335976;
+    padding: 20px;
+}
+
+.plan img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
