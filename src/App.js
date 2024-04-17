@@ -10,6 +10,7 @@ import mainlogo from "./asset/illoga_logo.jpg";
 import ModifyProfile from "./page/ModifyProfile";
 import Activeness from "./page/plan/Activeness";
 import Passivity from "./page/plan/Passivity";
+import Schedule from "./page/schedule/Schedule";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/plan" element={<Plan />} key="plan-link" />
         <Route path="/plan/activeness/:id" element={<Activeness />} key="activeness-link" />
         <Route path="/plan/passivity/:id" element={<Passivity />} key="passivity-link" />
+        <Route path="/plan/:id/schedule" element={<Schedule />} key="schedule-link" />
       </Routes>
     </div>
   );
