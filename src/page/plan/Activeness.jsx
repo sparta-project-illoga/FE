@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 
 import { Cookies } from 'react-cookie';
 
+import "../../component/plan/Activeness.css"
+
 function Activeness() {
     const cookies = new Cookies();
     const { id } = useParams();
@@ -258,12 +260,14 @@ function Activeness() {
     }
 
     return (
-        <div>
+        <div >
             <p>직접 등록</p>
-            <h1>{plan.name}</h1>
-            <img src={plan.image} alt={plan.name} />
-            <p>총 날짜 : {plan.totaldate}</p>
-            <p>총 금액 : {plan.totalmoney}</p>
+            <div className="plan">
+                <h1>{plan.name}</h1>
+                <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} />
+                <p>총 날짜 : {plan.totaldate}</p>
+                <p>총 금액 : {plan.totalmoney}</p>
+            </div>
 
             <input type="text" value={name} onChange={handleChangeName} placeholder="플랜 이름" />
             <input type="file" onChange={handleFileChange} />
@@ -284,8 +288,7 @@ function Activeness() {
                 <button onClick={handleAddCategory}>추가</button>
                 {categoryOptions.map((item) => (
                     <div key={item.categoryId}>
-                        <p>{item.categoryId}</p>
-                        <p>{item.category_name}</p>
+                        {item.category_name}
                         <button onClick={() => handleDeleteCategory(item.categoryId)}>삭제</button>
                     </div>
                 ))}
