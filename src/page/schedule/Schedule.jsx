@@ -15,12 +15,16 @@ function Schedule() {
     const [keyword, setKeyword] = useState("");
 
     const [date, setDate] = useState(1);
-    const [money, setMoney] = useState(0);
+    const [money, setMoney] = useState(0);;
+
+    //전체 여행지 데이터 저장(왼쪽 화면에 보여주기 위함)
+    const [tourData, setTourData] = useState([]);
 
     //선택한 스케줄 저장(오른쪽 화면에 보여주기 위함)
-    const [selectedTours, setSelectedTours] = useState([]);
+    const [selectedTours, setSelectedTours] = useState([])
 
-    const [tourData, setTourData] = useState([]);
+    //선택한 각 스케줄에서 입력받은 날짜, 사용금액 데이터 저장해서 스케줄 아래 보여주기
+    const [tourInput, setTourInput] = useState([]);
 
     //스케줄 전체 조회(전체 조회 버튼 클릭 시 실행)
     const tourlist = async () => {
@@ -169,6 +173,21 @@ function Schedule() {
             console.log("생성된 스케줄 데이터 : ", response.data);
 
             alert("스케줄이 생성되었습니다.");
+
+            //다시 date/money 세팅 초기화
+            setDate(1);
+            setMoney(0);
+
+            //스케줄 입력받고 나서 입력창 지우기
+            const scheduleContainer = document.getElementById("tourQ");
+            if (scheduleContainer) {
+                scheduleContainer.style.display = "none";
+            }
+
+            //밑에 입력받은 값 보여주기 위해서 배열에 값 저장
+            const updatedTourInput = [...tourInput, { "tourspotId": tourspotId, "date": date, "money": money }];
+            setTourInput(updatedTourInput);
+
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -183,6 +202,22 @@ function Schedule() {
             }
         }
     }
+
+    //tourInput 배열 요소 중 tourspotId 값이 일치하는 객체의 값을 출력
+    const viewTour = (tourSpotId) => {
+
+        const tour = tourInput.find(item => item.tourspotId === tourSpotId);
+
+        // 조건에 맞는 객체가 없으면 빈 문자열 반환
+        if (!tour) return '';
+
+        return (
+            <div>
+                <p>몇일차 : {tour.date}</p>
+                <p>사용 금액 : {tour.money}</p>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -217,7 +252,9 @@ function Schedule() {
                             <p>{tour.areaCode}</p>
                             {tour.firstImage && <img src={tour.firstImage} alt={tour.title} />}
 
-                            <div>
+                            {viewTour(tour.id)}
+
+                            <div id="tourQ">
                                 <li>몇 일차 여행지?</li>
                                 <input type="number" value={date} onChange={handleDate} placeholder="여행 날짜" />
                                 <li>이 여행지에서 사용할 금액? </li>
