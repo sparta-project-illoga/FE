@@ -1,0 +1,52 @@
+.schedule {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 100vh;
+}
+
+#schedule-container {
+    overflow-y: auto;
+}
+
+.tour-details {
+    overflow-y: auto;
+    background-color: rgb(183, 245, 224);
+}
+
+.tour-details-content {
+    border: 1px solid #4032df;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.tour-details img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tourList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tour-item {
+    border: 1px solid #335976;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tour-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tour-item h2,
+.tour-item p {
+    margin: 0;
+}

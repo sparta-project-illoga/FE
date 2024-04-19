@@ -20,7 +20,8 @@ function Profile() {
         const response = await axios.get('http://localhost:3000/user/info', {
           headers: {
             Authorization: `Bearer ${token}`
-          }, withCredentials: true}
+          }, withCredentials: true
+        }
         );
         setUserInfo(response.data);
         console.log(response)
@@ -31,7 +32,7 @@ function Profile() {
 
     fetchUserInfo();
   }, []);
-// useEffect 사용시 아직 정보를 불러오지 못했을 때를 커버
+  // useEffect 사용시 아직 정보를 불러오지 못했을 때를 커버
   if (!userInfo) {
     return <div>회원 정보를 불러오는 중입니다...</div>;
   }
@@ -40,45 +41,45 @@ function Profile() {
   const imageName = userInfo ? userInfo.image_url : '';
   const fullURL = `${baseURL}${imageName}`;
 
-  const dateString = userInfo? userInfo.created_at: '';
+  const dateString = userInfo ? userInfo.created_at : '';
   const date = dateString.substring(0, 10);
 
   return (
     <div className='profile_main'>
       <div className='profile_header'>
         <div className='profile_img'>
-          <img src={fullURL} alt="프로필 사진" id="profile_img"/>
+          <img src={fullURL} alt="프로필 사진" id="profile_img" />
           <div className='profile_name'>
             <p>{userInfo.nickname}</p>
           </div>
         </div>
         <div className='profile_info'>
-        <div className='follow_info'>
-          <div className='follow_count'>
-            <p className='count'>30</p>
-            <p className='label'>팔로워</p>
-          </div>
+          <div className='follow_info'>
+            <div className='follow_count'>
+              <p className='count'>30</p>
+              <p className='label'>팔로워</p>
+            </div>
 
-          <div className='follow_count'>
-            <p className='count'>12</p>
-            <p className='label'>팔로우</p>
-          </div>
+            <div className='follow_count'>
+              <p className='count'>12</p>
+              <p className='label'>팔로우</p>
+            </div>
 
-          <div className='follow_button'>
-            <button>팔로우하기</button>
+            <div className='follow_button'>
+              <button>팔로우하기</button>
+            </div>
           </div>
-        </div>
-        <div className='introduction'>
-          <p>소개글 내용</p>
-        </div>
+          <div className='introduction'>
+            <p>소개글 내용</p>
+          </div>
         </div>
       </div>
 
       <div className='profile_id'>
-      <p>이메일: {userInfo.email}</p>
-      <p>이름: {userInfo.name}</p>
-      <p>휴대폰 번호: {userInfo.phone}</p>
-      <p>가입일: {date}</p>
+        <p>이메일: {userInfo.email}</p>
+        <p>이름: {userInfo.name}</p>
+        <p>휴대폰 번호: {userInfo.phone}</p>
+        <p>가입일: {date}</p>
       </div>
 
       {/* <div className='profile_array'>
@@ -87,11 +88,11 @@ function Profile() {
       </div> */}
 
       <div className='profile_button'>
-      <Link to="/profile/modifyprofile" element={<ModifyProfile/>}>
-      <BlueButton content="내정보 수정"/>
-      </Link>{" "}
-      
-      <BlueButton content="회원탈퇴"/>
+        <Link to="/profile/modifyprofile" element={<ModifyProfile />}>
+          <BlueButton content="내정보 수정" />
+        </Link>{" "}
+
+        <BlueButton content="회원탈퇴" />
       </div>
     </div>
   );

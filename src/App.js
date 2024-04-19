@@ -4,9 +4,13 @@ import Login from "./page/Login";
 import Home from "./page/Home";
 import SignUp from "./page/SignUp";
 import Profile from "./page/Profile";
+import Plan from "./page/plan/Plan";
 import "./App.css";
 import mainlogo from "./asset/illoga_logo.jpg";
 import ModifyProfile from "./page/ModifyProfile";
+import Activeness from "./page/plan/Activeness";
+import Passivity from "./page/plan/Passivity";
+import Schedule from "./page/schedule/Schedule";
 
 function App() {
   return (
@@ -29,6 +33,9 @@ function App() {
           >
             | Login
           </Link>{" "}
+          <Link to="/plan" style={{ color: "purple", fontSize: "20px" }}>
+            Plan 생성
+          </Link>
           <Link
             to="/profile"
             className="profile_button"
@@ -44,6 +51,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} key="signup-link" />
         <Route path="/profile" element={<Profile />} key="profile-link" />
         <Route path="/profile/modifyprofile" element={<ModifyProfile />} />
+        <Route path="/plan" element={<Plan />} key="plan-link" />
+        <Route path="/plan/activeness/:id" element={<Activeness />} key="activeness-link" />
+        <Route path="/plan/passivity/:id" element={<Passivity />} key="passivity-link" />
+        <Route path="/plan/:id/schedule" element={<Schedule />} key="schedule-link" />
       </Routes>
     </div>
   );

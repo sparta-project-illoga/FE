@@ -62,7 +62,7 @@ function Login() {
         </div>
         <div>
           {/* <input type="checkbox" /> <label>자동로그인</label> | */}
-          <BlueButton onClick={handleLogin} content="로그인"/>
+          <BlueButton onClick={handleLogin} content="로그인" />
         </div>
 
         <div className="ask_signUp">
