@@ -1,0 +1,75 @@
+.modify_profile {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin-top: 50px
+}
+
+.modify_profile > div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.modify_title {
+  font-size: 40px;
+  font-weight: 800;
+  width: 800px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modify_des {
+  font-size: 17px;
+  font-weight: 600;
+  width: 500px;
+  color: #767676;
+  text-align: center;
+}
+
+.modify_contents {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+
+.modify_contents > div {
+  margin-top: 10px;
+}
+
+.modify_nick > input {
+  width: 400px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+.modify_phone > input {
+  width: 400px;
+  height: 40px;
+  border-radius: 30px;
+}
+
+/* .custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 400px;
+  height: 40px;
+  border: display 1px;
+} */
+
+#file-upload {
+  width: 400px;
+  height: 40px;
+  border-radius: 30px;
+  border: 2px solid;
+  font-size: 16px;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 10px;
+  background-color: #A9A9A9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 .post_card {
     width: 300px;
-    height: 380px;
+    height: 370px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 }
@@ -13,8 +13,7 @@
 .post_footer {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid black;
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .footer_contents {
