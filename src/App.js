@@ -13,6 +13,7 @@ import Passivity from "./page/plan/Passivity";
 import Schedule from "./page/schedule/Schedule";
 import Chat from "./page/chat/Chat";
 import MyPlanNRooms from "./page/MyPlanNRooms";
+import MyPlan from "./page/plan/MyPlan";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
         <Route path="/plan/:id/schedule" element={<Schedule />} key="schedule-link" />
 
         <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
+        <Route path="/plan/:planId" element={<MyPlan />} key="myPlan-link" />
         <Route path="/chat/:roomId" element={<Chat />} key="chat-link" />
       </Routes>
     </div>
