@@ -2,14 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../style/PostList.css'
 import PostCard from "../component/PostCard";
-import company1 from '../asset/company1.png'
-import company2 from '../asset/company2.jpg'
-import company3 from '../asset/company3.jpg'
-import company4 from '../asset/company4.jpg'
-import company5 from '../asset/company5.jpg'
-import company6 from '../asset/company6.jpg'
-import company7 from '../asset/company7.jpg'
-
   
   export default function App() {
 
@@ -34,7 +26,7 @@ import company7 from '../asset/company7.jpg'
       <div id="tabs">
         <div id="tab-content">
           <div className="card_box">
-          <PostCard planId={plans.id}/>
+          <PostCard />
           </div>
         </div>
       </div>

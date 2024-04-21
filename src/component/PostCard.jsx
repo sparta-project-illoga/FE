@@ -34,7 +34,7 @@ function PostCard() {
               <p>{plan.name} <span>{plan.totaldate}일</span></p> 
               <p>{plan.totalmoney}</p>
             </div>
-            <LikeButton />
+            <LikeButton planId={plan.id}/>
           </div>
         </div>
       ))}
