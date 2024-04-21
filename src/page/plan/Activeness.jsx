@@ -26,6 +26,7 @@ function Activeness() {
     const getPlan = async () => {
         try {
             const token = cookies.get('access_token');
+
             const response = await axios.get(`http://localhost:3000/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`

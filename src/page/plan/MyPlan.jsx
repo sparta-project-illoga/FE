@@ -77,7 +77,7 @@ function MyPlan() {
                 <strong>총 예산:</strong> {plan.totalmoney}원
             </div>
             <div>
-                <strong>이미지:</strong> <img src={`http://localhost:3000/images/${plan.image}`} alt="플랜 이미지" />
+                <strong>이미지:</strong> <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} />
             </div>
 
             <h3>플랜 장소</h3>
