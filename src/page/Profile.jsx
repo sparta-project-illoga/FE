@@ -8,6 +8,8 @@ import BlueButton from "../component/BlueButton";
 import { Cookies } from 'react-cookie';
 import { Link } from "react-router-dom";
 import ModifyProfile from "../page/ModifyProfile"
+import defaultImg from "../asset/profileDefault.jpg"
+import LocalCert from './lacalCert';
 
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
@@ -37,9 +39,9 @@ function Profile() {
     return <div>회원 정보를 불러오는 중입니다...</div>;
   }
 
-  const baseURL = 'https://illoga-bucket.s3.ap-northeast-2.amazonaws.com/';
   const imageName = userInfo ? userInfo.image_url : '';
-  const fullURL = `${baseURL}${imageName}`;
+  const fullURL = `${process.env.REACT_APP_baseURL}${imageName}`;
+  console.log(fullURL)
 
   const dateString = userInfo ? userInfo.created_at : '';
   const date = dateString.substring(0, 10);
@@ -48,7 +50,7 @@ function Profile() {
     <div className='profile_main'>
       <div className='profile_header'>
         <div className='profile_img'>
-          <img src={fullURL} alt="프로필 사진" id="profile_img" />
+          <img src={userInfo.image_url ? fullURL : defaultImg} alt="프로필 사진" id="profile_img"/>
           <div className='profile_name'>
             <p>{userInfo.nickname}</p>
           </div>
@@ -88,11 +90,12 @@ function Profile() {
       </div> */}
 
       <div className='profile_button'>
-        <Link to="/profile/modifyprofile" element={<ModifyProfile />}>
-          <BlueButton content="내정보 수정" />
-        </Link>{" "}
-
-        <BlueButton content="회원탈퇴" />
+      <Link to="/profile/modifyprofile" element={<ModifyProfile/>}>
+      <BlueButton content="내정보 수정"/>
+      </Link>{" "}
+      
+      <BlueButton content="회원탈퇴"/>
+      <LocalCert />
       </div>
     </div>
   );
