@@ -11,9 +11,8 @@ import ModifyProfile from "./page/ModifyProfile";
 import Activeness from "./page/plan/Activeness";
 import Passivity from "./page/plan/Passivity";
 import Schedule from "./page/schedule/Schedule";
-import Temp from "./page/chat/temp";
 import Chat from "./page/chat/Chat";
-import MyPlan from "./page/plan/MyPlan";
+import MyPlanNRooms from "./page/MyPlanNRooms";
 
 function App() {
   return (
@@ -59,10 +58,8 @@ function App() {
         <Route path="/plan/passivity/:id" element={<Passivity />} key="passivity-link" />
         <Route path="/plan/:id/schedule" element={<Schedule />} key="schedule-link" />
 
-        <Route path="/my/plan/room" element={<MyPlan />} key="my-link" />
+        <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
         <Route path="/chat/:roomId" element={<Chat />} key="chat-link" />
-        {/* 임시로 만듦 - 채팅방 생성하는 페이지 */}
-        <Route path="/plan/:id/temp" element={<Temp />} key="temp-link" />
       </Routes>
     </div>
   );
