@@ -25,6 +25,7 @@ function Profile() {
           }, withCredentials: true
         }
         );
+
         setUserInfo(response.data);
         console.log(response)
       } catch (error) {

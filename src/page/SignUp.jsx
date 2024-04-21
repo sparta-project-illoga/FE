@@ -15,12 +15,18 @@ function SignUp() {
   });
 
   const [isEmailSent, setIsEmailSent] = useState(false);
-
   const navigate = useNavigate();
+
   async function handleSignUp() {
+    const { email, name, password, check_pw, nickname, phone } = userData;
+    if (!email || !name || !password || !check_pw || !nickname || !phone) {
+      alert("정보를 모두 기입해 주셔야 회원가입을 완료하실 수 있습니다.");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:3000/user/register", userData);
       console.log(response.data);
+      alert("회원가입이 완료되었습니다.");
       navigate('/')
     } catch (error) {
       console.error(error.response?.data?.message);
