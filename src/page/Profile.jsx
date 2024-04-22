@@ -84,6 +84,8 @@ function Profile() {
         <p>가입일: {date}</p>
       </div>
 
+      <Link to="/my/plan/room">내 플랜/채팅방 보기</Link>
+
       {/* <div className='profile_array'>
         <p><span>상태 : </span> 구직 중</p> 
         <p>게시글 수: 1개</p>
