@@ -1,21 +1,73 @@
 .main_nav {
-  height: 100px;
   display: flex;
   justify-content: space-between;
+  background-color: black;
+}
+
+.logo_section, .links_section, .auth_links {
+  display: flex;
   align-items: center;
-  border-bottom: 1px solid black;
+}
+
+.links_section {
+  width: 75%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: left;
+  gap: 20px
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .main_logo {
-  height: 101px;
+  height: 90px;
   width: auto;
   margin-left: 100px;
+  border-radius: 10px;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .home_button {
   margin-left: 40px;
 }
 
-.login_button {
+.profile_button {
   margin-right: 40px;
+  margin-top:0;
+}
+
+.nav_links {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+}
+
+.login_button {
+  height: 40px;
+  margin-right: 40px
+}
+
+.profile_logo{
+  height: 40px;
+}
+
+.regiester_button {
+  height: 40px;
+  margin-top: 3px;
+}
+
+.logout_button {
+  height: 40px;
+  margin-right: 40px
+}
+
+.logout_button:hover {
+  cursor: pointer;
 }
