@@ -26,6 +26,9 @@ function Schedule() {
     //선택한 각 스케줄에서 입력받은 날짜, 사용금액 데이터 저장해서 스케줄 아래 보여주기
     const [tourInput, setTourInput] = useState([]);
 
+    //스케줄 생성할 때 입력받는 부분 안 보이게
+    const [isInputVisible, setInputVisible] = useState(true);
+
     //스케줄 전체 조회(전체 조회 버튼 클릭 시 실행)
     const tourlist = async () => {
         try {
@@ -36,9 +39,9 @@ function Schedule() {
                 "http://localhost:3000/location/tourSpot?page=1&limit=20",
             )
 
-            const schedule = response.data;
-            setTourData(schedule);
-            console.log("schedule 목록 : ", schedule);
+            const schedules = response.data.data;
+            setTourData(schedules);
+            console.log("schedule 목록 : ", schedules);
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -72,7 +75,7 @@ function Schedule() {
                 `http://localhost:3000/location/tourSpot/search?areaCode=${code}`,
             )
 
-            const schedules = response.data;
+            const schedules = response.data.data;
             setTourData(schedules);
             console.log("schedule 목록 : ", schedules);
         } catch (error) {
@@ -107,7 +110,7 @@ function Schedule() {
                 `http://localhost:3000/location/tourSpot/search?keyword=${keyword}`,
             )
 
-            const schedules = response.data;
+            const schedules = response.data.data;
             setTourData(schedules);
             console.log("schedule 목록 : ", schedules);
         } catch (error) {
@@ -131,15 +134,8 @@ function Schedule() {
         setSelectedTours(prevTours => [...prevTours, tour]);
     }
 
-    //스케줄 생성 끝나면 자동으로 창 닫히기(아직 구현x)
     //스케줄 창 닫히고 플랜 페이지 새로고침되는 부분 안 되서 주소 이동으로 바꿈
     const closeWindow = () => {
-
-        // const scheduleContainer = document.getElementById('schedule-container');
-        // if (scheduleContainer) {
-        //     scheduleContainer.style.display = "none";
-
-        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 
         window.location.href = `/plan/activeness/${id}`;
     }
@@ -178,15 +174,17 @@ function Schedule() {
             setDate(1);
             setMoney(0);
 
-            //스케줄 입력받고 나서 입력창 지우기
-            const scheduleContainer = document.getElementById("tourQ");
-            if (scheduleContainer) {
-                scheduleContainer.style.display = "none";
-            }
+            // //스케줄 입력받고 나서 입력창 지우기
+            // const scheduleContainer = document.getElementById("tourQ");
+            // if (scheduleContainer) {
+            //     scheduleContainer.style.display = "none";
+            // }
+
+            // 입력 필드 숨기기
+            setInputVisible(false);
 
             //밑에 입력받은 값 보여주기 위해서 배열에 값 저장
-            const updatedTourInput = [...tourInput, { "tourspotId": tourspotId, "date": date, "money": money }];
-            setTourInput(updatedTourInput);
+            setTourInput(prev => [...prev, { "tourspotId": tourspotId, "date": date, "money": money }]);
 
         } catch (error) {
             if (error.response) {
@@ -253,14 +251,15 @@ function Schedule() {
                             {tour.firstImage && <img src={tour.firstImage} alt={tour.title} />}
 
                             {viewTour(tour.id)}
-
-                            <div id="tourQ">
-                                <li>몇 일차 여행지?</li>
-                                <input type="number" value={date} onChange={handleDate} placeholder="여행 날짜" />
-                                <li>이 여행지에서 사용할 금액? </li>
-                                <input type="number" value={money} onChange={handleMoney} placeholder="사용 금액" />
-                                <button onClick={() => handleSchedule(tour.id)}>스케줄 추가하기</button>
-                            </div>
+                            {isInputVisible && (
+                                <div id="tourQ" key={tour.id}>
+                                    <li>몇 일차 여행지?</li>
+                                    <input type="number" value={date} onChange={handleDate} placeholder="여행 날짜" />
+                                    <li>이 여행지에서 사용할 금액? </li>
+                                    <input type="number" value={money} onChange={handleMoney} placeholder="사용 금액" />
+                                    <button onClick={() => handleSchedule(tour.id)}>스케줄 추가하기</button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
