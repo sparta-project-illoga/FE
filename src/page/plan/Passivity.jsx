@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 
 import { Cookies } from 'react-cookie';
+import Member from "../member/Member";
 
 function Passivity() {
     const cookies = new Cookies();
@@ -44,16 +45,16 @@ function Passivity() {
         try {
             const token = cookies.get('access_token');
 
-            // 요청 데이터 생성, 값이 있는 것만 추가
             const requestData = {
                 "name": name,
             };
 
+            // 선택적 필드 추가
             if (placeCode) {
-                requestData.placeCode = placeCode; // 값이 0이 아닐 때만 포함
+                requestData.placeCode = placeCode;
             }
 
-            if (category.trim()) { // 빈 문자열이 아닌 경우만 포함
+            if (category.trim()) {
                 requestData.category = category;
             }
 
@@ -65,7 +66,7 @@ function Passivity() {
                 requestData.date = date;
             }
 
-            const response = await axios.patch(`http://localhost:3000/plan/passivity/${id}`,
+            const response = await axios.patch(`http://localhost:3000/plan/${id}/passivity`,
                 requestData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -92,7 +93,6 @@ function Passivity() {
             }
         }
     }
-
 
     const handleDelete = async () => {
         try {
@@ -123,7 +123,7 @@ function Passivity() {
     return (
         <div>
             <h1>추천 등록</h1>
-
+            <p>플랜의 이름을 설정해주세요.</p>
             <input type="text" value={name} onChange={handleName} placeholder="플랜 이름" />
             <li>추천받고 싶은 지역(코드)를 입력하세요. (선택)</li>
             <input type="number" value={placeCode} onChange={handlePlaceCode} placeholder="추천받고 싶은 지역" />
@@ -136,6 +136,9 @@ function Passivity() {
 
             <button onClick={handlePassivity}>플랜 추천받기</button>
 
+            <div>
+                <Member planId={id} />
+            </div>
             <div>
                 <button onClick={handleDelete}>플랜 생성 취소</button>
             </div>

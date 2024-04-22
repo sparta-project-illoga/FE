@@ -6,6 +6,7 @@ import { Cookies } from 'react-cookie';
 
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
+import Member from "../member/Member";
 
 function Activeness() {
     const cookies = new Cookies();
@@ -153,7 +154,9 @@ function Activeness() {
             <input type="file" onChange={handleFileChange} />
 
             <div>
-                {/* 새로운 컴포넌트 사용 */}
+                <Member planId={id} />
+            </div>
+            <div>
                 <Category planId={id} />
             </div>
 
@@ -161,14 +164,13 @@ function Activeness() {
                 <Link to={`/plan/${id}/schedule`}>
                     {/* 새로운 창 열기 - 다시 그 창 닫고 플랜 페이지 새로고침이 안 되서 그냥 링크 주소 옮기는 것으로 바꿈 */}
                     {/* <button onClick={() => window.open(`/plan/${id}/schedule`, "_blank")}>스케줄 찾기</button> */}
-                    <p>스케줄 페이지로 이동</p>
                     <button>스케줄 찾기</button>
                 </Link>
                 {schedule.map((item) => (
                     <div key={item.id} className="schedule" >
-                        <h2>{item.place}</h2>
-                        <p>{item.date}</p>
-                        <p>{item.money}</p>
+                        <h3>{item.place}</h3>
+                        <li>날짜 : {item.date}</li>
+                        <li>금액 : {item.money}</li>
                     </div>
                 ))}
             </div>
