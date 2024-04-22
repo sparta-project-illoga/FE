@@ -60,8 +60,8 @@ function App() {
         <Route path="/plan/:id/schedule" element={<Schedule />} key="schedule-link" />
 
         <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
-        <Route path="/plan/:planId" element={<MyPlan />} key="myPlan-link" />
-        <Route path="/chat/:roomId" element={<Chat />} key="chat-link" />
+        <Route path="/plan/:id" element={<MyPlan />} key="myPlan-link" />
+        <Route path="/chat/:id" element={<Chat />} key="chat-link" />
       </Routes>
     </div>
   );
