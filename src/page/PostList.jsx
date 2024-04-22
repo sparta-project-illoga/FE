@@ -9,8 +9,9 @@ import PostCard from "../component/PostCard";
     useEffect(() => {
       const fetchPlans = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/plan')
+          const response = await axios.get('http://localhost:3000/plan/popular')
           setPlans(response.data);
+          console.log(response)
         } catch (error) {
           console.log('정보를 불러오는 데에 실패하였습니다.')
         }

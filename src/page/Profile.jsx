@@ -9,7 +9,7 @@ import { Cookies } from 'react-cookie';
 import { Link } from "react-router-dom";
 import ModifyProfile from "../page/ModifyProfile"
 import defaultImg from "../asset/profileDefault.jpg"
-import LocalCert from './lacalCert';
+import LocalCert from './LocalCert';
 
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
