@@ -133,6 +133,7 @@ function Category({ planId }) {
 
     return (
         <div>
+            <h2>카테고리 추가하기</h2>
             <select value={selectedOption} onChange={handleCategory}>
                 <option value="">카테고리 선택</option>
                 <option value="MOUNTAIN">MOUNTAIN</option>
