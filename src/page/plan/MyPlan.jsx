@@ -15,6 +15,7 @@ function MyPlan() {
     const [place, setPlace] = useState([]);
     const [category, setCategory] = useState([]);
     const [schedule, setSchedule] = useState([]);
+    const [member, setMember] = useState([]);
 
     //플랜 1개 조회
     const getPlan = async () => {
@@ -54,8 +55,41 @@ function MyPlan() {
         }
     }
 
+    const getMember = async () => {
+        try {
+            const token = cookies.get('access_token');
+
+            const response = await axios.get(`http://localhost:3000/member/plan/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                withCredentials: true
+            });
+
+            const members = response.data.members;
+
+            setMember(members);
+
+            console.log("멤버 조회 내용들 : ", members);
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                alert("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                alert("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                alert("오류가 발생했습니다: " + error.message);
+                console.error("멤버 조회 에러:", error);
+            }
+        }
+
+    }
+
     useEffect(() => {
         getPlan();
+        getMember();
     }, [id]);
 
     return (
@@ -79,6 +113,16 @@ function MyPlan() {
             <div>
                 <strong>이미지:</strong> <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} />
             </div>
+
+            <h3>플랜 멤버</h3>
+            <ul>
+                {member.map((m) => (
+                    <li key={m.memberId}>
+                        <strong>닉네임:</strong> {m.nickname} <br />
+                        <strong>타입:</strong> {m.type} <br />
+                    </li>
+                ))}
+            </ul>
 
             <h3>플랜 장소</h3>
             <ul>
