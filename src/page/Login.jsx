@@ -19,9 +19,11 @@ function Login() {
       });
 
       setCookie('Authorization', `Bearer ${response.data.access_token}`, { path: '/' });
+      alert("로그인이 완료되었습니다.");
       navigate('/')
     } catch (error) {
-      console.error(error); // 에러 처리 예시
+      alert(error.response.data.message)
+      console.error(error);
     }
   };
 
@@ -29,19 +31,22 @@ function Login() {
     <div className="login_container">
       <div className="login_title">
         <p>로그인하기</p>
+        <p className="register_des">
+          이메일과 비밀번호를 정확하게 입력해주세요.
+        </p>
       </div>
-      <button title="새창 열림" className="sns_kakao">
+      {/* <button title="새창 열림" className="sns_kakao">
         <span className="text-sm">카카오톡 아이디로 시작하기</span>
       </button>
 
       <button title="새창 열림" className="sns_naver">
         <span className="text-sm">네이버 아이디로 시작하기</span>
       </button>
-      <p>또는</p>
+      <p>또는</p> */}
 
       <div className="login_bottom">
         <div>
-          <p>아이디</p>
+          <p>이메일</p>
           <input
             type="input"
             className="id_input"
@@ -53,7 +58,7 @@ function Login() {
         <div>
           <p>비밀번호</p>
           <input
-            type="input"
+            type="password"
             className="password_input"
             placeholder="비밀번호"
             value={password}
