@@ -19,6 +19,9 @@ import Schedule from "./page/schedule/Schedule";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import Chat from "./page/chat/Chat";
+import MyPlanNRooms from "./page/MyPlanNRooms";
+import MyPlan from "./page/plan/MyPlan";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -130,6 +133,10 @@ function App() {
           element={<Schedule />}
           key="schedule-link"
         />
+
+        <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
+        <Route path="/plan/:id" element={<MyPlan />} key="myPlan-link" />
+        <Route path="/chat/:id" element={<Chat />} key="chat-link" />
       </Routes>
     </div>
   );
