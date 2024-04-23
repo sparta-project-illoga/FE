@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useEffect } from "react";
 import { Cookies } from 'react-cookie';
 import { useParams } from "react-router-dom";
 
@@ -27,7 +26,7 @@ function Schedule() {
     const [tourInput, setTourInput] = useState([]);
 
     //스케줄 생성할 때 입력받는 부분 안 보이게
-    const [isInputVisible, setInputVisible] = useState(true);
+    const [tourInputsVisibility, setTourInputsVisibility] = useState({});
 
     //스케줄 전체 조회(전체 조회 버튼 클릭 시 실행)
     const tourlist = async () => {
@@ -134,6 +133,15 @@ function Schedule() {
         setSelectedTours(prevTours => [...prevTours, tour]);
     }
 
+    // 선택한 투어가 변경될 때마다 마지막 요소만 true로 설정
+    useEffect(() => {
+        if (selectedTours.length > 0) {
+            const lastTour = selectedTours[selectedTours.length - 1];
+            const newVisibility = { ...tourInputsVisibility, [lastTour.id]: true }; // 마지막 투어만 true
+            setTourInputsVisibility(newVisibility); // 새로운 가시성 상태 설정
+        }
+    }, [selectedTours]); // selectedTours가 변경될 때마다 실행
+
     //스케줄 창 닫히고 플랜 페이지 새로고침되는 부분 안 되서 주소 이동으로 바꿈
     const closeWindow = () => {
 
@@ -174,14 +182,7 @@ function Schedule() {
             setDate(1);
             setMoney(0);
 
-            // //스케줄 입력받고 나서 입력창 지우기
-            // const scheduleContainer = document.getElementById("tourQ");
-            // if (scheduleContainer) {
-            //     scheduleContainer.style.display = "none";
-            // }
-
-            // 입력 필드 숨기기
-            setInputVisible(false);
+            setTourInputsVisibility((prevVisibility) => ({ ...prevVisibility, [tourspotId]: false }))
 
             //밑에 입력받은 값 보여주기 위해서 배열에 값 저장
             setTourInput(prev => [...prev, { "tourspotId": tourspotId, "date": date, "money": money }]);
@@ -251,12 +252,23 @@ function Schedule() {
                             {tour.firstImage && <img src={tour.firstImage} alt={tour.title} />}
 
                             {viewTour(tour.id)}
-                            {isInputVisible && (
-                                <div id="tourQ" key={tour.id}>
+
+                            {tourInputsVisibility[tour.id] && (
+                                <div id={`tourQ-${tour.id}`}>
                                     <li>몇 일차 여행지?</li>
-                                    <input type="number" value={date} onChange={handleDate} placeholder="여행 날짜" />
-                                    <li>이 여행지에서 사용할 금액? </li>
-                                    <input type="number" value={money} onChange={handleMoney} placeholder="사용 금액" />
+                                    <input
+                                        type="number"
+                                        value={date}
+                                        onChange={handleDate}
+                                        placeholder="여행 날짜"
+                                    />
+                                    <li>이 여행지에서 사용할 금액?</li>
+                                    <input
+                                        type="number"
+                                        value={money}
+                                        onChange={handleMoney}
+                                        placeholder="사용 금액"
+                                    />
                                     <button onClick={() => handleSchedule(tour.id)}>스케줄 추가하기</button>
                                 </div>
                             )}
