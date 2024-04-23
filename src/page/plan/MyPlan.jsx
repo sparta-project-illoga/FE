@@ -92,9 +92,25 @@ function MyPlan() {
         getMember();
     }, [id]);
 
+    const planUpdate = async () => {
+
+        //직접인지 추천인지 나눠서 주소 이동
+        let url;
+        if (plan.type === "Self") {
+            url = `/plan/activeness/${plan.id}`;
+        } else if (plan.type === "Auto") {
+            url = `/plan/passivity/${plan.id}`;
+        }
+        window.location.href = url;
+
+    }
+
     return (
         <div >
             <h2>플랜 세부 정보</h2>
+
+            <button onClick={planUpdate}>플랜 수정하기</button>
+
             <div>
                 <strong>플랜 이름:</strong> {plan.name}
             </div>
