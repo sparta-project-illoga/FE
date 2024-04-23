@@ -71,7 +71,7 @@ function Activeness() {
         setFile(event.target.files[0]);
     }
 
-    //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장(스케줄 입력 필요함-아직x)
+    //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장
     const handleActiveness = async () => {
         try {
             const token = cookies.get('access_token');
@@ -140,6 +140,36 @@ function Activeness() {
         }
     }
 
+    const deleteSchedule = async (scheduleId) => {
+        try {
+            const token = cookies.get('access_token');
+
+            await axios.delete(`http://localhost:3000/${id}/schedule/${scheduleId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    withCredentials: true
+                });
+            alert("스케줄이 삭제되었습니다.");
+
+            const updatedSchedule = schedule.filter(item => item.id !== scheduleId);
+            setSchedule(updatedSchedule);
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                alert("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                alert("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                alert("오류가 발생했습니다: " + error.message);
+                console.error("스케줄 삭제 에러:", error);
+            }
+        }
+    }
+
     return (
         <div >
             <p>직접 등록</p>
@@ -163,7 +193,6 @@ function Activeness() {
             <div>
                 <Link to={`/plan/${id}/schedule`}>
                     {/* 새로운 창 열기 - 다시 그 창 닫고 플랜 페이지 새로고침이 안 되서 그냥 링크 주소 옮기는 것으로 바꿈 */}
-                    {/* <button onClick={() => window.open(`/plan/${id}/schedule`, "_blank")}>스케줄 찾기</button> */}
                     <button>스케줄 찾기</button>
                 </Link>
                 {schedule.map((item) => (
@@ -171,6 +200,7 @@ function Activeness() {
                         <h3>{item.place}</h3>
                         <li>날짜 : {item.date}</li>
                         <li>금액 : {item.money}</li>
+                        <button onClick={() => deleteSchedule(item.id)}>스케줄 삭제하기</button>
                     </div>
                 ))}
             </div>
