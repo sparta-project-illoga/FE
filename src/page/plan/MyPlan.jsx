@@ -4,10 +4,10 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 function MyPlan() {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
 
     //내 플랜 1개 저장
@@ -20,13 +20,10 @@ function MyPlan() {
     //플랜 1개 조회
     const getPlan = async () => {
         try {
-            const token = cookies.get('access_token');
-
             const response = await axios.get(`http://localhost:3000/plan/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const { findOnePlan, findPlace, category, findSchedule } = response.data;
@@ -57,13 +54,10 @@ function MyPlan() {
 
     const getMember = async () => {
         try {
-            const token = cookies.get('access_token');
-
             const response = await axios.get(`http://localhost:3000/member/plan/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const members = response.data.members;
