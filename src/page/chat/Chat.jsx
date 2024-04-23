@@ -12,6 +12,7 @@ function App() {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [room, setRoom] = useState(null);
+    const [members, setMembers] = useState([]);
 
     const send = (value) => {
         console.log("send 부분 value : ", value);
@@ -38,7 +39,6 @@ function App() {
 
             setRoom(chat.room);
             setMessages(chat.content);
-
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -54,6 +54,40 @@ function App() {
         }
     }
 
+    //채팅방 멤버 조회
+    const getMember = async () => {
+        try {
+            const token = cookies.get('access_token');
+
+            const response = await axios.get(`http://localhost:3000/member/plan/${room.planId}}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                withCredentials: true
+            });
+
+            const members = response.data.members;
+
+            console.log("채팅방 멤버 조회 : ", members);
+
+            setMembers(members);
+
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                alert("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                alert("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                alert("오류가 발생했습니다: " + error.message);
+                console.error("채팅방 멤버 조회 에러:", error);
+            }
+        }
+
+    }
+
     useEffect(() => {
         const token = cookies.get('access_token');
 
@@ -64,8 +98,30 @@ function App() {
         });
 
         setSocket(newSocket)
+            }, [setSocket])
+
+    useEffect(() => {
         getChat();
-    }, [setSocket])
+
+    }, [])
+
+    useEffect(() => {
+        // room 정보가 설정되었을 때 멤버 조회
+        if (room) {
+            getMember();
+        }
+
+        // 'addMember' 이벤트를 리스닝하고, 새로운 멤버를 추가
+        socket.on('addMember', (newMember) => {
+            setMembers((prevMembers) => [...prevMembers, newMember]);
+        });
+
+        return () => {
+            // 컴포넌트가 언마운트될 때 소켓 이벤트를 해제
+            socket.off('addMember');
+        };
+
+    }, [room]); // room 상태가 변경될 때 getMember 실행
 
     useEffect(() => {
         socket?.on('connected', () => {

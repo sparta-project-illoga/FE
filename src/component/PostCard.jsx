@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import logoImg from "../logo.svg"
 import LikeButton from './Likebutton'
@@ -12,7 +13,7 @@ function PostCard() {
     const fetchPlans = async () => {
       try {
         const response = await axios.get('http://localhost:3000/plan/new')
-        setPlans([...response.data].reverse().slice(0, 10));
+        setPlans([...response.data].reverse().slice(0, 8));
       } catch (error) {
         console.log('정보를 불러오는 데에 실패하였습니다.')
       }
@@ -27,16 +28,18 @@ function PostCard() {
   return (
     <div className="card_container">
       {plans.map((plan, index) => (
-        <div key={index} className='post_card'>
-          <img src={plans.image !== undefined ? fullURL : defaultImg} alt="썸네일" className='post_thumbnail'/>
-          <div className='post_footer'>
-            <div className='footer_contents'>
-              <p>{plan.name} <span>{plan.totaldate}일</span></p> 
-              <p>{plan.totalmoney}</p>
+        <Link to={`/plan/${plan.id}`}>
+          <div key={index} className='post_card'>
+            <img src={plans.image !== undefined ? fullURL : defaultImg} alt="썸네일" className='post_thumbnail' />
+            <div className='post_footer'>
+              <div className='footer_contents'>
+                <p>{plan.name} <span>{plan.totaldate}일</span></p>
+                <p>{plan.totalmoney}</p>
+              </div>
+              <LikeButton planId={plan.id} />
             </div>
-            <LikeButton planId={plan.id}/>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
