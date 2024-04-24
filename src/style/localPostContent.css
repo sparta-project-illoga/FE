@@ -1,0 +1,33 @@
+.post_detail {
+  width: 60%;
+  margin: 20px auto;
+}
+
+.post_header {
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.post_header p:first-child {
+  font-size: 20px;
+  font-weight: bold;
+  color: #767676;
+}
+
+.post_header p:nth-child(2) {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.post_header p:nth-child(3) {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: right;
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+}
+
+.post_content {
+  padding: 20px;
+  margin-bottom: 50px;
+}
