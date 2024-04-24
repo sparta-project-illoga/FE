@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 
 import "../../component/schedule/Schedule.css"
+import { REGIONS } from "../../component/Regions";
 
 function Schedule() {
     const [cookies] = useCookies(['Authorization']);
@@ -222,8 +223,20 @@ function Schedule() {
                     <button onClick={tourlist}>여행지 전체 조회하기</button>
                     <div className="search-container">
                         <div className="search-group">
-                            <input type="number" id="searchCode" value={code} onChange={handleCode} placeholder="지역코드 입력" />
-                            <button onClick={searchCode}>지역코드 검색</button>
+                            <select
+                                value={code}
+                                onChange={handleCode}
+                            >
+                                <option value="" disabled>
+                                    지역 선택
+                                </option>
+                                {REGIONS.map((region) => (
+                                    <option key={region.areaCode} value={region.areaCode}>
+                                        {region.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <button onClick={searchCode}>지역 검색</button>
                         </div>
                         <div className="search-group">
                             <input type="text" id="searchKeyword" value={keyword} onChange={handleKeyword} placeholder="키워드 입력" />
