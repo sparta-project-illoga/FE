@@ -23,7 +23,7 @@
     gap: 20px;
     width: 600px;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+    background-color: rgba(255, 255, 255, 0.8); 
     border-radius: 10px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .passivity-input:focus {
-    border-color: #4098ff; /* 포커스 시 테두리 색상 */
+    border-color: #4098ff; 
 }
 
 .passivity-label {
@@ -61,17 +61,17 @@
 }
 
 .passivity-delete-button {
-    background-color: #ff4d4d; /* 레드 계열 색상 */
-    color: white; /* 버튼 텍스트 색상 */
-    padding: 10px 15px; /* 패딩, 위/아래 10px, 좌/우 15px */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    cursor: pointer; /* 마우스 커서, 클릭 가능하게 */
-    transition: background-color 0.3s, transform 0.3s; /* 부드러운 호버 효과 */
+    background-color: #ff4d4d; 
+    color: white; 
+    padding: 10px 15px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
 }
 
 .passivity-delete-button:hover {
-    background-color: #e63946; /* 호버 시 밝은 레드 */
+    background-color: #e63946; 
 }
 
 .passivity-button:hover {
@@ -119,29 +119,29 @@
 
 .passivity-plan-details {
     display: flex;
-    justify-content: space-between; /* 항목을 좌우로 정렬 */
-    gap: 10px; /* 간격 조정 */
+    justify-content: space-between; 
+    gap: 10px; 
 }
 
 .plan-place,
 .plan-date,
 .plan-money {
-    flex: 1; /* 각 요소의 너비를 동일하게 설정 */
-    text-align: left; /* 텍스트 정렬을 왼쪽으로 고정 */
-    font-weight: bold; /* 강조 효과 */
+    flex: 1; 
+    text-align: left; 
+    font-weight: bold; 
 }
 
 .plan-place {
     margin-left: 10px;
-    color: blue; /* 장소 색상 강조 */
+    color: blue; 
     
 }
 
 .plan-date {
-    padding-left: 80px; /* 간격 조정 */
-    color: green; /* 날짜 색상 강조 */
+    padding-left: 80px; 
+    color: green; 
 }
 
 .plan-money {
-    color: red; /* 금액 색상 강조 */
+    color: red; 
 }
