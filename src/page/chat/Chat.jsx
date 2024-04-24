@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import io from 'socket.io-client'
 import { useCookies } from 'react-cookie';
+import "../../component/chat/Chat.css";
 
 function Chat() {
     const [cookies] = useCookies(['Authorization']);
@@ -233,34 +234,37 @@ function Chat() {
     }
 
     return (
-        <div>
+        <div className="background">
             {room && (
-                <div>
+                <div className="roomName">
                     <h2>현재 Room 이름 : {room.name}</h2>
                 </div>
             )}
 
-            <h3>채팅방 멤버</h3>
-            <ul>
-                {members.map((m) => (
-                    <li key={m.memberId}>
-                        <strong>닉네임:</strong> {m.nickname} {joinedMembers.includes(m.userId) ? "(joined)" : ""}
-                        <br />
-                        <strong>타입:</strong> {m.type} <br />
-                    </li>
-                ))}
-            </ul>
+            <div className="roomMember">
+                <h3>채팅방 멤버</h3>
+                <ul>
+                    {members.map((m) => (
+                        <li key={m.memberId}>
+                            <strong>닉네임:</strong> {m.nickname} {joinedMembers.includes(m.userId) ? "(joined)" : ""}
+                            <br />
+                            <strong>타입:</strong> {m.type} <br />
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             {messages.map((message) =>
-                <div>{message.name} : {message.chat}</div>
+                <div className="chat">{message.name} : {message.chat}</div>
             )}
 
-            <div>
+            <div className="typing">
                 {typingDisplay} {/* 타이핑 상태 표시 */}
             </div>
+
             <div>
-                <input onChange={handleMessage} placeholder="Type your message..." value={text} />
-                <button onClick={() => send(text)}>Send</button>
+                <input className="chatInput" onChange={handleMessage} placeholder="Type your message..." value={text} />
+                <button className="chatSendButton" onClick={() => send(text)}>Send</button>
             </div>
         </div>
     )
