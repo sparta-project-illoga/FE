@@ -1,135 +1,130 @@
 .schedule {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* 왼쪽이 2/3, 오른쪽이 1/3 */
-    height: 100vh; /* 전체 화면 높이 차지 */
-    gap: 20px; /* 두 섹션 간 간격 */
-    padding: 20px; /* 전체 내부 여백 */
-    box-sizing: border-box; /* 패딩을 포함한 상자 모델 */
+    grid-template-columns: 2fr 1fr; 
+    height: 100vh; 
+    gap: 20px; 
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
-/* 스케줄 목록 컨테이너 (왼쪽 섹션) */
 .schedule-container {
-    overflow-y: auto; /* 수직 스크롤 가능 */
-    padding: 20px; /* 내부 패딩 */
-    border: 1px solid #ccc; /* 경계선 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    background-color: #f9f9f9; /* 배경색 */
+    overflow-y: auto; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    background-color: #f9f9f9; 
     padding: 20px;
 }
 
-/* 검색 기능 스타일링 */
 .header {
-    margin-bottom: 20px; /* 헤더와 다른 내용 간 간격 */
+    margin-bottom: 20px; 
 }
 
 .header h1 {
-    margin: 0; /* 상하 간격 제거 */
-    color: #333; /* 텍스트 색상 */
+    margin: 0; 
+    color: #333;
 }
 
 .header input {
-    padding: 10px; /* 입력 필드 내부 여백 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    margin-right: 10px; /* 오른쪽 간격 */
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    margin-right: 10px; 
 }
 
 .header button {
-    padding: 10px; /* 버튼 패딩 */
-    background-color: #335976; /* 버튼 색상 */
-    color: white; /* 버튼 텍스트 색상 */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    cursor: pointer; /* 마우스 커서 */
+    padding: 10px; 
+    background-color: #335976; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
     margin: 10px 0;
 }
 
 .header button:hover {
-    background-color: #234d69; /* 버튼 호버 효과 */
+    background-color: #234d69; 
 }
 
-/* 투어 목록 스타일링 */
 .tourList {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4개의 열 */
-    gap: 20px; /* 각 아이템 간 간격 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
 }
 
 .tour-item {
-    border: 1px solid #335976; /* 테두리 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    padding: 20px; /* 내부 패딩 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border: 1px solid #335976; 
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .tour-item h2,
 .tour-item p {
-    margin: 0; /* 기본 간격 제거 */
+    margin: 0; 
 }
 
 .tour-item img {
-    width: 100%; /* 이미지 전체 너비 */
-    height: auto; /* 이미지 자동 높이 조절 */
-    display: block; /* 블록 수준 요소 */
-    margin-bottom: 10px; /* 이미지 아래 간격 */
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    margin-bottom: 10px; 
 }
 
-/* 투어 세부 정보 섹션 (오른쪽 섹션) */
 .tour-details {
-    background: linear-gradient(90deg, #b3e5fc, #64b5f6); /* 그라데이션 */
-    overflow-y: auto; /* 수직 스크롤 가능 */
-    padding: 20px; /* 내부 패딩 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    background-color: #b7f5e0; /* 배경색 */
+    background: linear-gradient(90deg, #b3e5fc, #64b5f6); 
+    overflow-y: auto; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #b7f5e0; 
 }
 
 .tour-details-content {
     background: white;
-    border: 1px solid #4032df; /* 테두리 */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 박스 쉐도우 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    padding: 10px; /* 내부 패딩 */
-    margin-bottom: 20px; /* 각 세부 정보 간 간격 */
+    border: 1px solid #4032df; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    border-radius: 5px; 
+    padding: 10px; 
+    margin-bottom: 20px; 
 }
 
 .tour-details img {
-    width: 100%; /* 이미지 전체 너비 */
-    height: auto; /* 이미지 자동 높이 조절 */
-    display: block; /* 블록 수준 요소 */
-    margin-bottom: 10px; /* 이미지 아래 간격 */
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    margin-bottom: 10px; 
 }
 
-/* 스케줄 추가 관련 스타일링 */
 .tour-inputs {
-    padding: 10px; /* 내부 패딩 */
-    background-color: white; /* 배경색 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px; 
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
     margin-top: 10px;
 }
 
 .tour-inputs input {
-    padding: 10px; /* 입력 필드 내부 패딩 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
 }
 
 .tour-inputs button {
-    padding: 10px; /* 버튼 패딩 */
-    background-color: #335976; /* 버튼 색상 */
-    color: white; /* 버튼 텍스트 색상 */
-    border: none; /* 테두리 없음 */
-    border-radius: 5px; /* 모서리 둥글게 */
-    cursor: pointer; /* 마우스 커서 */
+    padding: 10px; 
+    background-color: #335976; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 
 .tour-inputs button:hover {
-    background-color: #234d69; /* 버튼 호버 효과 */
+    background-color: #234d69; 
 }
 
 .schedule-add-button {
-    background-color: #42a5f5; /* 푸른색 */
+    background-color: #42a5f5;
     color: white;
     padding: 10px;
     border-radius: 5px;
@@ -144,5 +139,5 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px; /* 하단 여백 */
+    margin-bottom: 20px; 
   }
