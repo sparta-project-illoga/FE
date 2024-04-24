@@ -12,18 +12,15 @@ function Activeness() {
     const cookies = new Cookies();
     const { id } = useParams();
 
-    // 상태 변수 선언 및 초기화
+    //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
     const [plan, setPlan] = useState([]);
     const [schedule, setSchedule] = useState([]);
+
     const [name, setName] = useState('');
     const [file, setFile] = useState(null);
 
-    useEffect(() => {
-        getPlan();
-        fetchCategories();
-    }, []);
-
-    // 플랜 조회 함수
+    //플랜 조회해서 내용 가져오기
+    //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
             const token = cookies.get('access_token');
@@ -67,16 +64,20 @@ function Activeness() {
     //변경한 이름 저장
     const handleChangeName = (event) => {
         setName(event.target.value);
-    };
+    }
 
+    //변경한 file 저장
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-    };
+    }
 
     //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장
     const handleActiveness = async () => {
         try {
             const token = cookies.get('access_token');
+            console.log("id값 : ", id);
+            console.log("name : ", name);
+
             const formData = new FormData();
             formData.append('name', name);
             formData.append('file', file);
@@ -92,22 +93,38 @@ function Activeness() {
                     },
                     withCredentials: true
                 });
-            alert("플랜이 등록되었습니다.");
+            console.log("activeness-response.data : ", response.data);
+            alert("플랜을 등록하였습니다.");
             getPlan();
-        } catch (error) {
-            handleError(error, "직접 등록 에러");
-        }
-    };
 
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                alert("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                alert("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                alert("오류가 발생했습니다: " + error.message);
+                console.error("직접 등록 에러:", error);
+            }
+        }
+    }
+
+    //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
             const token = cookies.get('access_token');
-            await axios.delete(`http://localhost:3000/plan/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
-            });
+
+            await axios.delete(`http://localhost:3000/plan/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    withCredentials: true
+                });
+            alert("플랜이 삭제되었습니다.");
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -155,50 +172,60 @@ function Activeness() {
 
     return (
         <div className="container">
-            <div className="plan">
-                <h1>{plan.name}</h1>
-                <img
-                    src={`${process.env.REACT_APP_baseURL}${plan.image}`}
-                    alt={plan.name}
-                    className="plan-image"
-                />
-                <p>총 날짜 : {plan.totaldate}</p>
-                <p>총 금액 : {plan.totalmoney}</p>
-            </div>
+            <div className="form-section">
+                <h2>직접 등록</h2>
+                <div className="plan">
+                    <h1>{plan.name}</h1>
+                    {/* plan.image && 을 사용해서 이미지 값이 존재하지 않으면 테그 자체를 랜더링 하지 않는다 */}
+                    {plan.image && (<img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} className="plan-image" />)}
+                    <p>총 날짜 : {plan.totaldate}</p>
+                    <p>총 금액 : {plan.totalmoney}</p>
+                </div>
 
-            <input type="text" value={name} onChange={handleChangeName} placeholder="플랜 이름" />
-            <input type="file" onChange={handleFileChange} />
+                <input type="text" value={name} onChange={handleChangeName} placeholder="플랜 이름" className="form-input" />
+                <input type="file" onChange={handleFileChange} className="form-input" />
 
-            <div>
-                <Member planId={id} />
-            </div>
-            <div>
-                <Category planId={id} />
-            </div>
+                <div>
+                    <Member planId={id} />
+                </div>
+                <div>
+                    <Category planId={id} />
+                </div>
 
-            <div>
-                <Link to={`/plan/${id}/schedule`}>
-                    {/* 새로운 창 열기 - 다시 그 창 닫고 플랜 페이지 새로고침이 안 되서 그냥 링크 주소 옮기는 것으로 바꿈 */}
-                    <button>스케줄 찾기</button>
-                </Link>
-                {schedule.map((item) => (
-                    <div key={item.id} className="schedule" >
-                        <h3>{item.place}</h3>
-                        <li>날짜 : {item.date}</li>
-                        <li>금액 : {item.money}</li>
-                        <button onClick={() => deleteSchedule(item.id)}>스케줄 삭제하기</button>
+                <div>
+                    <div className="form-schedule-button-container">
+                        <Link to={`/plan/${id}/schedule`}>
+                            <button className="form-scheudle-button">스케줄 찾기</button>
+                        </Link>
                     </div>
-                ))}
-            </div>
+                    {schedule.map((item) => (
+                        <div key={item.id} className="schedule-card">
+                            <h3 className="schedule-title">{item.place}</h3>
+                            <ul className="schedule-details">
+                                <li className="schedule-item">날짜: <span className="schedule-date">{item.date}</span></li>
+                                <li className="schedule-item">금액: <span className="schedule-money">{item.money}</span></li>
+                            </ul>
+                            <button
+                                onClick={() => deleteSchedule(item.id)}
+                                className="schedule-delete-button"
+                            >
+                                스케줄 삭제하기
+                            </button>
+                        </div>
+                    ))}
+                </div>
 
-            <div className="button-container">
-                <Link to={`/plan/${id}/schedule`} className="link-button">
-                    <button>스케줄 찾기</button>
-                </Link>
-
-                <Link to="/" className="link-button">
-                    <button onClick={handleDelete}>플랜 삭제</button>
-                </Link>
+                <div className="button-container">
+                    <button
+                        onClick={handleActiveness}
+                        className="form-button"
+                    >
+                        등록
+                    </button>
+                    <Link to="/" className="link-button">
+                        <button onClick={handleDelete}>생성 중인 플랜 삭제</button>
+                    </Link>
+                </div>
             </div>
         </div>
     );
