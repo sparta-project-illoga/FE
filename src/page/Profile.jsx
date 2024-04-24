@@ -51,7 +51,7 @@ function Profile() {
     <div className='profile_main'>
       <div className='profile_header'>
         <div className='profile_img'>
-          <img src={userInfo.image_url ? fullURL : defaultImg} alt="프로필 사진" id="profile_img"/>
+          <img src={userInfo.image_url ? fullURL : defaultImg} alt="프로필 사진" id="profile_img" />
           <div className='profile_name'>
             <p>{userInfo.nickname}</p>
           </div>
@@ -69,7 +69,9 @@ function Profile() {
             </div>
 
             <div className='follow_button'>
-              <button>팔로우하기</button>
+              <Link to='/my/plan/room'>
+                <button>내 플랜, 채팅방 조회</button>
+              </Link>
             </div>
           </div>
           <div className='introduction'>
@@ -85,20 +87,18 @@ function Profile() {
         <p>가입일: {date}</p>
       </div>
 
-      <Link to="/my/plan/room">내 플랜/채팅방 보기</Link>
-
       {/* <div className='profile_array'>
         <p><span>상태 : </span> 구직 중</p> 
         <p>게시글 수: 1개</p>
       </div> */}
 
       <div className='profile_button'>
-      <Link to="/profile/modifyprofile" element={<ModifyProfile/>}>
-      <BlueButton content="내정보 수정"/>
-      </Link>{" "}
-      
-      <BlueButton content="회원탈퇴"/>
-      <LocalCert />
+        <Link to="/profile/modifyprofile" element={<ModifyProfile />}>
+          <BlueButton content="내정보 수정" />
+        </Link>{" "}
+
+        <BlueButton content="회원탈퇴" />
+        <LocalCert />
       </div>
     </div>
   );

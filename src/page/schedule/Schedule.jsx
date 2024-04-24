@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Cookies } from 'react-cookie';
 import { useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 import "../../component/schedule/Schedule.css"
 
 function Schedule() {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
 
     //지역코드/키워드로 여행지 검색 위해 받아옴
@@ -163,16 +163,12 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const token = cookies.get('access_token');
-            console.log("현재 플랜 id값 : ", id);
-
             const response = await axios.post(`http://localhost:3000/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
+                        Authorization: cookies.Authorization
+                    }, withCredentials: true
                 });
             console.log("생성된 스케줄 데이터 : ", response.data);
 
