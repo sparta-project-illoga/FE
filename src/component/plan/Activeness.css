@@ -1,11 +1,295 @@
-.plan {
-    border: 1px solid #335976;
+/* 색상과 타이포그래피 관련 기본 설정 */
+:root {
+    --primary-color: #335976;
+    --secondary-color: #e8f1f9;
+    --font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* 전반적인 레이아웃을 위한 컨테이너 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-.plan img {
+/* 플랜 관련 스타일 */
+.plan {
+    border: 1px solid var(--primary-color);
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.plan-image {
     width: 100%;
+    /* 이미지 너비 */
     height: auto;
+    /* 이미지 높이 자동 조정 */
     display: block;
+    /* 블록 레벨 */
     margin-bottom: 10px;
+    /* 이미지와 텍스트 간의 간격 */
+}
+
+.plan h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    /* 폼 섹션의 기본 정렬을 세로로 */
+    padding: 20px;
+    /* 섹션 내부 여백 */
+    margin-bottom: 20px;
+    /* 섹션 간의 간격 */
+    background-color: white;
+    /* 배경 색상 */
+    border-radius: 10px;
+    /* 모서리 둥글게 */
+    border: 1px solid var(--primary-color);
+    /* 테두리 색상 */
+    gap: 10px;
+    /* 세로 간격 */
+}
+
+.form-input-container {
+    display: flex;
+    flex-direction: column;
+    /* 세로 정렬 */
+}
+
+.form-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    /* 입력 필드 내부 여백 */
+    border-radius: 5px;
+    /* 입력 필드 모서리 둥글게 */
+    border: 1px solid var(--primary-color);
+    /* 입력 필드 테두리 */
+    width: 95%;
+    /* 전체 너비 사용 */
+}
+
+.form-button {
+    padding: 10px;
+    /* 버튼 패딩 */
+    background-color: var(--primary-color);
+    /* 배경 색상 */
+    color: white;
+    /* 텍스트 색상 */
+    border: none;
+    /* 테두리 없음 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    cursor: pointer;
+    /* 마우스 커서 */
+}
+
+.form-scheudle-button {
+    padding: 10px;
+    /* 버튼 패딩 */
+    background-color: var(--primary-color);
+    /* 배경 색상 */
+    color: white;
+    /* 텍스트 색상 */
+    border: none;
+    /* 테두리 없음 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    cursor: pointer;
+    /* 마우스 커서 */
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-button:hover {
+    background-color: #234d69;
+    /* 버튼 호버 효과 */
+}
+
+/* 카테고리 선택 영역 */
+.category-section {
+    padding: 20px;
+    /* 내부 패딩 */
+    border-radius: 10px;
+    /* 모서리 둥글게 */
+    border: 1px solid var(--primary-color);
+    /* 테두리 색상 */
+    background-color: white;
+    /* 배경 색상 */
+    margin-top: 20px;
+    /* 다른 섹션과의 간격 */
+    margin-bottom: 25px;
+}
+
+.category-select {
+    padding: 10px;
+    /* 선택 영역 패딩 */
+    border: 1px solid var(--primary-color);
+    /* 테두리 색상 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    background-color: white;
+    /* 배경 색상 */
+    color: var(--primary-color);
+    /* 텍스트 색상 */
+}
+
+.category-add-button {
+    padding: 10px;
+    /* 버튼 패딩 */
+    background-color: var(--primary-color);
+    /* 배경 색상 */
+    color: white;
+    /* 텍스트 색상 */
+    border: none;
+    /* 테두리 없음 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    cursor: pointer;
+    /* 마우스 커서 */
+}
+
+.category-add-button:hover {
+    background-color: #234d69;
+    /* 호버 효과 */
+}
+
+.category-item {
+    display: flex;
+    /* 플렉스 박스 */
+    justify-content: space-between;
+    /* 각 아이템을 좌우로 정렬 */
+    padding: 10px;
+    /* 내부 패딩 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    background-color: #f0f0f0;
+    /* 배경 색상 */
+    border: 1px solid var(--primary-color);
+    /* 테두리 색상 */
+    margin-top: 10px;
+    /* 아이템 간의 간격 */
+}
+
+.category-delete-button {
+    padding: 5px;
+    /* 버튼 패딩 */
+    background-color: red;
+    /* 삭제 버튼 색상 */
+    color: white;
+    /* 버튼 텍스트 색상 */
+    border: none;
+    /* 테두리 없음 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    cursor: pointer;
+    /* 마우스 커서 */
+}
+
+.category-delete-button:hover {
+    background-color: darkred;
+    /* 호버 효과 */
+}
+
+/* 스케줄 관련 스타일 */
+.schedule {
+    padding: 20px;
+    /* 스케줄 내부 여백 */
+    background-color: white;
+    /* 배경 색상 */
+    border: 1px solid var(--primary-color);
+    /* 테두리 색상 */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    /* 그림자 효과 */
+    margin-bottom: 20px;
+    /* 다른 섹션과의 간격 */
+}
+
+.schedule-item {
+    padding: 10px;
+    /* 스케줄 아이템 내부 패딩 */
+    border-bottom: 1px solid #ccc;
+    /* 아이템 간의 구분선 */
+}
+
+.schedule-card {
+    background: #e3f2fd;
+    /* 카드 배경 */
+    border: 1px solid #64b5f6;
+    /* 푸른색 테두리 */
+    border-radius: 10px;
+    /* 둥근 모서리 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* 박스 쉐도우 */
+    padding: 20px;
+    /* 카드 내부 패딩 */
+    margin-bottom: 20px;
+    /* 각 카드 간의 간격 */
+}
+
+.schedule-title {
+    margin-bottom: 10px; /* 제목과 다른 요소 사이의 간격 */
+    width: 100%;
+}
+
+.schedule-details {
+    list-style-type: none; /* 리스트 스타일 제거 */
+    padding: 0; /* 내부 패딩 제거 */
+    margin: 0; /* 외부 마진 제거 */
+  }
+
+.schedule h2 {
+    font-size: 1.5rem;
+    /* 제목 크기 */
+    color: var(--primary-color);
+    /* 텍스트 색상 */
+}
+
+/* 버튼 관련 스타일 */
+.button-container {
+    display: flex;
+    /* 플렉스 박스 */
+    justify-content: space-between;
+    /* 각 버튼을 좌우로 정렬 */
+    padding: 10px;
+    /* 컨테이너 내부 여백 */
+}
+
+.link-button {
+    text-decoration: none;
+    /* 링크의 기본 밑줄 제거 */
+    color: white;
+    /* 텍스트 색상 */
+}
+
+.link-button button {
+    padding: 10px;
+    /* 버튼 패딩 */
+    background-color: var(--primary-color);
+    /* 배경 색상 */
+    color: white;
+    /* 텍스트 색상 */
+    border: none;
+    /* 테두리 없음 */
+    border-radius: 5px;
+    /* 모서리 둥글게 */
+    cursor: pointer;
+    /* 마우스 커서 */
+}
+
+.link-button button:hover {
+    background-color: #234d69;
+    /* 호버 효과 */
 }

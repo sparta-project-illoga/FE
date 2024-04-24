@@ -92,7 +92,7 @@ function App() {
               />
             </div>
           ) : (
-            <div class="nav_links">
+            <div className="nav_links">
               <Link to="/signup" style={{ color: "white", fontSize: "20px" }}>
                 <img
                   src={registerLogo}

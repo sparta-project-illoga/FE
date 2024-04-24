@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 
 import { Cookies } from 'react-cookie';
-
-import "../../component/plan/Passivity.css";
+import Member from "../member/Member";
 
 function Passivity() {
     const cookies = new Cookies();
@@ -46,16 +45,16 @@ function Passivity() {
         try {
             const token = cookies.get('access_token');
 
-            // 요청 데이터 생성, 값이 있는 것만 추가
             const requestData = {
                 "name": name,
             };
 
+            // 선택적 필드 추가
             if (placeCode) {
-                requestData.placeCode = placeCode; // 값이 0이 아닐 때만 포함
+                requestData.placeCode = placeCode;
             }
 
-            if (category.trim()) { // 빈 문자열이 아닌 경우만 포함
+            if (category.trim()) {
                 requestData.category = category;
             }
 
@@ -95,7 +94,6 @@ function Passivity() {
         }
     }
 
-
     const handleDelete = async () => {
         try {
             const token = cookies.get('access_token');
@@ -123,61 +121,26 @@ function Passivity() {
     }
 
     return (
-        <div className="passivity-container">
-            <h1 className="passivity-title">추천 등록</h1>
+        <div>
+            <h1>추천 등록</h1>
+            <p>플랜의 이름을 설정해주세요.</p>
+            <input type="text" value={name} onChange={handleName} placeholder="플랜 이름" />
+            <li>추천받고 싶은 지역(코드)를 입력하세요. (선택)</li>
+            <input type="number" value={placeCode} onChange={handlePlaceCode} placeholder="추천받고 싶은 지역" />
+            <li>추천받고 싶은 플랜의 카테고리를 입력하세요. (선택)</li>
+            <input type="text" value={category} onChange={handleCategory} placeholder="추천받고 싶은 카테고리" />
+            <li>추천받고 싶은 플랜의 최대금액을 입력하세요. (선택)</li>
+            <input type="number" value={money} onChange={handleMoney} placeholder="추천받고 싶은 금액" />
+            <li>추천받고 싶은 플랜의 여행날짜를 입력하세요. (선택)</li>
+            <input type="number" value={date} onChange={handleDate} placeholder="추천받고 싶은 날짜" />
 
-            <div className="passivity-form">
-                <input
-                    type="text"
-                    value={name}
-                    onChange={handleName}
-                    placeholder="플랜 이름"
-                    className="passivity-input"
-                />
-                <label className="passivity-label">추천받고 싶은 지역(코드)</label>
-                <input
-                    type="number"
-                    value={placeCode}
-                    onChange={handlePlaceCode}
-                    placeholder="추천받고 싶은 지역"
-                    className="passivity-input"
-                />
-                <label className="passivity-label">추천받고 싶은 플랜의 카테고리</label>
-                <input
-                    type="text"
-                    value={category}
-                    onChange={handleCategory}
-                    placeholder="추천받고 싶은 카테고리"
-                    className="passivity-input"
-                />
-                <label className="passivity-label">추천받고 싶은 플랜의 최대금액</label>
-                <input
-                    type="number"
-                    value={money}
-                    onChange={handleMoney}
-                    placeholder="추천받고 싶은 금액"
-                    className="passivity-input"
-                />
-                <label className="passivity-label">추천받고 싶은 플랜의 여행날짜</label>
-                <input
-                    type="number"
-                    value={date}
-                    onChange={handleDate}
-                    placeholder="추천받고 싶은 날짜"
-                    className="passivity-input"
-                />
-                <button
-                    className="passivity-button"
-                    onClick={handlePassivity}
-                >
-                    플랜 추천받기
-                </button>
+            <button onClick={handlePassivity}>플랜 추천받기</button>
+
+            <div>
+                <Member planId={id} />
             </div>
-
-            <div className="passivity-cancel">
-                <button className="passivity-button" onClick={handleDelete}>
-                    플랜 생성 취소
-                </button>
+            <div>
+                <button onClick={handleDelete}>플랜 생성 취소</button>
             </div>
 
             <div className="passivity-plan-results">
