@@ -10,7 +10,7 @@ function Member({ planId }) {
 
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     //추가할 멤버 일단 멤버 id로 받아옴
-    const [selectedmember, setSelectedMember] = useState(0);
+    const [selectedmember, setSelectedMember] = useState("");
     const [members, setMembers] = useState([]);
 
     //해당 플랜에 추가된 멤버들 조회
@@ -51,7 +51,7 @@ function Member({ planId }) {
 
     //현재 추가된 멤버 저장
     const handleMember = (event) => {
-        setSelectedMember(parseInt(event.target.value));
+        setSelectedMember(event.target.value);
     }
 
     //멤버 플랜에 추가함
@@ -59,7 +59,7 @@ function Member({ planId }) {
         try {
             if (selectedmember) {
                 setMembers([...members, selectedmember]);
-                setSelectedMember(0);
+                setSelectedMember("");
             }
 
             console.log("방금 추가한 멤버 : ", selectedmember);
@@ -68,7 +68,7 @@ function Member({ planId }) {
             console.log("현재 플랜 id값 : ", planId);
 
             const response = await axios.post(`http://localhost:3000/member/plan/${planId}`,
-                { "userId": selectedmember },
+                { "nickname": selectedmember },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -138,7 +138,7 @@ function Member({ planId }) {
     return (
         <div>
             <h2>멤버 추가하기</h2>
-            <input type="number" value={selectedmember} onChange={handleMember} placeholder="추가하려는 멤버(유저id)를 입력하세요." />
+            <input type="string" value={selectedmember} onChange={handleMember} placeholder="추가하려는 멤버의 닉네임을 입력하세요." />
             <button onClick={handleAddMember}>멤버 추가</button>
             {members.map((m) => (
                 <div key={m.memberId}>

@@ -3,25 +3,20 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 function MyPlanNRooms() {
-    const cookies = new Cookies();
-
+    const [cookies] = useCookies(['Authorization']);
     //유저가 해당되는 플랜/채팅 가져오기
     const [planRooms, setPlanRooms] = useState([]);
 
     //유저 해당되는 플랜과 채팅방 가져오기
     const getPlanRooms = async () => {
         try {
-            const token = cookies.get('access_token');
-
             const response = await axios.get(`http://localhost:3000/chat/planNchat`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const planRooms = response.data.myPlanChats;
@@ -58,16 +53,13 @@ function MyPlanNRooms() {
         }
 
         try {
-            const token = cookies.get('access_token');
-
             console.log("플랜의 채팅방 생성하기 planId", planId);
 
             const response = await axios.post(`http://localhost:3000/chat/plan/${planId}`,
                 { "name": roomName }, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             console.log("채팅방 생성 내용들 : ", response.data);
