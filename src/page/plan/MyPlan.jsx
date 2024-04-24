@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 
 import { useCookies } from 'react-cookie';
 
+import "../../component/plan/MyPlan.css"
+
 function MyPlan() {
     const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
@@ -100,66 +102,79 @@ function MyPlan() {
     }
 
     return (
-        <div >
+        <div className="my-plan-container">
             <h2>플랜 세부 정보</h2>
-
-            <button onClick={planUpdate}>플랜 수정하기</button>
-
-            <div>
-                <strong>플랜 이름:</strong> {plan.name}
+    
+            <button onClick={planUpdate} className="my-plan-edit-button">플랜 수정하기</button>
+    
+            <div className="my-plan-box">
+                <div className="my-plan-detail">
+                    <strong>플랜 이름:</strong> {plan.name}
+                </div>
+                <div className="my-plan-detail">
+                    <strong>유저 ID:</strong> {plan.userId}
+                </div>
+                <div className="my-plan-detail">
+                    <strong>플랜 유형:</strong> {plan.type}
+                </div>
+                <div className="my-plan-detail">
+                    <strong>총 일자:</strong> {plan.totaldate}일
+                </div>
+                <div className="my-plan-detail">
+                    <strong>총 예산:</strong> {plan.totalmoney}원
+                </div>
+                <div className="my-plan-detail">
+                    <strong>이미지:</strong> {plan.image && (
+                        <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} className="my-plan-image" />
+                    )}
+                </div>
             </div>
-            <div>
-                <strong>유저 ID:</strong> {plan.userId}
+    
+            <div className="my-plan-box">
+                <h3 className="my-plan-member">플랜 멤버</h3>
+                <ul className="my-plan-list">
+                    {member.map((m) => (
+                        <li key={m.memberId} className="my-plan-list-item">
+                            <strong className="my-plan-nickname">닉네임:</strong> {m.nickname} <br />
+                            <hr />
+                            <strong>타입:</strong> {m.type} <br />
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <div>
-                <strong>플랜 유형:</strong> {plan.type}
+    
+            <div className="my-plan-box">
+                <h3 className="my-plan-subtitle">플랜 장소</h3>
+                <ul className="my-plan-list">
+                    {place.map((p) => (
+                        <li key={p.id} className="my-plan-list-item">{p.placename}</li>
+                    ))}
+                </ul>
             </div>
-            <div>
-                <strong>총 일자:</strong> {plan.totaldate}일
+    
+            <div className="my-plan-box">
+                <h3 className="my-plan-subtitle">카테고리</h3>
+                <ul className="my-plan-list">
+                    {category.map((c) => (
+                        <li key={c.categoryId} className="my-plan-list-item">{c.category_name}</li>
+                    ))}
+                </ul>
             </div>
-            <div>
-                <strong>총 예산:</strong> {plan.totalmoney}원
+    
+            <div className="my-plan-box">
+                <h3 className="my-plan-subtitle">스케줄</h3>
+                <ul className="my-plan-list">
+                    {schedule.map((s) => (
+                        <li key={s.id} className="my-plan-list-item">
+                            <strong>장소:</strong> {s.place} <br />
+                            <strong>일자:</strong> {s.date} <br />
+                            <strong>비용:</strong> {s.money}원
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <div>
-                <strong>이미지:</strong> <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} />
-            </div>
-
-            <h3>플랜 멤버</h3>
-            <ul>
-                {member.map((m) => (
-                    <li key={m.memberId}>
-                        <strong>닉네임:</strong> {m.nickname} <br />
-                        <strong>타입:</strong> {m.type} <br />
-                    </li>
-                ))}
-            </ul>
-
-            <h3>플랜 장소</h3>
-            <ul>
-                {place.map((p) => (
-                    <li key={p.id}>{p.placename}</li>
-                ))}
-            </ul>
-
-            <h3>카테고리</h3>
-            <ul>
-                {category.map((c) => (
-                    <li key={c.categoryId}>{c.category_name}</li>
-                ))}
-            </ul>
-
-            <h3>스케줄</h3>
-            <ul>
-                {schedule.map((s) => (
-                    <li key={s.id}>
-                        <strong>장소:</strong> {s.place} <br />
-                        <strong>일자:</strong> {s.date} <br />
-                        <strong>비용:</strong> {s.money}원
-                    </li>
-                ))}
-            </ul>
         </div>
-    )
+    );
 }
 
 export default MyPlan;
