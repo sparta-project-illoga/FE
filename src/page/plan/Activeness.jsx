@@ -171,48 +171,64 @@ function Activeness() {
     }
 
     return (
-        <div >
-            <p>직접 등록</p>
-            <div className="plan">
-                <h1>{plan.name}</h1>
-                <img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} />
-                <p>총 날짜 : {plan.totaldate}</p>
-                <p>총 금액 : {plan.totalmoney}</p>
-            </div>
+        <div className="container">
+            <div className="form-section">
+                <h2>직접 등록</h2>
+                <div className="plan">
+                    <h1>{plan.name}</h1>
+                    {/* plan.image && 을 사용해서 이미지 값이 존재하지 않으면 테그 자체를 랜더링 하지 않는다 */}
+                    {plan.image && (<img src={`${process.env.REACT_APP_baseURL}${plan.image}`} alt={plan.name} className="plan-image" />)}
+                    <p>총 날짜 : {plan.totaldate}</p>
+                    <p>총 금액 : {plan.totalmoney}</p>
+                </div>
 
-            <input type="text" value={name} onChange={handleChangeName} placeholder="플랜 이름" />
-            <input type="file" onChange={handleFileChange} />
+                <input type="text" value={name} onChange={handleChangeName} placeholder="플랜 이름" className="form-input" />
+                <input type="file" onChange={handleFileChange} className="form-input" />
 
-            <div>
-                <Member planId={id} />
-            </div>
-            <div>
-                <Category planId={id} />
-            </div>
+                <div>
+                    <Member planId={id} />
+                </div>
+                <div>
+                    <Category planId={id} />
+                </div>
 
-            <div>
-                <Link to={`/plan/${id}/schedule`}>
-                    {/* 새로운 창 열기 - 다시 그 창 닫고 플랜 페이지 새로고침이 안 되서 그냥 링크 주소 옮기는 것으로 바꿈 */}
-                    <button>스케줄 찾기</button>
-                </Link>
-                {schedule.map((item) => (
-                    <div key={item.id} className="schedule" >
-                        <h3>{item.place}</h3>
-                        <li>날짜 : {item.date}</li>
-                        <li>금액 : {item.money}</li>
-                        <button onClick={() => deleteSchedule(item.id)}>스케줄 삭제하기</button>
+                <div>
+                    <div className="form-schedule-button-container">
+                        <Link to={`/plan/${id}/schedule`}>
+                            <button className="form-scheudle-button">스케줄 찾기</button>
+                        </Link>
                     </div>
-                ))}
-            </div>
-            <div>
-                <button onClick={handleActiveness}>등록</button>
-                <Link to="/">
-                    <button onClick={handleDelete}>생성 중인 플랜 삭제</button>
-                </Link>
+                    {schedule.map((item) => (
+                        <div key={item.id} className="schedule-card">
+                            <h3 className="schedule-title">{item.place}</h3>
+                            <ul className="schedule-details">
+                                <li className="schedule-item">날짜: <span className="schedule-date">{item.date}</span></li>
+                                <li className="schedule-item">금액: <span className="schedule-money">{item.money}</span></li>
+                            </ul>
+                            <button
+                                onClick={() => deleteSchedule(item.id)}
+                                className="schedule-delete-button"
+                            >
+                                스케줄 삭제하기
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="button-container">
+                    <button
+                        onClick={handleActiveness}
+                        className="form-button"
+                    >
+                        등록
+                    </button>
+                    <Link to="/" className="link-button">
+                        <button onClick={handleDelete}>생성 중인 플랜 삭제</button>
+                    </Link>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Activeness;
-

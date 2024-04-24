@@ -1,0 +1,147 @@
+.passivity-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    padding-top: 100px;
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.passivity-title {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+}
+
+.passivity-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 600px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px;
+}
+
+.passivity-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.passivity-input:focus {
+    border-color: #4098ff; 
+}
+
+.passivity-label {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.passivity-button-container {
+    margin-top: 25px;
+}
+
+.passivity-button {
+    padding: 10px 20px;
+    background-color: #4098ff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+}
+
+.passivity-delete-button {
+    background-color: #ff4d4d; 
+    color: white; 
+    padding: 10px 15px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+.passivity-delete-button:hover {
+    background-color: #e63946; 
+}
+
+.passivity-button:hover {
+    background-color: #2f7bff;
+}
+
+.passivity-button:active {
+    background-color: #1e5bff;
+}
+
+.passivity-cancel {
+    margin-top: 30px;
+}
+
+.passivity-plan-results {
+    margin-top: 30px;
+    padding: 20px;
+    width: 700px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.passivity-subtitle {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+.passivity-plan-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.passivity-plan-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.passivity-no-plan {
+    font-size: 1rem;
+    color: #666;
+    text-align: center;
+}
+
+.passivity-plan-details {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
+}
+
+.plan-place,
+.plan-date,
+.plan-money {
+    flex: 1; 
+    text-align: left; 
+    font-weight: bold; 
+}
+
+.plan-place {
+    margin-left: 10px;
+    color: blue; 
+    
+}
+
+.plan-date {
+    padding-left: 80px; 
+    color: green; 
+}
+
+.plan-money {
+    color: red; 
+}

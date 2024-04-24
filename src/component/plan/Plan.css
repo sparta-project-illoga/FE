@@ -1,18 +1,65 @@
-.Plan {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.plan-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 67vh;
+  padding: 20px;
+  padding-top: 200px;
+  background-image: url('../../asset/plan_background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .plan-buttons {
-    display: flex;
-    justify-content: space-between;
-    height: 10%;
-    width: 100%;
-    max-width: 500px;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  width: 200%;
+  max-width: 800px;
+}
+
+.plan-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-button {
+  height: 200px;
+  width: 400px;
+  font-size: 30px;
+  border: none;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  background-color: dodgerblue;
+}
+
+.plan-button:hover {
+  background-color: lightblue;
+}
+
+.plan-button:active {
+  background-color: darkblue;
 }
 
 .cancel-button {
-    margin-top: 100px;
-    /* 버튼들 사이에 여백 추가 */
+  margin-top: 100px;
+  height: 80px;
+  width: 200px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: orange;
+  color: black;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: lightcoral;
+}
+
+.cancel-button:active {
+  background-color: darkorange;
 }

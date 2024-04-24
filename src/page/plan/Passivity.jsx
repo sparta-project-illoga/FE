@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { Cookies } from 'react-cookie';
 import Member from "../member/Member";
+import "../../component/plan/Passivity.css"
 
 function Passivity() {
     const cookies = new Cookies();
@@ -121,45 +122,51 @@ function Passivity() {
     }
 
     return (
-        <div>
-            <h1>추천 등록</h1>
+        <div className="passivity-container">
+            <h1 className="passivity-title">추천 등록</h1>
             <p>플랜의 이름을 설정해주세요.</p>
-            <input type="text" value={name} onChange={handleName} placeholder="플랜 이름" />
-            <li>추천받고 싶은 지역(코드)를 입력하세요. (선택)</li>
-            <input type="number" value={placeCode} onChange={handlePlaceCode} placeholder="추천받고 싶은 지역" />
-            <li>추천받고 싶은 플랜의 카테고리를 입력하세요. (선택)</li>
-            <input type="text" value={category} onChange={handleCategory} placeholder="추천받고 싶은 카테고리" />
-            <li>추천받고 싶은 플랜의 최대금액을 입력하세요. (선택)</li>
-            <input type="number" value={money} onChange={handleMoney} placeholder="추천받고 싶은 금액" />
-            <li>추천받고 싶은 플랜의 여행날짜를 입력하세요. (선택)</li>
-            <input type="number" value={date} onChange={handleDate} placeholder="추천받고 싶은 날짜" />
 
-            <button onClick={handlePassivity}>플랜 추천받기</button>
+            <div className="passivity-input-section">
+                <input type="text" value={name} onChange={handleName} placeholder="플랜 이름" className="passivity-input" />
+                <li>추천받고 싶은 지역(코드)를 입력하세요. (선택)</li>
+                <input type="number" value={placeCode} onChange={handlePlaceCode} placeholder="추천받고 싶은 지역" className="passivity-input" />
+                <li>추천받고 싶은 플랜의 카테고리를 입력하세요. (선택)</li>
+                <input type="text" value={category} onChange={handleCategory} placeholder="추천받고 싶은 카테고리" className="passivity-input" />
+                <li>추천받고 싶은 플랜의 최대금액을 입력하세요. (선택)</li>
+                <input type="number" value={money} onChange={handleMoney} placeholder="추천받고 싶은 금액" className="passivity-input" />
+                <li>추천받고 싶은 플랜의 여행날짜를 입력하세요. (선택)</li>
+                <input type="number" value={date} onChange={handleDate} placeholder="추천받고 싶은 날짜" className="passivity-input" />
+            </div>
 
+            <div className="passivity-button-container">
+                <button onClick={handlePassivity} className="passivity-button">플랜 추천받기</button>
+
+                <button onClick={handleDelete} className="passivity-delete-button">플랜 생성 취소</button>
+            </div>
             <div>
                 <Member planId={id} />
             </div>
-            <div>
-                <button onClick={handleDelete}>플랜 생성 취소</button>
-            </div>
 
-            <div>
-                <h2>추천된 플랜</h2>
+            <div className="passivity-plan-results">
+                <h2 className="passivity-subtitle">추천된 플랜</h2>
                 {plan.length > 0 ? (
-                    <ul>
+                    <ul className="passivity-plan-list">
                         {plan.map((item) => (
-                            <li key={item.id}>
-                                {item.place} - 날짜: {item.date} - 금액: {item.money}
+                            <li key={item.id} className="passivity-plan-item">
+                                <div className="passivity-plan-details">
+                                    <span className="plan-place">장소: {item.place}</span>
+                                    <span className="plan-date">날짜: {item.date}</span>
+                                    <span className="plan-money">금액: {item.money}</span>
+                                </div>
                             </li>
                         ))}
                     </ul>
                 ) : (
-                    <p>추천된 플랜이 없습니다.</p>
+                    <p className="passivity-no-plan">추천된 플랜이 없습니다.</p>
                 )}
             </div>
-
         </div>
-    )
+    );
 }
 
 export default Passivity;

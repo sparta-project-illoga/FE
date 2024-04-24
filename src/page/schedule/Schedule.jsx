@@ -219,64 +219,82 @@ function Schedule() {
     };
 
     return (
-        <>
-            <div className="schedule">
-                <div id="schedule-container">
-                    <div>
-                        <h1>스케줄 추가</h1>
-                        <button onClick={tourlist}>여행지 전체 조회하기</button>
-                        <input type="number" id="searchCode" value={code} onChange={handleCode} placeholder="검색어(지역코드)를 입력하세요" />
-                        <button onClick={searchCode}>지역코드 검색</button>
-                        <input type="text" id="searchKeyword" value={keyword} onChange={handleKeyword} placeholder="검색어(키워드)를 입력하세요" />
-                        <button onClick={searchKeyword}>키워드 검색</button>
-                    </div>
-                    <div className="tourList">
-                        {tourData.map((item) => (
-                            <div key={item.id} className="tour-item" onClick={() => handleTourClick(item)}>
-                                <h2>{item.title}</h2>
-                                <p>{item.addr1}</p>
-                                <p>{item.areaCode}</p>
-                                {item.firstImage && <img src={item.firstImage} alt={item.title} />}
-                            </div>
-                        ))}
+        <div className="schedule">
+            <div className="schedule-container">
+                <div className="header">
+                    <h1>스케줄 추가</h1>
+                    <button onClick={tourlist}>여행지 전체 조회하기</button>
+                    <div className="search-container">
+                        <div className="search-group">
+                            <input type="number" id="searchCode" value={code} onChange={handleCode} placeholder="지역코드 입력" />
+                            <button onClick={searchCode}>지역코드 검색</button>
+                        </div>
+                        <div className="search-group">
+                            <input type="text" id="searchKeyword" value={keyword} onChange={handleKeyword} placeholder="키워드 입력" />
+                            <button onClick={searchKeyword}>키워드 검색</button>
+                        </div>
                     </div>
                 </div>
 
-                <div className="tour-details">
-                    <button onClick={closeWindow}>스케줄 생성 완료</button>
-                    {selectedTours.map((tour) => (
-                        <div key={tour.id} className="tour-details-content">
-                            <h2>{tour.title}</h2>
-                            <p>{tour.addr1}</p>
-                            <p>{tour.areaCode}</p>
-                            {tour.firstImage && <img src={tour.firstImage} alt={tour.title} />}
-
-                            {viewTour(tour.id)}
-
-                            {tourInputsVisibility[tour.id] && (
-                                <div id={`tourQ-${tour.id}`}>
-                                    <li>몇 일차 여행지?</li>
-                                    <input
-                                        type="number"
-                                        value={date}
-                                        onChange={handleDate}
-                                        placeholder="여행 날짜"
-                                    />
-                                    <li>이 여행지에서 사용할 금액?</li>
-                                    <input
-                                        type="number"
-                                        value={money}
-                                        onChange={handleMoney}
-                                        placeholder="사용 금액"
-                                    />
-                                    <button onClick={() => handleSchedule(tour.id)}>스케줄 추가하기</button>
-                                </div>
-                            )}
+                <div className="tourList">
+                    {tourData.map((item) => (
+                        <div key={item.id} className="tour-item" onClick={() => handleTourClick(item)}>
+                            <h2>{item.title}</h2>
+                            <p>{item.addr1}</p>
+                            <p>{item.areaCode}</p>
+                            {item.firstImage && <img src={item.firstImage} alt={item.title} />}
                         </div>
                     ))}
                 </div>
-            </div >
-        </>
+            </div>
+
+            <div className="tour-details">
+                <button className="complete-button" onClick={closeWindow}>스케줄 생성 완료</button>
+                {selectedTours.map((tour) => (
+                    <div key={tour.id} className="tour-details-content">
+                        <h2 className="tour-title">{tour.title}</h2>
+                        <p className="tour-address">{tour.addr1}</p>
+                        <p className="tour-areaCode">{tour.areaCode}</p>
+                        {tour.firstImage && (
+                            <img className="tour-image" src={tour.firstImage} alt={tour.title} />
+                        )}
+
+                        {viewTour(tour.id)}
+
+                        {tourInputsVisibility[tour.id] && (
+                            <div className="tour-inputs">
+                                <ul>
+                                    <li>
+                                        <span>몇 일차 여행지?</span>
+                                        <input
+                                            type="number"
+                                            value={date}
+                                            onChange={handleDate}
+                                            placeholder="여행 날짜"
+                                        />
+                                    </li>
+                                    <li>
+                                        <span>이 여행지에서 사용할 금액?</span>
+                                        <input
+                                            type="number"
+                                            value={money}
+                                            onChange={handleMoney}
+                                            placeholder="사용 금액"
+                                        />
+                                    </li>
+                                </ul>
+                                <button
+                                    className="schedule-add-button"
+                                    onClick={() => handleSchedule(tour.id)}
+                                >
+                                    스케줄 추가하기
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
 

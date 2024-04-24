@@ -54,21 +54,19 @@ function Plan() {
     }
 
     return (
-        <>
-            <div className="Plan">
-                <div className="plan-buttons">
-                    <div className="plan 직접 등록">
-                        <button onClick={() => handleSubmit('activeness')}>직접 등록</button>
-                    </div>
-                    <div className="plan 추천 등록">
-                        <button onClick={() => handleSubmit('passivity')}>추천 등록</button>
-                    </div>
+        <div className="plan-container">
+            <div className="plan-buttons">
+                <div className="plan-button-wrapper">
+                    <button className="plan-button" onClick={() => handleSubmit('activeness')}>직접 등록</button>
                 </div>
-                <Link to='/'>
-                    <button className="cancel-button">플랜 생성 취소</button>
-                </Link>{" "}
+                <div className="plan-button-wrapper">
+                    <button className="plan-button" onClick={() => handleSubmit('passivity')}>추천 등록</button>
+                </div>
             </div>
-        </>
+            <Link to='/'>
+                <button className="cancel-button">플랜 생성 취소</button>
+            </Link>
+        </div>
     )
 }
 
