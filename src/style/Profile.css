@@ -1,116 +1,112 @@
-.profile_main {
-  width: 100%;
-  display: grid;
-  place-items: center;
-  margin-top: 50px
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin-top: 50px;
+  padding-top: 50px;
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  max-width: 800px;
 }
 
 .profile_header {
-    display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+}
 
-  }
-  
-  .profile_img {
-    width: 200px;
-    height: 200px;
-    margin-right: 20px;
-  }
-  
-  .follow_info {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-  }
-  
-  .follow_count {
-    text-align: center;
-    margin-right: 20px;
-  }
-  
-  .count {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .label {
-    font-size: 14px;
-    color: gray;
-  }
+.profile_img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; 
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
 
 .profile_name {
+  font-size: 28px;
+  font-weight: bold;
   text-align: center;
 }
 
-.profile_name p {
-  margin-top: -5px;
-  font-size: 30px;
-  font-weight: bold;
+.profile_myplan {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
-  .follow_button {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .follow_button button {
-    padding: 10px 20px;
-    background-color: #48d9f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .introduction {
-    margin-top: 20px;
-    width: 400px;
-    text-align: center;
-    border-radius: 5px;
-    border: 0.5px solid black;
-  }
-  
-  .introduction p {
-    font-size: 14px;
-    color: #555555;
-  }
+.profile-myplan-button {
+  margin-top: 10px;
+  width: 200px;
+}
 
-  .profile_id {
-    font-size: 20px;
-    width: 35%;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-    justify-content: center;
-    
-  }
+.profile-myplan-button button {
+  padding: 12px 24px;
+  background-color: #48d9f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-  .profile_array {
-    display: flex;
-    justify-content:space-between;
-    font-size: 20px;
-    width: 35%;
-    text-align: center;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-    justify-content: center;
-  }
+.profile-myplan-button button:hover {
+  background-color: #388e3c; 
+}
 
-  .profile_button {
-    display: flex;
-    margin-top: 40px;
-    gap: 5px;
-  }
+.profile_details {
+  font-size: 21px;
+  text-align: center;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 30px;
+  width: 80%;
+}
 
-  #profile_img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
+.profile_actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.profile_info {
+  flex-grow: 0;
+}
+
+.profile_actions button {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile_actions button:hover {
+  background-color: #0056b3; 
+}
