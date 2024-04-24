@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import Chat from "./page/chat/Chat";
 import MyPlanNRooms from "./page/MyPlanNRooms";
 import MyPlan from "./page/plan/MyPlan";
+import Local from "./page/local/Local";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -61,7 +62,7 @@ function App() {
           </Link>
 
           <Link
-            to="/plan"
+            to="/local"
             style={{ color: "white", fontSize: "35px", textDecoration: "none" }}
           >
             지역 정보
@@ -118,6 +119,7 @@ function App() {
         <Route path="/profile" element={<Profile />} key="profile-link" />
         <Route path="/profile/modifyprofile" element={<ModifyProfile />} />
         <Route path="/plan" element={<Plan />} key="plan-link" />
+        <Route path="/local" element={<Local />} key="local-link" />
         <Route
           path="/plan/activeness/:id"
           element={<Activeness />}
