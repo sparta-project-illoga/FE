@@ -1,13 +1,10 @@
-/* 전체 컨테이너 스타일 */
 .localInfo {
     padding: 20px;
     background-color: #e3f2fd;
-    /* 밝은 파란색 배경 */
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 검색 영역 스타일 */
 .localSearch {
     display: flex;
     flex-direction: column;
@@ -15,85 +12,56 @@
     margin-bottom: 20px;
 }
 
-/* 검색 버튼 및 입력 필드 스타일 */
 .local-search {
     display: flex;
     flex-direction: row;
-    /* 수평 정렬 */
     gap: 15px;
     justify-content: space-between;
-    /* 양쪽 끝에 정렬 */
 }
 
 .region-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    /* 버튼 간의 간격 조절 */
-
     justify-content: flex-start;
-
     margin-bottom: 15px;
-    /* 아래쪽 간격 조절 */
 }
 
 .region-buttons button {
     padding: 10px 20px;
     background-color: #64B5F6;
-    /* 밝은 파란색 배경 */
-
     color: white;
     border: 1px solid #42A5F5;
-    /* 파란색 테두리 */
-
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    /* 색상 및 크기 변화 효과 */
-
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* 버튼에 약간의 그림자 효과 */
-
     display: flex;
     justify-content: center;
     align-items: center;
-    /* 버튼 내 텍스트를 중앙 정렬 */
-
     text-align: center;
-    /* 텍스트 정렬을 중앙으로 고정 */
-
     white-space: nowrap;
-    /* 텍스트가 줄 바꿈되지 않도록 */
 }
 
 .region-buttons button:hover {
     background-color: #1E88E5;
-    /* 마우스 오버시 더 진한 파란색 */
-
     transform: scale(1.05);
-    /* 마우스 오버시 약간 확대 */
 }
 
-/* 키워드 검색과 페이지 크기 드롭다운을 같은 줄에 배치 */
 .flex-group {
     display: flex;
     justify-content: space-between;
-    /* 양쪽 끝에 배치 */
     align-items: center;
-    /* 세로 중앙 정렬 */
     margin-bottom: 15px;
 }
 
-/* 키워드 검색 부분 */
 .search-group {
     flex: 1;
-    /* 키워드 입력 필드와 버튼이 더 넓은 공간을 차지 */
 }
 
 .search-group input {
     padding: 10px;
     border: 1px solid #90CAF9;
-    /* 파란색 테두리 */
     border-radius: 5px;
     background-color: white;
 }
@@ -101,7 +69,6 @@
 .search-group button {
     padding: 10px 15px;
     background-color: #2196F3;
-    /* 파란색 */
     color: white;
     border: none;
     border-radius: 5px;
@@ -111,19 +78,16 @@
 
 .search-group button:hover {
     background-color: #1976D2;
-    /* 더 어두운 파란색 */
 }
 
 .pagination-controls {
     flex-shrink: 0;
-    /* 크기 조절 드롭다운이 축소되지 않도록 */
     display: flex;
     align-items: center;
 }
 
 .pagination-controls label {
     margin-right: 10px;
-    /* 레이블과 드롭다운 사이 간격 */
 }
 
 .pagination-controls select {
@@ -131,16 +95,12 @@
     border-radius: 5px;
     background-color: white;
     border: 1px solid #90CAF9;
-    /* 파란색 테두리 */
 }
 
-/* 여행지 목록 스타일 */
 .LocalList {
     display: flex;
     flex-wrap: wrap;
-    /* 여러 줄로 나누어 표시 */
     gap: 30px;
-    /* 항목 간의 간격 */
 }
 
 .local-item {
@@ -150,52 +110,38 @@
     padding: 15px;
     text-align: center;
     width: 200px;
-    /* 고정된 너비 */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .local-item h2 {
     font-size: 1.2em;
     color: #1565C0;
-    /* 진한 파란색 */
 }
 
 .local-item p {
     font-size: 0.9em;
     color: #546E7A;
-    /* 회색빛이 도는 파란색 */
 }
 
 .local-item img {
     max-width: 100%;
-    /* 이미지가 넘어가지 않도록 */
     border-radius: 10px;
 }
 
-/* 전체 조회하기 버튼 스타일링 */
 .getAll {
     padding: 10px 20px;
-    /* 적절한 패딩 추가 */
     background-color: #345168;
-    /* 파란색 배경 */
     color: white;
-    /* 텍스트는 흰색 */
     border: none;
-    /* 테두리 제거 */
     border-radius: 5px;
-    /* 둥근 모서리 */
     cursor: pointer;
-    /* 마우스 커서 변경 */
     transition: background-color 0.3s;
-    /* 배경색 전환 효과 */
 }
 
 .getAll:hover {
     background-color: #3e87d0;
-    /* 호버 시 어두운 파란색 */
 }
 
 .getAll:active {
     background-color: #1565C0;
-    /* 클릭 시 더 어두운 파란색 */
 }
