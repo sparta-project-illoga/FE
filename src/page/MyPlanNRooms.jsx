@@ -1,9 +1,10 @@
-//내가 속해있는 플랜 보여주고 플랜 수정/채팅방 생성하기
-
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import Swal from "sweetalert2";
+
+import '../style/MyPlanRooms.css'
 
 function MyPlanNRooms() {
     const [cookies] = useCookies(['Authorization']);
@@ -13,9 +14,10 @@ function MyPlanNRooms() {
     //유저 해당되는 플랜과 채팅방 가져오기
     const getPlanRooms = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/chat/planNchat`, {
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/planNchat`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -54,16 +56,26 @@ function MyPlanNRooms() {
 
         try {
             console.log("플랜의 채팅방 생성하기 planId", planId);
-
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/chat/plan/${planId}`,
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat/plan/${planId}`,
                 { "name": roomName }, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
             console.log("채팅방 생성 내용들 : ", response.data);
-            alert(`${response.data.room.name} 채팅방을 생성하였습니다.`);
+            Swal.fire({
+                text: `${response.data.room.name} 채팅방을 생성하였습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
 
             // 채팅방 생성 후 페이지 새로고침
             window.location.reload();
@@ -83,32 +95,32 @@ function MyPlanNRooms() {
     }
 
     return (
-        <div >
-            <h2>플랜과 채팅방 목록</h2>
+        <div className="myplanroom-list">
+            <h2 className="myplanroom-heading">플랜과 채팅방 목록</h2>
             {/* 플랜 목록을 화면에 표시 */}
-            <ul>
+            <ul className="myplanroom-list-ul">
                 {planRooms.map((pr) => (
-                    <li key={pr.PlanRoom.plan.id}>
+                    <li key={pr.PlanRoom.plan.id} className="myplanroom-list-li">
                         {/* 플랜 이름 표시 */}
-                        <div>
-                            <Link to={`/plan/${pr.PlanRoom.plan.id}`}>
+                        <div className="myplanroom-plan-name">
+                            <Link to={`/plan/${pr.PlanRoom.plan.id}`} className="myplanroom-plan-link">
                                 {pr.PlanRoom.plan.name}
                             </Link>
                         </div>
-                        {/* 룸이 있을 경우 해당 룸으로 이동하는 버튼 표시 */}
-                        {pr.PlanRoom.room ? (
-                            <Link to={`/chat/${pr.PlanRoom.room.roomId}`}>{pr.PlanRoom.room.name}채팅방 이동하기</Link>
-                        ) : (
-                            // 새로운 채팅방 생성을 위한 버튼 표시(버튼 클릭 시 이름 입력할 창 뜸)
-                            <div>
-                                <button onClick={() => handleCreateRoom(pr.PlanRoom.plan.id)}>{pr.PlanRoom.plan.name} 채팅방 생성하기</button>
-                            </div>
-                        )}
+                        <div className="myplanroom-action">
+                            {/* 룸이 있을 경우 해당 룸으로 이동하는 버튼 표시 */}
+                            {pr.PlanRoom.room ? (
+                                <Link to={`/chat/${pr.PlanRoom.room.roomId}`} className="myplanroom-chat-link">채팅방 이동하기</Link>
+                            ) : (
+                                // 새로운 채팅방 생성을 위한 버튼 표시(버튼 클릭 시 이름 입력할 창 뜸)
+                                <button onClick={() => handleCreateRoom(pr.PlanRoom.plan.id)} className="myplanroom-create-chat-button">채팅방 생성하기</button>
+                            )}
+                        </div>
                     </li>
                 ))}
             </ul>
         </div>
-    )
+    );
 }
 
 export default MyPlanNRooms;

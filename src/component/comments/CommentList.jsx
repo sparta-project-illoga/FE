@@ -10,7 +10,8 @@ export default function CommentList({ postId }) {
   useEffect(() => {
     const fetchCommentData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/post/${postId}/comment`)
+        const token = cookies.Authorization.replace('Bearer ', ''); 
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/post/${postId}/comment`)
         setComments(response.data)
       } catch (error) {
         console.error("댓글을 찾을 수 없습니다.", error)
@@ -21,13 +22,14 @@ export default function CommentList({ postId }) {
 
   const fetchDelete = async (commentId) => {
     try {
-      await axios.delete(`http://localhost:3000/post/${postId}/comment/${commentId}`, {
+      const token = cookies.Authorization.replace('Bearer ', ''); 
+      await axios.delete(`${process.env.REACT_APP_API_URL}/post/${postId}/comment/${commentId}`, {
         headers: {
-          Authorization: cookies.Authorization
+          Authorization: `Bearer ${token}`
         }, withCredentials: true
       })
       console.log("댓글 삭제 완료")
-      const response = await axios.get(`http://localhost:3000/post/${postId}/comment`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/post/${postId}/comment`);
     setComments(response.data);
     } catch (error) {
       console.error("댓글 삭제에 실패했습니다.", error)
@@ -41,7 +43,7 @@ export default function CommentList({ postId }) {
       <div className='comment_list'>
         {comments.map((comment, index) => (
           <div key={index} className='comment_detail'>
-            <p>회원번호: {comment.userId}</p>
+            <p>{comment.nickname}</p>
             <p>{comment.content}</p>
             <div className='comment_footer'>
               <p className='comment_date'>{comment.created_at}</p>

@@ -63,7 +63,7 @@ body {
 
 .form-button {
     padding: 10px;
-    background-color: var(--primary-color);
+    background-color: #4098ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -83,7 +83,7 @@ body {
 }
 
 .form-button:hover {
-    background-color: #234d69;
+    background-color: #2f7bff;
 }
 
 .category-section {
@@ -110,33 +110,6 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.category-add-button:hover {
-    background-color: #234d69;
-}
-
-.category-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    border: 1px solid var(--primary-color);
-    margin-top: 10px;
-}
-
-.category-delete-button {
-    padding: 5px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.category-delete-button:hover {
-    background-color: darkred;
 }
 
 .schedule {
@@ -190,7 +163,7 @@ body {
 
 .link-button button {
     padding: 10px;
-    background-color: var(--primary-color);
+    background-color: #ff4d4d; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -198,5 +171,5 @@ body {
 }
 
 .link-button button:hover {
-    background-color: #234d69;
+    background-color: #e63946; 
 }

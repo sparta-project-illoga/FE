@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
-
 import { useCookies } from 'react-cookie';
-
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
 import Member from "../member/Member";
+import Swal from "sweetalert2";
 
 // 로컬 스토리지 키
 const NAME_STORAGE_KEY = "planName";
@@ -26,9 +25,10 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}`, {
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -95,15 +95,26 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
-            await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}/activeness`,
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/activeness`,
                 formData,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
-
-            alert("플랜을 등록하였습니다.");
+            console.log("activeness-response.data : ", response.data);
+            Swal.fire({
+                text: `플랜을 등록하였습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
             getPlan();
 
             //플랜 등록하고 나서 로컬스토리지에 있던 플랜이름 삭제
@@ -127,14 +138,24 @@ function Activeness() {
     //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}`,
+            const token = cookies.Authorization.replace('Bearer ', '');
+            await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
-            alert("플랜이 삭제되었습니다.");
-            localStorage.removeItem(NAME_STORAGE_KEY);
+            Swal.fire({
+                text: `플랜이 삭제되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -152,13 +173,24 @@ function Activeness() {
 
     const deleteSchedule = async (scheduleId) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/${id}/schedule/${scheduleId}`,
+            const token = cookies.Authorization.replace('Bearer ', '');
+            await axios.delete(`${process.env.REACT_APP_API_URL}/${id}/schedule/${scheduleId}`,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
-            alert("스케줄이 삭제되었습니다.");
+            Swal.fire({
+                text: `스케줄이 삭제되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
 
             const updatedSchedule = schedule.filter(item => item.id !== scheduleId);
             setSchedule(updatedSchedule);

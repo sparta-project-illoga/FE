@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import '../style/modifyProfile.css'
 import axios from "axios";
-import { Cookies } from 'react-cookie';
 import BlueButton from "../component/BlueButton";
 import { useEffect } from 'react';
-
+import Swal from "sweetalert2";
+import { useCookies } from 'react-cookie';
 
 export default function ModifyProfile() {
-  const cookies = new Cookies();
+  const [cookies] = useCookies(['Authorization']);
   const [nickname, setNickname] = useState('');
   const [phone, setPhone] = useState('')
   const [file, setFile] = useState(null);
-
   const [userInfo, setUserInfo] = useState(null);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = cookies.get('access_token')
-        const response = await axios.get('http://localhost:3000/user/info', {
+        const token = cookies.Authorization.replace('Bearer ', ''); 
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
             Authorization: `Bearer ${token}`
           }, withCredentials: true
@@ -61,8 +61,7 @@ export default function ModifyProfile() {
     }
 
     try {
-      const token = cookies.get('access_token');
-
+    
       const formData = new FormData();
       if (nickname.trim() !== '') {
         formData.append('nickname', nickname);
@@ -75,18 +74,27 @@ export default function ModifyProfile() {
       if (file !== null) {
         formData.append('file', file);
       }
-
-      const response = await axios.patch("http://localhost:3000/user/modify",
+      const token = cookies.Authorization.replace('Bearer ', ''); 
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/user/modify`,
       formData,
       {
       headers: {
-          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
         },
         withCredentials: true
       })
       console.log('업로드 성공:', response.data);
-      alert("개인 정보를 변경하였습니다.");
+      Swal.fire({
+        text: `개인 정보를 변경하였습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
     } catch (error) {
       console.error("에러 발생:", error);
       alert("오류가 발생했습니다. 다시 시도해주세요.");

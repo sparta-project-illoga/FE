@@ -7,14 +7,15 @@ import { useCookies } from 'react-cookie';
 function LikeButton({ planId }) {
     const [isChecked, setIsChecked] = useState(false);
     const [cookies] = useCookies(['Authorization']);
-
+ 
     useEffect(() => {
         const fetchFavoriteStatus = async () => {
             if (cookies.Authorization) { 
             try {
-                const response = await axios.get(`http://localhost:3000/plan/${planId}/favorite/status`, {
+                const token = cookies.Authorization.replace('Bearer ', ''); 
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${planId}/favorite/status`, {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
                 setIsChecked(response.data.isFavorite);
@@ -29,9 +30,10 @@ function LikeButton({ planId }) {
     const toggleFavorite = async () => {
 
         try {
-            await axios.post(`http://localhost:3000/plan/${planId}/favorite`, {}, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            await axios.post(`${process.env.REACT_APP_API_URL}/plan/${planId}/favorite`, {}, {
                 headers: {
-                Authorization: cookies.Authorization
+                Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
             setIsChecked(!isChecked);

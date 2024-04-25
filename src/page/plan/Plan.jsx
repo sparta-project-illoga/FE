@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import Swal from "sweetalert2";
 
 import "../../component/plan/Plan.css";
 
@@ -10,23 +11,32 @@ const NAME_STORAGE_KEY = "planName";
 
 function Plan() {
     const [cookies] = useCookies(['Authorization']);
-
     //직접 생성/자동 생성 버튼 누르면 빈 plan 생성
     const handleSubmit = async (type) => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan`,
-                {},
+                `${process.env.REACT_APP_API_URL}/plan`, {},
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 }
             )
 
             const plan = response.data.createPlan.createPlan;
             console.log("Plan - id : ", plan.id);
-            alert("플랜이 생성되었습니다.");
+            Swal.fire({
+                text: `플랜이 생성되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
 
             localStorage.removeItem(NAME_STORAGE_KEY);
 

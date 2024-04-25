@@ -12,7 +12,7 @@ function PostCard() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/plan/new')
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/new`)
         setPlans([...response.data].reverse().slice(0, 8));
       } catch (error) {
         console.log('정보를 불러오는 데에 실패하였습니다.')
@@ -35,7 +35,7 @@ function PostCard() {
             <div className='post_footer'>
             <Link to={`/plan/${plan.id}`}>
               <div className='footer_contents'>
-                <p>{plan.name} <span>{plan.totaldate}일</span></p>
+                <p>{plan.name} <span className="date_length">{plan.totaldate}일</span></p>
                 <p>{plan.totalmoney}</p>
               </div>
             </Link>

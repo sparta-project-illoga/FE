@@ -13,9 +13,10 @@ export default function Comment( { postId } ) {
 // 댓글 작성 패칭
 const commentSubmit = async () => {
   try {
-    await axios.post(`http://localhost:3000/post/${postId}/comment`, { content: newComment }, {
+    const token = cookies.Authorization.replace('Bearer ', ''); 
+    await axios.post(`${process.env.REACT_APP_API_URL}/post/${postId}/comment`, { content: newComment }, {
     headers: {
-      Authorization: cookies.Authorization
+      Authorization: `Bearer ${token}`
     }, withCredentials: true
   });
   setNewComment('');

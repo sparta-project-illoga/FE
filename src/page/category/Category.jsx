@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
+import "../../component/category/Category.css"
+
 function Category({ planId }) {
     const [cookies] = useCookies(['Authorization']);
-
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     const [selectedOption, setSelectedOption] = useState('');
     const [categories, setCategories] = useState([]);
@@ -12,9 +13,10 @@ function Category({ planId }) {
     //해당 플랜에 저장된 카테고리들 조회에서 밑에 보여주기
     const getCategories = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/category/plan/${planId}`, {
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -59,11 +61,11 @@ function Category({ planId }) {
 
             console.log("방금 추가한 카테고리 1개 : ", selectedOption);
             console.log("현재 플랜 id값 : ", planId);
-
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/category/plan/${planId}`,
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`,
                 { "category_name": selectedOption }, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
             console.log("activeness-category.data : ", response.data);
@@ -94,10 +96,10 @@ function Category({ planId }) {
             //카테고리 삭제하면 화면에서 해당 카테고리 바로 없어짐
             const newOptions = categories.filter(option => option.categoryId !== categoryId);
             setCategories(newOptions);
-
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/category/${categoryId}`, {
+            const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/category/${categoryId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
             const category = response.data.category;
@@ -121,9 +123,13 @@ function Category({ planId }) {
     }
 
     return (
-        <div>
-            <h2>카테고리 추가하기</h2>
-            <select value={selectedOption} onChange={handleCategory}>
+        <div className="category-container">
+            <h2 className="category-header">카테고리 추가하기</h2>
+            <select
+                value={selectedOption}
+                onChange={handleCategory}
+                className="category-select"
+            >
                 <option value="">카테고리 선택</option>
                 <option value="MOUNTAIN">MOUNTAIN</option>
                 <option value="OCEAN">OCEAN</option>
@@ -135,15 +141,18 @@ function Category({ planId }) {
                 <option value="QUIET">QUIET</option>
                 <option value="NOISY">NOISY</option>
             </select>
-            <button onClick={handleAddCategory}>추가</button>
-            {categories.map((item) => (
-                <div key={item.categoryId}>
-                    {item.category_name}
-                    <button onClick={() => handleDeleteCategory(item.categoryId)}>삭제</button>
-                </div>
-            ))}
+            <button onClick={handleAddCategory} className="category-button">추가</button>
+
+            <div className="category-list">
+                {categories.map((item) => (
+                    <div key={item.categoryId} className="category-item">
+                        {item.category_name}
+                        <button onClick={() => handleDeleteCategory(item.categoryId)}>삭제</button>
+                    </div>
+                ))}
+            </div>
         </div>
-    )
+    );
 }
 
 export default Category;
