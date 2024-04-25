@@ -13,7 +13,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/user/login', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/user/login`, {
         email,
         password,
       });

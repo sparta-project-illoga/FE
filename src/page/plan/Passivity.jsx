@@ -67,7 +67,7 @@ function Passivity() {
                 requestData.date = date;
             }
 
-            const response = await axios.patch(`http://localhost:8000/plan/${id}/passivity`,
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan/${id}/passivity`,
                 requestData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -99,7 +99,7 @@ function Passivity() {
         try {
             const token = cookies.get('Authorization');
 
-            await axios.delete(`http://localhost:8000/plan/${id}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

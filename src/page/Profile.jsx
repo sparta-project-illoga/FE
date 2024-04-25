@@ -20,7 +20,7 @@ function Profile() {
       try {
 
         const token = cookies.Authorization.replace('Bearer ', ''); 
-        const response = await axios.get('http://localhost:8000/user/info', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/user/info`, {
           headers: {
             // Authorization: cookies.Authorization
             Authorization: `Bearer ${token}`
