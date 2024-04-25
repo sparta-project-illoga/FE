@@ -59,16 +59,14 @@
     background-color: blue; 
     border: none;
     font-weight: semibold;
-}
-
-.verify-box{
-    margin-top: 20px
+    width: 100px;
 }
 
 #verification_input {
     width: 290px;
     height: 40px;
-    border-radius: 30px;
+    border: none; 
+    border-bottom: 1px solid #000;
 }
 
 #verify-btn {
@@ -79,4 +77,5 @@
     background-color: #777777; 
     border: none;
     font-weight: semibold;
+    width: 100px;
 }

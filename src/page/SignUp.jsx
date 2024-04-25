@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../style/signup.css";
 import BlueButton from "../component/BlueButton";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 function SignUp() {
   const [userData, setUserData] = useState({
@@ -15,6 +16,7 @@ function SignUp() {
   });
 
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const verificationInputRef = useRef(null);
   const navigate = useNavigate();
 
   async function handleSignUp() {
@@ -26,7 +28,17 @@ function SignUp() {
     try {
       const response = await axios.post("http://localhost:3000/user/register", userData);
       console.log(response.data);
-      alert("회원가입이 완료되었습니다.");
+      Swal.fire({
+        text: `회원가입이 완료되었습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
       navigate('/')
     } catch (error) {
       console.error(error.response?.data?.message);
@@ -47,7 +59,17 @@ function SignUp() {
         email: userData.email,
       });
       console.log('인증번호가 전송되었습니다:', response.data);
-      alert("인증번호가 전송되었습니다. 이메일을 확인해주세요.");
+      Swal.fire({
+        text: `인증번호가 전송되었습니다. 이메일을 확인해주세요.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
       setIsEmailSent(true)
     } catch (error) {
       console.error('인증번호 전송 중 오류가 발생했습니다:', error);
@@ -66,12 +88,28 @@ function SignUp() {
         code: userData.verificationCode, // 입력받은 인증번호
       });
       console.log('인증 성공:', response.data);
-      alert("인증에 성공했습니다.");
+      Swal.fire({
+        text: `인증에 성공했습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
     } catch (error) {
       console.error('인증 중 오류가 발생했습니다:', error);
       alert("인증 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
+
+  useEffect(() => {
+    if (isEmailSent && verificationInputRef.current) {
+      verificationInputRef.current.focus(); // 인증번호 input에 포커싱
+    }
+  }, [isEmailSent]);
 
   return (
     <div className="register_container">
@@ -105,6 +143,7 @@ function SignUp() {
                 name="verificationCode"
                 value={userData.verificationCode}
                 onChange={handleChange}
+                ref={verificationInputRef}
               />
               <button className="verify-btn" id="verify-btn" onClick={verifyCode}>
                 인증번호 확인

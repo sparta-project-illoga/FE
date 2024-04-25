@@ -20,6 +20,11 @@ const LocalPostWrite = () => {
   };
 
   const handleSubmit = async () => {
+    if (!title || !content) {
+      alert("제목, 내용을 모두 작성해주세요.");
+      return;
+    }
+
     try {
       await axios.post('http://localhost:3000/post', {
         title: title,
@@ -43,11 +48,10 @@ const LocalPostWrite = () => {
       <p>지역홍보, 여행지 소개 등의 내용으로 게시글을 작성해주세요.</p>
       </div>
       <label>
-        Title:
-        <input type="text" value={title} onChange={handleTitleChange} />
+        <input type="text" value={title} onChange={handleTitleChange} placeholder='제목을 작성해주세요.' />
       </label>
         <textarea value={content} onChange={handleContentChange}></textarea>
-      <button onClick={handleSubmit}>Create Post</button>
+      <button onClick={handleSubmit}>등록하기</button>
     </div>
   );
 };

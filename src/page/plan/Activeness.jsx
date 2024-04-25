@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
-
 import { useCookies } from 'react-cookie';
-
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
 import Member from "../member/Member";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 function Activeness() {
     const [cookies] = useCookies(['Authorization']);
@@ -91,7 +91,17 @@ function Activeness() {
                     }, withCredentials: true
                 });
             console.log("activeness-response.data : ", response.data);
-            alert("플랜을 등록하였습니다.");
+            Swal.fire({
+                text: `플랜을 등록하였습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
             getPlan();
             navigate("/"); // 메인 페이지로 이동 
 
@@ -119,7 +129,17 @@ function Activeness() {
                         Authorization: cookies.Authorization
                     }, withCredentials: true
                 });
-            alert("플랜이 삭제되었습니다.");
+            Swal.fire({
+                text: `플랜이 삭제되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -143,7 +163,17 @@ function Activeness() {
                         Authorization: cookies.Authorization
                     }, withCredentials: true
                 });
-            alert("스케줄이 삭제되었습니다.");
+            Swal.fire({
+                text: `스케줄이 삭제되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
 
             const updatedSchedule = schedule.filter(item => item.id !== scheduleId);
             setSchedule(updatedSchedule);
