@@ -46,15 +46,15 @@ function Schedule() {
             let response;
             if (searchType === "전체 조회") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot?page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/location/tourSpot?page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "지역 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?areaCode=${code}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/location/tourSpot/search?areaCode=${code}&page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "키워드 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
                 );
             }
 
@@ -148,7 +148,7 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const response = await axios.post(`http://localhost:3000/${id}/schedule`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {

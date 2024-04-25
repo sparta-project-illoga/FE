@@ -20,7 +20,7 @@ function Passivity() {
     const [date, setDate] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    
+
 
     //추천받은 플랜 저장
     const [plan, setPlan] = useState([]);
@@ -70,7 +70,7 @@ function Passivity() {
                 requestData.date = date;
             }
 
-            const response = await axios.patch(`http://localhost:3000/plan/${id}/passivity`,
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}/passivity`,
                 requestData, {
                 headers: {
                     Authorization: cookies.Authorization
@@ -99,7 +99,7 @@ function Passivity() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/plan/${id}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}`, {
                 headers: {
                     Authorization: cookies.Authorization
                 }, withCredentials: true
@@ -119,31 +119,31 @@ function Passivity() {
             }
         }
     }
-// 여기서부터 모달 내용
+    // 여기서부터 모달 내용
     const handleOpenModal = () => {
         setShowModal(true);
     };
-    
+
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
     const handleConfirmPlan = () => {
         Swal.fire({
-          title: "플랜 확정",
-          text: "현재 추천된 플랜으로 확정하시겠습니까?",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: "확인",
-          cancelButtonText: "취소",
+            title: "플랜 확정",
+            text: "현재 추천된 플랜으로 확정하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
         }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/");
-          } else {
-            handleCloseModal();
-          }
+            if (result.isConfirmed) {
+                navigate("/");
+            } else {
+                handleCloseModal();
+            }
         });
-      };
+    };
 
     return (
         <div className="passivity-container">

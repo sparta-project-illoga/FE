@@ -22,7 +22,7 @@ function MyPlan() {
     //플랜 1개 조회
     const getPlan = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/plan/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}`, {
                 headers: {
                     Authorization: cookies.Authorization
                 }, withCredentials: true
@@ -56,7 +56,7 @@ function MyPlan() {
 
     const getMember = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/member/plan/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/member/plan/${id}`, {
                 headers: {
                     Authorization: cookies.Authorization
                 }, withCredentials: true
@@ -104,9 +104,9 @@ function MyPlan() {
     return (
         <div className="my-plan-container">
             <h2>플랜 세부 정보</h2>
-    
+
             <button onClick={planUpdate} className="my-plan-edit-button">플랜 수정하기</button>
-    
+
             <div className="my-plan-box">
                 <div className="my-plan-detail">
                     <strong>플랜 이름:</strong> {plan.name}
@@ -129,7 +129,7 @@ function MyPlan() {
                     )}
                 </div>
             </div>
-    
+
             <div className="my-plan-box">
                 <h3 className="my-plan-member">플랜 멤버</h3>
                 <ul className="my-plan-list">
@@ -142,7 +142,7 @@ function MyPlan() {
                     ))}
                 </ul>
             </div>
-    
+
             <div className="my-plan-box">
                 <h3 className="my-plan-subtitle">플랜 장소</h3>
                 <ul className="my-plan-list">
@@ -151,7 +151,7 @@ function MyPlan() {
                     ))}
                 </ul>
             </div>
-    
+
             <div className="my-plan-box">
                 <h3 className="my-plan-subtitle">카테고리</h3>
                 <ul className="my-plan-list">
@@ -160,7 +160,7 @@ function MyPlan() {
                     ))}
                 </ul>
             </div>
-    
+
             <div className="my-plan-box">
                 <h3 className="my-plan-subtitle">스케줄</h3>
                 <ul className="my-plan-list">

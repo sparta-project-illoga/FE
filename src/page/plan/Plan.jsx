@@ -12,7 +12,7 @@ function Plan() {
     const handleSubmit = async (type) => {
         try {
             const response = await axios.post(
-                "http://localhost:3000/plan",
+                `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan`,
                 {},
                 {
                     headers: {

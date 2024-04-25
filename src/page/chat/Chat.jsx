@@ -72,7 +72,7 @@ function Chat() {
     //조회 시 초대된 멤버만 가능
     const getChat = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/chat/room/${id}/content`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/chat/room/${id}/content`, {
                 headers: {
                     Authorization: cookies.Authorization
                 }, withCredentials: true
@@ -103,7 +103,7 @@ function Chat() {
     //조회 시 멤버만 가능
     const getMember = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/member/plan/${room.planId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/member/plan/${room.planId}`, {
                 headers: {
                     Authorization: cookies.Authorization
                 }, withCredentials: true
@@ -133,7 +133,7 @@ function Chat() {
     }
 
     useEffect(() => {
-        const newSocket = io("http://localhost:3000/events", {
+        const newSocket = io(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/events`, {
             extraHeaders: {
                 Authorization: cookies.Authorization
             }, withCredentials: true
