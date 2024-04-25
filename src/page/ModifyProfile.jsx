@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import '../style/modifyProfile.css'
 import axios from "axios";
-import { Cookies } from 'react-cookie';
 import BlueButton from "../component/BlueButton";
 import { useEffect } from 'react';
-
+import { useCookies } from 'react-cookie';
 
 export default function ModifyProfile() {
   const [cookies] = useCookies(['Authorization']);

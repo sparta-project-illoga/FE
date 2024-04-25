@@ -9,6 +9,7 @@ import '../style/MyPlanRooms.css'
 
 function MyPlanNRooms() {
     const [cookies] = useCookies(['Authorization']);
+    const token = cookies.Authorization.replace('Bearer ', ''); 
     //유저가 해당되는 플랜/채팅 가져오기
     const [planRooms, setPlanRooms] = useState([]);
 

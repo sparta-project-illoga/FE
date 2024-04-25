@@ -14,6 +14,7 @@ import LocalCertButton from '../component/LocalCertButton';
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
   const [cookies] = useCookies(['Authorization']);
+  const token = cookies.Authorization.replace('Bearer ', ''); 
   console.log(cookies.Authorization)
 
   useEffect(() => {
