@@ -7,7 +7,7 @@ function HomePost() {
 
   useEffect(() => {
     try{
-    axios.get('http://localhost:3000/post')
+    axios.get(`${process.env.REACT_APP_API_URL}/post`)
     .then((response) => {
       setBoardList([...response.data].reverse().slice(0, 5))
     })

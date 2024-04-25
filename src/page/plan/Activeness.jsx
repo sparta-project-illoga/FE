@@ -26,9 +26,10 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/plan/${id}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -83,11 +84,12 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
-            const response = await axios.patch(`http://localhost:3000/plan/${id}/activeness`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/activeness`,
                 formData,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
             console.log("activeness-response.data : ", response.data);
@@ -123,10 +125,11 @@ function Activeness() {
     //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/plan/${id}`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
             Swal.fire({
@@ -157,10 +160,11 @@ function Activeness() {
 
     const deleteSchedule = async (scheduleId) => {
         try {
-            await axios.delete(`http://localhost:3000/${id}/schedule/${scheduleId}`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            await axios.delete(`${process.env.REACT_APP_API_URL}/${id}/schedule/${scheduleId}`,
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
             Swal.fire({

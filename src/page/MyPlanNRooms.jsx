@@ -14,9 +14,10 @@ function MyPlanNRooms() {
     //유저 해당되는 플랜과 채팅방 가져오기
     const getPlanRooms = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/chat/planNchat`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/planNchat`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                   Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -55,11 +56,11 @@ function MyPlanNRooms() {
 
         try {
             console.log("플랜의 채팅방 생성하기 planId", planId);
-
-            const response = await axios.post(`http://localhost:3000/chat/plan/${planId}`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat/plan/${planId}`,
                 { "name": roomName }, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 

@@ -22,9 +22,10 @@ function MyPlan() {
     //플랜 1개 조회
     const getPlan = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/plan/${id}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -56,9 +57,10 @@ function MyPlan() {
 
     const getMember = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/member/plan/${id}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/plan/${id}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 

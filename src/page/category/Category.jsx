@@ -6,7 +6,6 @@ import "../../component/category/Category.css"
 
 function Category({ planId }) {
     const [cookies] = useCookies(['Authorization']);
-
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     const [selectedOption, setSelectedOption] = useState('');
     const [categories, setCategories] = useState([]);
@@ -14,9 +13,10 @@ function Category({ planId }) {
     //해당 플랜에 저장된 카테고리들 조회에서 밑에 보여주기
     const getCategories = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/category/plan/${planId}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -61,11 +61,11 @@ function Category({ planId }) {
 
             console.log("방금 추가한 카테고리 1개 : ", selectedOption);
             console.log("현재 플랜 id값 : ", planId);
-
-            const response = await axios.post(`http://localhost:3000/category/plan/${planId}`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`,
                 { "category_name": selectedOption }, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
             console.log("activeness-category.data : ", response.data);
@@ -96,10 +96,10 @@ function Category({ planId }) {
             //카테고리 삭제하면 화면에서 해당 카테고리 바로 없어짐
             const newOptions = categories.filter(option => option.categoryId !== categoryId);
             setCategories(newOptions);
-
-            const response = await axios.delete(`http://localhost:3000/category/${categoryId}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/category/${categoryId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
             const category = response.data.category;

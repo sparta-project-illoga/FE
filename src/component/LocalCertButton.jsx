@@ -14,7 +14,6 @@ const LocationAuthModal = () => {
   const [showModal, setShowModal] = useState(false);
   const { location: currentLocation, error: currentError } = useCurrentLocation(geolocationOptions);
   const [cookies] = useCookies(['Authorization']);
-  console.log(cookies.Authorization)
 
   const handleLocationAuth = async () => {
     const locationData = {
@@ -22,9 +21,10 @@ const LocationAuthModal = () => {
       longitude: currentLocation.longitude,
     };
     try {
-    await axios.put(`http://localhost:3000/location`, locationData, {
+      const token = cookies.Authorization.replace('Bearer ', ''); 
+    await axios.put(`${process.env.REACT_APP_API_URL}/location`, locationData, {
       headers: {
-        Authorization: cookies.Authorization
+        Authorization: `Bearer ${token}`
         }, withCredentials: true
     })
     console.log('Latitude:', currentLocation.latitude);

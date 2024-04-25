@@ -6,7 +6,6 @@ import "../../component/member/Member.css"
 
 function Member({ planId }) {
     const [cookies] = useCookies(['Authorization']);
-
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     //추가할 멤버 일단 멤버 id로 받아옴
     const [selectedmember, setSelectedMember] = useState("");
@@ -15,9 +14,10 @@ function Member({ planId }) {
     //해당 플랜에 추가된 멤버들 조회
     const getMembers = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/member/plan/${planId}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/plan/${planId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -61,11 +61,11 @@ function Member({ planId }) {
 
             console.log("방금 추가한 멤버 : ", selectedmember);
             console.log("현재 플랜 id값 : ", planId);
-
-            const response = await axios.post(`http://localhost:3000/member/plan/${planId}`,
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/member/plan/${planId}`,
                 { "nickname": selectedmember }, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -97,10 +97,10 @@ function Member({ planId }) {
             //카테고리 삭제하면 화면에서 해당 카테고리 바로 없어짐
             const newMembers = members.filter(option => option.memberId !== memberId);
             setMembers(newMembers);
-
-            const response = await axios.delete(`http://localhost:3000/member/${memberId}`, {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/member/${memberId}`, {
                 headers: {
-                    Authorization: cookies.Authorization
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 

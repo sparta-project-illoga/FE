@@ -26,7 +26,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/user/register", userData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/register`, userData);
       console.log(response.data);
       Swal.fire({
         text: `회원가입이 완료되었습니다.`,
@@ -55,7 +55,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3000/user/register?type=sendmail', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/register?type=sendmail`, {
         email: userData.email,
       });
       console.log('인증번호가 전송되었습니다:', response.data);
@@ -83,7 +83,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3000/user/register?type=verifycode', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/register?type=verifycode`, {
         email: userData.email,
         code: userData.verificationCode, // 입력받은 인증번호
       });
