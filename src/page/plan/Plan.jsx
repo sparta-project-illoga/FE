@@ -8,10 +8,10 @@ import "../../component/plan/Plan.css";
 
 function Plan() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     //직접 생성/자동 생성 버튼 누르면 빈 plan 생성
     const handleSubmit = async (type) => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/plan`,{},
                 {

@@ -6,11 +6,11 @@ import { useCookies } from 'react-cookie';
 export default function CommentList({ postId }) {
   const [comments, setComments] = useState([])
   const [cookies] = useCookies(['Authorization']);
-  const token = cookies.Authorization.replace('Bearer ', ''); 
 
   useEffect(() => {
     const fetchCommentData = async () => {
       try {
+        const token = cookies.Authorization.replace('Bearer ', ''); 
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/post/${postId}/comment`)
         setComments(response.data)
       } catch (error) {
@@ -22,6 +22,7 @@ export default function CommentList({ postId }) {
 
   const fetchDelete = async (commentId) => {
     try {
+      const token = cookies.Authorization.replace('Bearer ', ''); 
       await axios.delete(`${process.env.REACT_APP_API_URL}/post/${postId}/comment/${commentId}`, {
         headers: {
           Authorization: `Bearer ${token}`
