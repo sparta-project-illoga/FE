@@ -25,7 +25,7 @@ function Activeness() {
         try {
             const token = cookies.get('Authorization');
 
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -84,7 +84,7 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
-            const response = await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan/${id}/activeness`,
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/activeness`,
                 formData,
                 {
                     headers: {
@@ -117,7 +117,7 @@ function Activeness() {
         try {
             const token = cookies.get('Authorization');
 
-            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan/${id}`,
+            await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -144,7 +144,7 @@ function Activeness() {
         try {
             const token = cookies.get('Authorization');
 
-            await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/${id}/schedule/${scheduleId}`,
+            await axios.delete(`${process.env.REACT_APP_API_URL}/${id}/schedule/${scheduleId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

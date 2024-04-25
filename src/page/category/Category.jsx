@@ -14,7 +14,7 @@ function Category({ planId }) {
     const getCategories = async () => {
         try {
             const token = cookies.get('Authorization');
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/category/plan/${planId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -65,7 +65,7 @@ function Category({ planId }) {
             const token = cookies.get('Authorization');
             console.log("현재 플랜 id값 : ", planId);
 
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/category/plan/${planId}`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`,
                 { "category_name": selectedOption },
                 {
                     headers: {
@@ -104,7 +104,7 @@ function Category({ planId }) {
 
             const token = cookies.get('Authorization');
 
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/category/${categoryId}`,
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/category/${categoryId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

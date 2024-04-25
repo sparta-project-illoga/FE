@@ -16,7 +16,7 @@ export default function ModifyProfile() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/user/info`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
             Authorization: cookies.Authorization
           }, withCredentials: true
@@ -75,7 +75,7 @@ export default function ModifyProfile() {
         formData.append('file', file);
       }
 
-      const response = await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/user/modify`,
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/user/modify`,
       formData,
       {
       headers: {

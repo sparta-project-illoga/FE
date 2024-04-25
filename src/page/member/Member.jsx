@@ -17,7 +17,7 @@ function Member({ planId }) {
     const getMembers = async () => {
         try {
             const token = cookies.get('Authorization');
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/member/plan/${planId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/plan/${planId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -67,7 +67,7 @@ function Member({ planId }) {
             const token = cookies.get('Authorization');
             console.log("현재 플랜 id값 : ", planId);
 
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/member/plan/${planId}`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/member/plan/${planId}`,
                 { "nickname": selectedmember },
                 {
                     headers: {
@@ -107,7 +107,7 @@ function Member({ planId }) {
 
             const token = cookies.get('Authorization');
 
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/member/${memberId}`,
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/member/${memberId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

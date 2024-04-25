@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `yarn start`
 
 Runs the app in the development mode.\
-Open [${process.env.REACT_APP_API_URL}:${process.env.API_PORT}](${process.env.REACT_APP_API_URL}:${process.env.API_PORT}) to view it in your browser.
+Open [${process.env.REACT_APP_API_URL}](${process.env.REACT_APP_API_URL}) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.

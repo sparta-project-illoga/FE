@@ -35,7 +35,7 @@ function Schedule() {
             setTourData([]);
 
             const response = await axios.get(
-                `${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/location/tourSpot?page=1&limit=20`,
+                `${process.env.REACT_APP_API_URL}/location/tourSpot?page=1&limit=20`,
             )
 
             const schedules = response.data.data;
@@ -71,7 +71,7 @@ function Schedule() {
             console.log("input으로 받아온 지역코드 값 : ", code);
 
             const response = await axios.get(
-                `${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/location/tourSpot/search?areaCode=${code}`,
+                `${process.env.REACT_APP_API_URL}/location/tourSpot/search?areaCode=${code}`,
             )
 
             const schedules = response.data.data;
@@ -106,7 +106,7 @@ function Schedule() {
             console.log("input으로 받아온 키워드 : ", keyword);
 
             const response = await axios.get(
-                `${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/location/tourSpot/search?keyword=${keyword}`,
+                `${process.env.REACT_APP_API_URL}/location/tourSpot/search?keyword=${keyword}`,
             )
 
             const schedules = response.data.data;
@@ -166,7 +166,7 @@ function Schedule() {
             const token = cookies.get('Authorization');
             console.log("현재 플랜 id값 : ", id);
 
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/${id}/schedule`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {

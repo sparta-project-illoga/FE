@@ -13,7 +13,7 @@ function Plan() {
             const token = cookies.Authorization.replace('Bearer ', ''); 
 
             const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}:${process.env.API_PORT}/plan`,
+                `${process.env.REACT_APP_API_URL}/plan`,
                 {},
                 {
                     headers: {
