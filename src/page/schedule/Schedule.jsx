@@ -249,7 +249,6 @@ function Schedule() {
                         <div key={item.id} className="tour-item" onClick={() => handleTourClick(item)}>
                             <h2>{item.title}</h2>
                             <p>{item.addr1}</p>
-                            <p>{item.areaCode}</p>
                             {item.firstImage && <img src={item.firstImage} alt={item.title} />}
                         </div>
                     ))}
