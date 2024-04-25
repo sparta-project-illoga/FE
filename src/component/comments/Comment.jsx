@@ -8,14 +8,15 @@ import axios from 'axios'
 export default function Comment( { postId } ) {
   const [newComment, setNewComment] = useState('');
   const [cookies] = useCookies(['Authorization']);
+  const token = cookies.Authorization.replace('Bearer ', ''); 
   console.log(newComment)
 
 // 댓글 작성 패칭
 const commentSubmit = async () => {
   try {
-    await axios.post(`http://localhost:3000/post/${postId}/comment`, { content: newComment }, {
+    await axios.post(`${process.env.REACT_APP_API_URL}/post/${postId}/comment`, { content: newComment }, {
     headers: {
-      Authorization: cookies.Authorization
+      Authorization: `Bearer ${token}`
     }, withCredentials: true
   });
   setNewComment('');

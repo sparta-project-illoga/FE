@@ -7,17 +7,17 @@ import { useEffect } from 'react';
 
 
 export default function ModifyProfile() {
-  const cookies = new Cookies();
+  const [cookies] = useCookies(['Authorization']);
   const [nickname, setNickname] = useState('');
   const [phone, setPhone] = useState('')
   const [file, setFile] = useState(null);
-
   const [userInfo, setUserInfo] = useState(null);
+  const token = cookies.Authorization.replace('Bearer ', ''); 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = cookies.get('access_token')
-        const response = await axios.get('http://localhost:3000/user/info', {
+        
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
             Authorization: `Bearer ${token}`
           }, withCredentials: true
@@ -61,8 +61,7 @@ export default function ModifyProfile() {
     }
 
     try {
-      const token = cookies.get('access_token');
-
+    
       const formData = new FormData();
       if (nickname.trim() !== '') {
         formData.append('nickname', nickname);
@@ -76,11 +75,10 @@ export default function ModifyProfile() {
         formData.append('file', file);
       }
 
-      const response = await axios.patch("http://localhost:3000/user/modify",
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/user/modify`,
       formData,
       {
       headers: {
-          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
         },
         withCredentials: true

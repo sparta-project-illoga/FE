@@ -9,6 +9,7 @@ import Page from "../../component/local/Page";
 
 function Schedule() {
     const [cookies] = useCookies(['Authorization']);
+    const token = cookies.Authorization.replace('Bearer ', ''); 
     const { id } = useParams();
 
     //한 페이지에 몇 개 보여줄지 선택,현재 페이지 저장
@@ -46,15 +47,15 @@ function Schedule() {
             let response;
             if (searchType === "전체 조회") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot?page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot?page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "지역 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?areaCode=${code}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?areaCode=${code}&page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "키워드 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
                 );
             }
 
@@ -148,11 +149,11 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const response = await axios.post(`http://localhost:3000/${id}/schedule`,
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {
-                        Authorization: cookies.Authorization
+                        Authorization: `Bearer ${token}`
                     }, withCredentials: true
                 });
             console.log("생성된 스케줄 데이터 : ", response.data);

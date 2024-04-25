@@ -30,15 +30,15 @@ function Local() {
             let response;
             if (searchType === "전체 조회") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot?page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot?page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "지역 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?areaCode=${searchValue}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?areaCode=${searchValue}&page=${currentPage}&limit=${list}`
                 );
             } else if (searchType === "키워드 검색") {
                 response = await axios.get(
-                    `http://localhost:3000/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
                 );
             }
 

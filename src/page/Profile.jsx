@@ -19,9 +19,9 @@ function Profile() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/user/info', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
-            Authorization: cookies.Authorization
+            Authorization: `Bearer ${token}`
           }, withCredentials: true
         }
       );

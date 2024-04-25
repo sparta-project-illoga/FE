@@ -12,7 +12,7 @@ function LocalPostContent() {
   useEffect(() => {
     const fetchPostData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/post/${id}`)
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/post/${id}`)
       setPost(response.data)
     } catch (error) {
       console.log("게시물을 찾을 수 없습니다.")
