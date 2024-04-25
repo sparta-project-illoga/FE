@@ -46,6 +46,7 @@
 
 .passivity-button-container {
     margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .passivity-button {
@@ -63,11 +64,12 @@
 .passivity-delete-button {
     background-color: #ff4d4d; 
     color: white; 
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none; 
     border-radius: 5px; 
     cursor: pointer; 
     transition: background-color 0.3s, transform 0.3s; 
+    font-size: 1rem;
 }
 
 .passivity-delete-button:hover {
@@ -98,6 +100,11 @@
     font-size: 1.5rem;
     text-align: center;
     color: #333;
+}
+
+.confirm_button {
+    margin-top: -10px;
+    margin-bottom: 20px;
 }
 
 .passivity-plan-list {

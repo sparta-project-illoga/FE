@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
+import "../../component/member/Member.css"
+
 function Member({ planId }) {
     const [cookies] = useCookies(['Authorization']);
 
@@ -123,19 +125,27 @@ function Member({ planId }) {
     }
 
     return (
-        <div>
-            <h2>멤버 추가하기</h2>
-            <input type="string" value={selectedmember} onChange={handleMember} placeholder="추가하려는 멤버의 닉네임을 입력하세요." />
-            <button onClick={handleAddMember}>멤버 추가</button>
-            {members.map((m) => (
-                <div key={m.memberId}>
-                    {m.nickname}({m.type})
-                    {/* 'Leader' 타입인 경우 삭제 버튼이 표시되지 않도록 조건 추가 */}
-                    {m.type !== 'Leader' && (
-                        <button onClick={() => handleDeleteMember(m.memberId)}>삭제</button>
-                    )}
-                </div>
-            ))}
+        <div className="add-member-container">
+            <h2 className="add-member-title">멤버 추가하기</h2>
+            <input
+                className="add-member-input"
+                type="text" // 'string' 타입은 존재하지 않으므로 'text'로 수정
+                value={selectedmember}
+                onChange={handleMember}
+                placeholder="추가하려는 멤버의 닉네임을 입력하세요."
+            />
+            <button className="add-member-button" onClick={handleAddMember}>멤버 추가</button>
+            <div className="member-list">
+                {members.map((m) => (
+                    <div key={m.memberId} className="member-item">
+                        <span className="member-info">{m.nickname} ({m.type})</span>
+                        {/* 'Leader' 타입인 경우 삭제 버튼이 표시되지 않도록 조건 추가 */}
+                        {m.type !== 'Leader' && (
+                            <button className="delete-member-button" onClick={() => handleDeleteMember(m.memberId)}>삭제</button>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

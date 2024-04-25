@@ -167,7 +167,7 @@ function Passivity() {
 
                 <button onClick={handleDelete} className="passivity-delete-button">플랜 생성 취소</button>
             </div>
-            <div>
+            <div className="passivity-member-container">
                 <Member planId={id} />
             </div>
 
