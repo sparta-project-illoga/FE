@@ -1,0 +1,87 @@
+.myplanroom-list {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.myplanroom-heading {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.myplanroom-list-ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.myplanroom-list-li {
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.myplanroom-plan-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.myplanroom-plan-link {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.myplanroom-plan-link:hover {
+    color: #0056b3;
+}
+
+.myplanroom-action {
+    display: flex;
+    align-items: center;
+}
+
+.myplanroom-chat-link,
+.myplanroom-create-chat-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.myplanroom-chat-link {
+    background-color: #FF8C00;
+    color: white;
+    text-decoration: none;
+    width: 160px;
+}
+
+.myplanroom-chat-link:hover {
+    background-color: #CC7000;
+}
+
+.myplanroom-create-chat-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.myplanroom-create-chat-button:hover {
+    background-color: #218838;
+}
