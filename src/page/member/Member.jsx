@@ -1,14 +1,11 @@
-//멤버 추가하기 - 아직 사용x
-
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 import "../../component/member/Member.css"
 
 function Member({ planId }) {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
 
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     //추가할 멤버 일단 멤버 id로 받아옴
@@ -18,12 +15,10 @@ function Member({ planId }) {
     //해당 플랜에 추가된 멤버들 조회
     const getMembers = async () => {
         try {
-            const token = cookies.get('access_token');
             const response = await axios.get(`http://localhost:3000/member/plan/${planId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const member = response.data.members;
@@ -65,18 +60,14 @@ function Member({ planId }) {
             }
 
             console.log("방금 추가한 멤버 : ", selectedmember);
-
-            const token = cookies.get('access_token');
             console.log("현재 플랜 id값 : ", planId);
 
             const response = await axios.post(`http://localhost:3000/member/plan/${planId}`,
-                { "nickname": selectedmember },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
-                });
+                { "nickname": selectedmember }, {
+                headers: {
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
+            });
 
             console.log("멤버추가 : ", response.data.member);
 
@@ -107,15 +98,11 @@ function Member({ planId }) {
             const newMembers = members.filter(option => option.memberId !== memberId);
             setMembers(newMembers);
 
-            const token = cookies.get('access_token');
-
-            const response = await axios.delete(`http://localhost:3000/member/${memberId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
-                });
+            const response = await axios.delete(`http://localhost:3000/member/${memberId}`, {
+                headers: {
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
+            });
 
             const member = response.data.member;
             console.log("삭제한 멤버 : ", member);

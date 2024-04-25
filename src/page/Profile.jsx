@@ -66,14 +66,14 @@ function Profile() {
           </div>
         </div>
       </div>
-  
+
       <div className='profile_details'>
         <p>이메일: {userInfo.email}</p>
         <p>이름: {userInfo.name}</p>
         <p>휴대폰 번호: {userInfo.phone}</p>
         <p>가입일: {date}</p>
       </div>
-  
+
       <div className='profile_actions'>
         <Link to="/profile/modifyprofile" element={<ModifyProfile />}>
           <button>내정보 수정</button>

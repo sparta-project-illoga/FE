@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 import "../../component/category/Category.css"
 
 function Category({ planId }) {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
 
     //지금 받아온 카테고리 저장/지금까지 받아온 카테고리 저장
     const [selectedOption, setSelectedOption] = useState('');
@@ -15,12 +14,10 @@ function Category({ planId }) {
     //해당 플랜에 저장된 카테고리들 조회에서 밑에 보여주기
     const getCategories = async () => {
         try {
-            const token = cookies.get('access_token');
             const response = await axios.get(`http://localhost:3000/category/plan/${planId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const category = response.data.categories;
@@ -63,18 +60,14 @@ function Category({ planId }) {
             }
 
             console.log("방금 추가한 카테고리 1개 : ", selectedOption);
-
-            const token = cookies.get('access_token');
             console.log("현재 플랜 id값 : ", planId);
 
             const response = await axios.post(`http://localhost:3000/category/plan/${planId}`,
-                { "category_name": selectedOption },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
-                });
+                { "category_name": selectedOption }, {
+                headers: {
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
+            });
             console.log("activeness-category.data : ", response.data);
 
             const addC = response.data.category;
@@ -104,15 +97,11 @@ function Category({ planId }) {
             const newOptions = categories.filter(option => option.categoryId !== categoryId);
             setCategories(newOptions);
 
-            const token = cookies.get('access_token');
-
-            const response = await axios.delete(`http://localhost:3000/category/${categoryId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
-                });
+            const response = await axios.delete(`http://localhost:3000/category/${categoryId}`, {
+                headers: {
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
+            });
             const category = response.data.category;
             console.log("삭제한 카테고리 : ", category);
 
