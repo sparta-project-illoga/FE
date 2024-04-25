@@ -44,7 +44,7 @@ function Passivity() {
 
     const handlePassivity = async () => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
             const requestData = {
                 "name": name,
@@ -67,7 +67,7 @@ function Passivity() {
                 requestData.date = date;
             }
 
-            const response = await axios.patch(`http://localhost:3000/plan/${id}/passivity`,
+            const response = await axios.patch(`http://localhost:8000/plan/${id}/passivity`,
                 requestData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -97,9 +97,9 @@ function Passivity() {
 
     const handleDelete = async () => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
-            await axios.delete(`http://localhost:3000/plan/${id}`, {
+            await axios.delete(`http://localhost:8000/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },

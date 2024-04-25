@@ -24,7 +24,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/user/register", userData);
+      const response = await axios.post("http://localhost:8000/user/register", userData);
       console.log(response.data);
       alert("회원가입이 완료되었습니다.");
       navigate('/')
@@ -43,7 +43,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3000/user/register?type=sendmail', {
+      const response = await axios.post('http://localhost:8000/user/register?type=sendmail', {
         email: userData.email,
       });
       console.log('인증번호가 전송되었습니다:', response.data);
@@ -61,7 +61,7 @@ function SignUp() {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:3000/user/register?type=verifycode', {
+      const response = await axios.post('http://localhost:8000/user/register?type=verifycode', {
         email: userData.email,
         code: userData.verificationCode, // 입력받은 인증번호
       });

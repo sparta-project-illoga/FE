@@ -23,9 +23,9 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
-            const response = await axios.get(`http://localhost:3000/plan/${id}`, {
+            const response = await axios.get(`http://localhost:8000/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -74,7 +74,7 @@ function Activeness() {
     //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장
     const handleActiveness = async () => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
             console.log("id값 : ", id);
             console.log("name : ", name);
 
@@ -84,7 +84,7 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
-            const response = await axios.patch(`http://localhost:3000/plan/${id}/activeness`,
+            const response = await axios.patch(`http://localhost:8000/plan/${id}/activeness`,
                 formData,
                 {
                     headers: {
@@ -115,9 +115,9 @@ function Activeness() {
     //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
-            await axios.delete(`http://localhost:3000/plan/${id}`,
+            await axios.delete(`http://localhost:8000/plan/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -142,9 +142,9 @@ function Activeness() {
 
     const deleteSchedule = async (scheduleId) => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
-            await axios.delete(`http://localhost:3000/${id}/schedule/${scheduleId}`,
+            await axios.delete(`http://localhost:8000/${id}/schedule/${scheduleId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

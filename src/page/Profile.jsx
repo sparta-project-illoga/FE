@@ -5,22 +5,24 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import BlueButton from "../component/BlueButton";
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { Link } from "react-router-dom";
 import ModifyProfile from "../page/ModifyProfile"
 import defaultImg from "../asset/profileDefault.jpg"
-import LocalCert from './LocalCert';
+// import LocalCertButton from '../component/LocalCertButton';
 
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
-  const cookies = new Cookies();
-
+  const [cookies] = useCookies(['Authorization']);
+  console.log(cookies.Authorization)
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = cookies.get('access_token')
-        const response = await axios.get('http://localhost:3000/user/info', {
+
+        const token = cookies.Authorization.replace('Bearer ', ''); 
+        const response = await axios.get('http://localhost:8000/user/info', {
           headers: {
+            // Authorization: cookies.Authorization
             Authorization: `Bearer ${token}`
           }, withCredentials: true
         }
@@ -32,7 +34,7 @@ function Profile() {
         console.error('회원 정보를 가져오는데 실패했습니다:', error);
       }
     };
-
+  
     fetchUserInfo();
   }, []);
   // useEffect 사용시 아직 정보를 불러오지 못했을 때를 커버
@@ -98,7 +100,7 @@ function Profile() {
       </Link>{" "}
       
       <BlueButton content="회원탈퇴"/>
-      <LocalCert />
+      {/* <LocalCertButton /> */}
       </div>
     </div>
   );

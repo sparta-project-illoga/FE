@@ -12,7 +12,7 @@ function PostCard() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/plan/new')
+        const response = await axios.get('http://localhost:8000/plan/new')
         setPlans([...response.data].reverse().slice(0, 8));
       } catch (error) {
         console.log('정보를 불러오는 데에 실패하였습니다.')

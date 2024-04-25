@@ -11,7 +11,7 @@ function LikeButton({ planId }) {
     useEffect(() => {
         const fetchFavoriteStatus = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/plan/${planId}/favorite/status`, {
+                const response = await axios.get(`http://localhost:8000/plan/${planId}/favorite/status`, {
                     headers: {
                         Authorization: cookies.Authorization
                     }, withCredentials: true
@@ -27,7 +27,7 @@ function LikeButton({ planId }) {
     const toggleFavorite = async () => {
 
         try {
-            await axios.post(`http://localhost:3000/plan/${planId}/favorite`, {}, {
+            await axios.post(`http://localhost:8000/plan/${planId}/favorite`, {}, {
                 headers: {
                 Authorization: cookies.Authorization
                 }, withCredentials: true

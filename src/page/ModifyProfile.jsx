@@ -16,20 +16,20 @@ export default function ModifyProfile() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = cookies.get('access_token')
-        const response = await axios.get('http://localhost:3000/user/info', {
+        const response = await axios.get('http://localhost:8000/user/info', {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: cookies.Authorization
           }, withCredentials: true
         }
         );
+
         setUserInfo(response.data);
         console.log(response)
       } catch (error) {
         console.error('회원 정보를 가져오는데 실패했습니다:', error);
       }
     };
-
+  
     fetchUserInfo();
   }, []);
   // useEffect 사용시 아직 정보를 불러오지 못했을 때를 커버
@@ -61,7 +61,6 @@ export default function ModifyProfile() {
     }
 
     try {
-      const token = cookies.get('access_token');
 
       const formData = new FormData();
       if (nickname.trim() !== '') {
@@ -76,12 +75,12 @@ export default function ModifyProfile() {
         formData.append('file', file);
       }
 
-      const response = await axios.patch("http://localhost:3000/user/modify",
+      const response = await axios.patch("http://localhost:8000/user/modify",
       formData,
       {
       headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
+          Authorization: cookies.Authorization
         },
         withCredentials: true
       })

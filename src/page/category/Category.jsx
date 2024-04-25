@@ -13,8 +13,8 @@ function Category({ planId }) {
     //해당 플랜에 저장된 카테고리들 조회에서 밑에 보여주기
     const getCategories = async () => {
         try {
-            const token = cookies.get('access_token');
-            const response = await axios.get(`http://localhost:3000/category/plan/${planId}`, {
+            const token = cookies.get('Authorization');
+            const response = await axios.get(`http://localhost:8000/category/plan/${planId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
@@ -62,10 +62,10 @@ function Category({ planId }) {
 
             console.log("방금 추가한 카테고리 1개 : ", selectedOption);
 
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
             console.log("현재 플랜 id값 : ", planId);
 
-            const response = await axios.post(`http://localhost:3000/category/plan/${planId}`,
+            const response = await axios.post(`http://localhost:8000/category/plan/${planId}`,
                 { "category_name": selectedOption },
                 {
                     headers: {
@@ -102,9 +102,9 @@ function Category({ planId }) {
             const newOptions = categories.filter(option => option.categoryId !== categoryId);
             setCategories(newOptions);
 
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
 
-            const response = await axios.delete(`http://localhost:3000/category/${categoryId}`,
+            const response = await axios.delete(`http://localhost:8000/category/${categoryId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

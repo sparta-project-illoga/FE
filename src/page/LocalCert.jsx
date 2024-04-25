@@ -32,7 +32,7 @@ const LocationSender = () => {
         console.log(jwtToken)
 
     try {
-      const response = await fetch("http://localhost:3000/location", {
+      const response = await fetch("http://localhost:8000/location", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

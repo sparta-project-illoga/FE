@@ -1,20 +1,19 @@
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Cookies } from 'react-cookie';
-
+import { useCookies } from 'react-cookie';
 import "../../component/plan/Plan.css";
 
 function Plan() {
-    const cookies = new Cookies();
 
+    const [cookies] = useCookies(['Authorization']);
     //직접 생성/자동 생성 버튼 누르면 빈 plan 생성
     const handleSubmit = async (type) => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.Authorization.replace('Bearer ', ''); 
 
             const response = await axios.post(
-                "http://localhost:3000/plan",
+                "http://localhost:8000/plan",
                 {},
                 {
                     headers: {

@@ -35,7 +35,7 @@ function Schedule() {
             setTourData([]);
 
             const response = await axios.get(
-                "http://localhost:3000/location/tourSpot?page=1&limit=20",
+                "http://localhost:8000/location/tourSpot?page=1&limit=20",
             )
 
             const schedules = response.data.data;
@@ -71,7 +71,7 @@ function Schedule() {
             console.log("input으로 받아온 지역코드 값 : ", code);
 
             const response = await axios.get(
-                `http://localhost:3000/location/tourSpot/search?areaCode=${code}`,
+                `http://localhost:8000/location/tourSpot/search?areaCode=${code}`,
             )
 
             const schedules = response.data.data;
@@ -106,7 +106,7 @@ function Schedule() {
             console.log("input으로 받아온 키워드 : ", keyword);
 
             const response = await axios.get(
-                `http://localhost:3000/location/tourSpot/search?keyword=${keyword}`,
+                `http://localhost:8000/location/tourSpot/search?keyword=${keyword}`,
             )
 
             const schedules = response.data.data;
@@ -163,10 +163,10 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const token = cookies.get('access_token');
+            const token = cookies.get('Authorization');
             console.log("현재 플랜 id값 : ", id);
 
-            const response = await axios.post(`http://localhost:3000/${id}/schedule`,
+            const response = await axios.post(`http://localhost:8000/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {

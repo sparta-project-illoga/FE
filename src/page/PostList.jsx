@@ -9,7 +9,7 @@ import PostCard from "../component/PostCard";
     useEffect(() => {
       const fetchPlans = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/plan/popular')
+          const response = await axios.get('http://localhost:8000/plan/popular')
           setPlans(response.data);
           console.log(response)
         } catch (error) {
