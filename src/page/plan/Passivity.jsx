@@ -46,7 +46,6 @@ function Passivity() {
         setDate(parseInt(event.target.value));
     }
 
-
     const handlePassivity = async () => {
         try {
             const requestData = {
@@ -121,6 +120,13 @@ function Passivity() {
     }
     // 여기서부터 모달 내용
     const handleOpenModal = () => {
+
+
+        if (!name) {
+            alert("플랜 이름을 입력해 주세요.");
+            return;
+        }
+
         setShowModal(true);
     };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useCookies } from 'react-cookie';
 
@@ -10,7 +10,6 @@ import Member from "../member/Member";
 
 // 로컬 스토리지 키
 const NAME_STORAGE_KEY = "planName";
-const FILE_STORAGE_KEY = "planFile";
 
 function Activeness() {
     const [cookies] = useCookies(['Authorization']);
@@ -19,25 +18,9 @@ function Activeness() {
     //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
     const [plan, setPlan] = useState([]);
     const [schedule, setSchedule] = useState([]);
-    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [file, setFile] = useState(null);
-
-    // // 페이지 벗어나려 할 때 이름이 없으면 경고
-    // useEffect(() => {
-    //     const handleBeforeUnload = (event) => {
-    //         if (!name) {  // 이름이 없으면 페이지 이동을 방지
-    //             event.preventDefault();
-    //             event.returnValue = '';  // 경고 메시지 브라우저에서 표시
-    //         }
-    //     };
-
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //     };
-    // }, [name]); // `name` 상태가 변경될 때마다 이벤트 리스너 추가/제거
 
     //플랜 조회해서 내용 가져오기
     //새로고침 시 한 번씩 실행
@@ -54,9 +37,6 @@ function Activeness() {
 
             setPlan(plan);
             setSchedule(schedule);
-
-            console.log("플랜 조회 내용들 : ", plan);
-            console.log("스케줄 목록 : ", schedule);
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -77,19 +57,11 @@ function Activeness() {
         getPlan();
     }, []);
 
-    // 컴포넌트 마운트 시 로컬 스토리지에서 이름 로드
+    //로컬 스토리지에서 이름 가져오기
     useEffect(() => {
         const storedName = localStorage.getItem(NAME_STORAGE_KEY);
         if (storedName) {
             setName(storedName);
-        }
-    }, []);
-
-    // 컴포넌트 마운트 시 로컬 스토리지에서 이름 로드
-    useEffect(() => {
-        const storedFile = localStorage.getItem(FILE_STORAGE_KEY);
-        if (storedFile) {
-            setFile(storedFile);
         }
     }, []);
 
@@ -98,30 +70,24 @@ function Activeness() {
         setName(event.target.value);
     }
 
-    // 링크 클릭 시 로컬 스토리지에 값 저장
-    const handleLinkClick = () => {
-        localStorage.setItem(NAME_STORAGE_KEY, name);
-        localStorage.setItem(FILE_STORAGE_KEY, file);
+    const handleFileChange = (event) => {
+        setFile(event.target.value);
     };
 
-    //변경한 file 저장
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-    }
+    const handleLinkClick = () => {
+        localStorage.setItem(NAME_STORAGE_KEY, name);
+    };
 
     //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장
-    const handleActiveness = async (event) => {
+    const handleActiveness = async () => {
         try {
             console.log("id값 : ", id);
             console.log("name : ", name);
 
-            // if (!name) {
-            //     console.log("플랜 이름이 입력 안 됨");
-            //     setIsPlanRegistered(false);
-            //     event.preventDefault();
-            // } else {
-            //     setIsPlanRegistered(true);
-            // }
+            if (!name) {
+                alert("플랜 이름을 입력해주세요.");
+                return
+            }
 
             const formData = new FormData();
             formData.append('name', name);
@@ -129,20 +95,19 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
-            const response = await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}/activeness`,
+            await axios.patch(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/plan/${id}/activeness`,
                 formData,
                 {
                     headers: {
                         Authorization: cookies.Authorization
                     }, withCredentials: true
                 });
-            console.log("activeness-response.data : ", response.data);
+
             alert("플랜을 등록하였습니다.");
             getPlan();
-            //플랜 등록하고 나서 로컬스토리지에 있던 플랜이름,파일 삭제
+
+            //플랜 등록하고 나서 로컬스토리지에 있던 플랜이름 삭제
             localStorage.removeItem(NAME_STORAGE_KEY);
-            localStorage.removeItem(FILE_STORAGE_KEY);
-            navigate("/"); // 메인 페이지로 이동 
 
         } catch (error) {
             if (error.response) {
@@ -169,6 +134,7 @@ function Activeness() {
                     }, withCredentials: true
                 });
             alert("플랜이 삭제되었습니다.");
+            localStorage.removeItem(NAME_STORAGE_KEY);
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우

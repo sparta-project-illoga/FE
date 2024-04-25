@@ -5,6 +5,9 @@ import { useCookies } from 'react-cookie';
 
 import "../../component/plan/Plan.css";
 
+// 로컬 스토리지 키
+const NAME_STORAGE_KEY = "planName";
+
 function Plan() {
     const [cookies] = useCookies(['Authorization']);
 
@@ -24,6 +27,8 @@ function Plan() {
             const plan = response.data.createPlan.createPlan;
             console.log("Plan - id : ", plan.id);
             alert("플랜이 생성되었습니다.");
+
+            localStorage.removeItem(NAME_STORAGE_KEY);
 
             //직접인지 추천인지 나눠서 주소 이동
             let url;
