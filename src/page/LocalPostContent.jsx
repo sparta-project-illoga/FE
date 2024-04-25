@@ -14,6 +14,7 @@ function LocalPostContent() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/post/${id}`)
       setPost(response.data)
+      console.log(post)
     } catch (error) {
       console.log("게시물을 찾을 수 없습니다.")
     }

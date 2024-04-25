@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import BlueButton from "../component/BlueButton";
 import { useCookies } from 'react-cookie';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -83,7 +84,10 @@ function Login() {
 
         <div className="ask_signUp">
           <p>
-            아이디가 없으신가요?<span>회원가입</span>
+            아이디가 없으신가요?
+            <Link to="/signup">
+            <span>회원가입</span>
+            </Link>
           </p>
         </div>
       </div>

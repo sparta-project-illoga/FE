@@ -3,6 +3,7 @@ import '../style/modifyProfile.css'
 import axios from "axios";
 import BlueButton from "../component/BlueButton";
 import { useEffect } from 'react';
+import Swal from "sweetalert2";
 import { useCookies } from 'react-cookie';
 
 export default function ModifyProfile() {
@@ -83,7 +84,17 @@ export default function ModifyProfile() {
         withCredentials: true
       })
       console.log('업로드 성공:', response.data);
-      alert("개인 정보를 변경하였습니다.");
+      Swal.fire({
+        text: `개인 정보를 변경하였습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
     } catch (error) {
       console.error("에러 발생:", error);
       alert("오류가 발생했습니다. 다시 시도해주세요.");

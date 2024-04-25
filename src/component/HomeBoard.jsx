@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 function HomePost() {
   const [boardList, setBoardList] = useState([])
@@ -20,7 +21,9 @@ function HomePost() {
     <div>
       <ul>
       {boardList.map((board, index) => (
+      <Link to={`/post/${board.id}`}>
       <li key={index}>[{board.region}] {board.title}</li>
+      </Link>
     ))}
     </ul>
     </div>

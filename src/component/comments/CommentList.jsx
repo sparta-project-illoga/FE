@@ -42,7 +42,7 @@ export default function CommentList({ postId }) {
       <div className='comment_list'>
         {comments.map((comment, index) => (
           <div key={index} className='comment_detail'>
-            <p>회원번호: {comment.userId}</p>
+            <p>{comment.nickname}</p>
             <p>{comment.content}</p>
             <div className='comment_footer'>
               <p className='comment_date'>{comment.created_at}</p>

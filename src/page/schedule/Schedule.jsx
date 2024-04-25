@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import "../../component/schedule/Schedule.css"
 import { REGIONS } from "../../component/Regions";
 import Page from "../../component/local/Page";
+import Swal from "sweetalert2";
 
 function Schedule() {
     const [cookies] = useCookies(['Authorization']);
@@ -158,7 +159,17 @@ function Schedule() {
                 });
             console.log("생성된 스케줄 데이터 : ", response.data);
 
-            alert("스케줄이 생성되었습니다.");
+            Swal.fire({
+                text: `스케줄이 생성되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
 
             //다시 date/money 세팅 초기화
             setDate(1);
