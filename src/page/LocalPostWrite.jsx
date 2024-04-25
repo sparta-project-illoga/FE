@@ -9,7 +9,7 @@ const LocalPostWrite = () => {
   const [content, setContent] = useState('');
   const [cookies] = useCookies('Authorization');
   const navigate = useNavigate();
-  const token = cookies.Authorization.replace('Bearer ', ''); 
+
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -21,6 +21,7 @@ const LocalPostWrite = () => {
 
   const handleSubmit = async () => {
     try {
+      const token = cookies.Authorization.replace('Bearer ', ''); 
       await axios.post(`${process.env.REACT_APP_API_URL}/post`, {
         title: title,
         content: content,

@@ -11,11 +11,11 @@ export default function ModifyProfile() {
   const [phone, setPhone] = useState('')
   const [file, setFile] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  const token = cookies.Authorization.replace('Bearer ', ''); 
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        
+        const token = cookies.Authorization.replace('Bearer ', ''); 
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
             Authorization: `Bearer ${token}`
@@ -73,7 +73,7 @@ export default function ModifyProfile() {
       if (file !== null) {
         formData.append('file', file);
       }
-
+      const token = cookies.Authorization.replace('Bearer ', ''); 
       const response = await axios.patch(`${process.env.REACT_APP_API_URL}/user/modify`,
       formData,
       {

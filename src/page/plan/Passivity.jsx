@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 
 function Passivity() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     const { id } = useParams();
 
     const [name, setName] = useState("");
@@ -70,7 +69,7 @@ function Passivity() {
             if (date) {
                 requestData.date = date;
             }
-
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.patch(`{process.env.REACT_APP_API_URL}/plan/${id}/passivity`,
                 requestData, {
                 headers: {
@@ -100,6 +99,7 @@ function Passivity() {
 
     const handleDelete = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`

@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 function Activeness() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     const { id } = useParams();
 
     //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
@@ -27,6 +26,7 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -84,6 +84,7 @@ function Activeness() {
 
             console.log("formData : ", formData);
 
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/activeness`,
                 formData,
                 {
@@ -114,6 +115,7 @@ function Activeness() {
     //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`,
                 {
                     headers: {
@@ -138,6 +140,7 @@ function Activeness() {
 
     const deleteSchedule = async (scheduleId) => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             await axios.delete(`${process.env.REACT_APP_API_URL}/${id}/schedule/${scheduleId}`,
                 {
                     headers: {

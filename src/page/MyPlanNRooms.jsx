@@ -9,13 +9,13 @@ import '../style/MyPlanRooms.css'
 
 function MyPlanNRooms() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     //유저가 해당되는 플랜/채팅 가져오기
     const [planRooms, setPlanRooms] = useState([]);
 
     //유저 해당되는 플랜과 채팅방 가져오기
     const getPlanRooms = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/planNchat`, {
                 headers: {
                    Authorization: `Bearer ${token}`
@@ -57,7 +57,7 @@ function MyPlanNRooms() {
 
         try {
             console.log("플랜의 채팅방 생성하기 planId", planId);
-
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat/plan/${planId}`,
                 { "name": roomName }, {
                 headers: {

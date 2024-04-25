@@ -2,7 +2,7 @@
   "name": "illoga",
   "version": "0.1.0",
   "private": true,
-  "proxy": "${process.env.REACT_APP_API_URL}",
+  "homepage": "http://localhost:8000",
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -25,7 +25,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "DANGEROUSLY_DISABLE_HOST_CHECK=true && export PORT=3000 && react-scripts start",
+    "start": "set DANGEROUSLY_DISABLE_HOST_CHECK=true && set PORT=3000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

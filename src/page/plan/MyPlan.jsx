@@ -10,7 +10,6 @@ import "../../component/plan/MyPlan.css"
 
 function MyPlan() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     const { id } = useParams();
 
     //내 플랜 1개 저장
@@ -23,6 +22,7 @@ function MyPlan() {
     //플랜 1개 조회
     const getPlan = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -57,6 +57,7 @@ function MyPlan() {
 
     const getMember = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`

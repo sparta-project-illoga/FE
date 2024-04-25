@@ -14,12 +14,11 @@ import LocalCertButton from '../component/LocalCertButton';
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
   const [cookies] = useCookies(['Authorization']);
-  const token = cookies.Authorization.replace('Bearer ', ''); 
-  console.log(cookies.Authorization)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
+        const token = cookies.Authorization.replace('Bearer ', ''); 
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/info`, {
           headers: {
             Authorization: `Bearer ${token}`

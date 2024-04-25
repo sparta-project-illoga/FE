@@ -7,7 +7,6 @@ import "../../component/chat/Chat.css";
 
 function Chat() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     //룸id
     const { id } = useParams();
 
@@ -73,6 +72,7 @@ function Chat() {
     //조회 시 초대된 멤버만 가능
     const getChat = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/room/${id}/content`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -104,6 +104,7 @@ function Chat() {
     //조회 시 멤버만 가능
     const getMember = async () => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/plan/${room.planId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -134,6 +135,7 @@ function Chat() {
     }
 
     useEffect(() => {
+        const token = cookies.Authorization.replace('Bearer ', ''); 
         const newSocket = io(`${process.env.REACT_APP_API_URL}/events`, {
             extraHeaders: {
                 Authorization: `Bearer ${token}`

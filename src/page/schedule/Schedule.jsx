@@ -9,7 +9,6 @@ import Page from "../../component/local/Page";
 
 function Schedule() {
     const [cookies] = useCookies(['Authorization']);
-    const token = cookies.Authorization.replace('Bearer ', ''); 
     const { id } = useParams();
 
     //한 페이지에 몇 개 보여줄지 선택,현재 페이지 저장
@@ -149,6 +148,7 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
+            const token = cookies.Authorization.replace('Bearer ', ''); 
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
