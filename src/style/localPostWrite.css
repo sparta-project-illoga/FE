@@ -1,0 +1,45 @@
+.post_write {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.post_write_header p:first-of-type {
+  font-size: 40px;
+  font-weight: 800; 
+}
+
+.post_write_header p:last-of-type {
+  font-weight: bold;
+  color: #767676;
+  margin-bottom: 40px
+}
+
+label {
+  font-size: 20px; /* Title text 크기 조정 */
+}
+
+input[type="text"] {
+  height: 40px;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+textarea {
+  height: 200px;
+}
+
+button {
+  margin-top: 30px;
+  width: 200px;
+  align-self: flex-end;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #335976;
+  color:white;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #234d69;
+}

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import BlueButton from "../component/BlueButton";
 import { useCookies } from 'react-cookie';
+import Swal from 'sweetalert2';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,17 @@ function Login() {
       });
 
       setCookie('Authorization', `Bearer ${response.data.access_token}`, { path: '/' });
-      alert("로그인이 완료되었습니다.");
+      Swal.fire({
+        text: `로그인이 완료되었습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
       navigate('/')
     } catch (error) {
       alert(error.response.data.message)

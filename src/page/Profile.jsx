@@ -5,26 +5,26 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import BlueButton from "../component/BlueButton";
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { Link } from "react-router-dom";
 import ModifyProfile from "../page/ModifyProfile"
 import defaultImg from "../asset/profileDefault.jpg"
-import LocalCert from './LocalCert';
+import LocalCertButton from '../component/LocalCertButton';
 
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
-  const cookies = new Cookies();
+  const [cookies] = useCookies(['Authorization']);
+  console.log(cookies.Authorization)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = cookies.get('access_token')
         const response = await axios.get('http://localhost:3000/user/info', {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: cookies.Authorization
           }, withCredentials: true
         }
-        );
+      );
 
         setUserInfo(response.data);
         console.log(response)
@@ -78,7 +78,7 @@ function Profile() {
         <Link to="/profile/modifyprofile" element={<ModifyProfile />}>
           <button>내정보 수정</button>
         </Link>
-        <button>회원탈퇴</button>
+        <LocalCertButton />
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ function LikeButton({ planId }) {
 
     useEffect(() => {
         const fetchFavoriteStatus = async () => {
+            if (cookies.Authorization) { 
             try {
                 const response = await axios.get(`http://localhost:3000/plan/${planId}/favorite/status`, {
                     headers: {
@@ -20,7 +21,8 @@ function LikeButton({ planId }) {
             } catch (error) {
                 console.error('좋아요 상태 가져오기 실패', error);
             }
-        };
+        }
+        }
             fetchFavoriteStatus();
         }, [planId, cookies.Authorization]);
 

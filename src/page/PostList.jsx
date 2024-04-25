@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../style/PostList.css'
 import PostCard from "../component/PostCard";
+import HomePost from "../component/HomePost";
   
   export default function App() {
 
@@ -36,14 +37,8 @@ import PostCard from "../component/PostCard";
   <div>
     <div className="parent_container">
       <div className="local_container">
-      <p className="new_plan_title">지역 소개 게시판</p>
-      <ul>
-        <li>[부산] 광안리 해수욕장 좋아요</li>
-        <li>[부산] 광안리 해수욕장 좋아요</li>
-        <li>[부산] 광안리 해수욕장 좋아요</li>
-        <li>[부산] 광안리 해수욕장 좋아요</li>
-        <li>[부산] 광안리 해수욕장 좋아요</li>
-      </ul>
+      <p className="new_plan_title">지역 게시판</p>
+      <HomePost />
       </div>
 
       <div className="like_plan_container">

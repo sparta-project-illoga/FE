@@ -1,0 +1,76 @@
+.board_list {
+  width: 60%;
+  margin: 100px auto;
+}
+
+.post_table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 50px auto;
+
+
+  /* li {
+  &:nth-child(1),
+  &:nth-child(2),
+  &:nth-last-child(1),
+  &:nth-last-child(2) {
+    a{
+      font-size:20px;
+    }
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+  }
+} */
+}
+
+.pagination li:nth-child(1) a,
+.pagination li:nth-child(2) a,
+.pagination li:nth-last-child(1) a,
+.pagination li:nth-last-child(2) a {
+  font-size: 20px;
+}
+
+.pagination li {
+
+  width:30px;
+  height: 30px;
+  border-radius: 50%;
+
+  &:hover,
+  &:active,
+  &.active{
+    background-color: #64b5f6;
+    color: $white
+  }
+
+a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+}
+}
+
+.centered {
+  text-align: center;
+}
+
+.post_table tbody tr {
+  height: 50px;
+}
