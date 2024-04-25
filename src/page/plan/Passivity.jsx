@@ -2,15 +2,15 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 import { useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-import { Cookies } from 'react-cookie';
 import Member from "../member/Member";
 import "../../component/plan/Passivity.css"
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 function Passivity() {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
 
     const [name, setName] = useState("");
@@ -49,8 +49,6 @@ function Passivity() {
 
     const handlePassivity = async () => {
         try {
-            const token = cookies.get('access_token');
-
             const requestData = {
                 "name": name,
             };
@@ -75,9 +73,8 @@ function Passivity() {
             const response = await axios.patch(`http://localhost:3000/plan/${id}/passivity`,
                 requestData, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const schedule = response.data.schedule;
@@ -102,13 +99,10 @@ function Passivity() {
 
     const handleDelete = async () => {
         try {
-            const token = cookies.get('access_token');
-
             await axios.delete(`http://localhost:3000/plan/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
         } catch (error) {

@@ -1,13 +1,25 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Cookies } from 'react-cookie';
 import { useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 import "../../component/schedule/Schedule.css"
+import { REGIONS } from "../../component/Regions";
+import Page from "../../component/local/Page";
 
 function Schedule() {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
+
+    //한 페이지에 몇 개 보여줄지 선택,현재 페이지 저장
+    const [list, setList] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    //전체 여행지 데이터 몇 개인지 저장(페이지 계산)
+    const [total, setTotal] = useState(0);
+
+    //검색 유형(페이지 넘길 때 해당 유형 내의 데이터 중에서 페이지 넘기기)
+    const [searchType, setSearchType] = useState("전체 조회");
 
     //지역코드/키워드로 여행지 검색 위해 받아옴
     const [code, setCode] = useState(0);
@@ -28,33 +40,30 @@ function Schedule() {
     //스케줄 생성할 때 입력받는 부분 안 보이게
     const [tourInputsVisibility, setTourInputsVisibility] = useState({});
 
-    //스케줄 전체 조회(전체 조회 버튼 클릭 시 실행)
-    const tourlist = async () => {
+    //선택한 검색 방식(전체/지역/키워드)에 따라서 데이터 가져옴
+    const fetchTourData = async () => {
         try {
-            //tourData 배열을 빈 배열로 초기화(다시 호출해서 검색할 수 있게)
-            setTourData([]);
-
-            const response = await axios.get(
-                "http://localhost:3000/location/tourSpot?page=1&limit=20",
-            )
-
-            const schedules = response.data.data;
-            setTourData(schedules);
-            console.log("schedule 목록 : ", schedules);
-        } catch (error) {
-            if (error.response) {
-                // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
-            } else if (error.request) {
-                // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
-            } else {
-                // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
-                console.error("스케줄 전체 조회 에러:", error);
+            let response;
+            if (searchType === "전체 조회") {
+                response = await axios.get(
+                    `http://localhost:3000/location/tourSpot?page=${currentPage}&limit=${list}`
+                );
+            } else if (searchType === "지역 검색") {
+                response = await axios.get(
+                    `http://localhost:3000/location/tourSpot/search?areaCode=${code}&page=${currentPage}&limit=${list}`
+                );
+            } else if (searchType === "키워드 검색") {
+                response = await axios.get(
+                    `http://localhost:3000/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                );
             }
+
+            setTourData(response.data.data);
+            setTotal(response.data.count);
+        } catch (error) {
+            console.error("데이터 로드 오류:", error);
         }
-    }
+    };
 
     //지역코드 입력 받아옴
     const handleCode = (event) => {
@@ -62,78 +71,54 @@ function Schedule() {
         setCode(newCode);
     }
 
-    //스케줄 검색(지역코드)
+    //지역코드 입력
     const searchCode = async () => {
-        try {
-            //tourData 배열을 빈 배열로 초기화(다시 호출해서 검색할 수 있게)
-            setTourData([]);
-
-            console.log("input으로 받아온 지역코드 값 : ", code);
-
-            const response = await axios.get(
-                `http://localhost:3000/location/tourSpot/search?areaCode=${code}`,
-            )
-
-            const schedules = response.data.data;
-            setTourData(schedules);
-            console.log("schedule 목록 : ", schedules);
-        } catch (error) {
-            if (error.response) {
-                // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
-            } else if (error.request) {
-                // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
-            } else {
-                // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
-                console.error("스케줄 지역코드로 조회 조회 에러:", error);
-            }
-        }
-    }
+        setCurrentPage(1);  // 검색 시 1페이지로 돌아감
+        setSearchType("지역 검색");  // 지역 검색으로 설정
+    };
 
     //키워드 입력 받아옴
     const handleKeyword = (event) => {
         setKeyword(event.target.value);
     }
 
-    //스케줄 검색(키워드)
+    //키워드 입력
     const searchKeyword = async () => {
-        try {
-            //tourData 배열을 빈 배열로 초기화(다시 호출해서 검색할 수 있게)
-            setTourData([]);
+        setCurrentPage(1);  // 검색 시 1페이지로 설정
+        setSearchType("키워드 검색");  // 키워드 검색으로 설정
+    };
 
-            console.log("input으로 받아온 키워드 : ", keyword);
+    //여행지 전체 조회 시 화면에 몇 개 보일지 저장
+    const handlePageSize = (event) => {
+        setList(parseInt(event.target.value));
+        setCurrentPage(1);  // 변경 시 1페이지로 돌아감
+    };
 
-            const response = await axios.get(
-                `http://localhost:3000/location/tourSpot/search?keyword=${keyword}`,
-            )
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
-            const schedules = response.data.data;
-            setTourData(schedules);
-            console.log("schedule 목록 : ", schedules);
-        } catch (error) {
-            if (error.response) {
-                // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
-            } else if (error.request) {
-                // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
-            } else {
-                // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
-                console.error("스케줄 키워드 조회 에러:", error);
-            }
+    //화면에 보이는 여행지 상태 바뀜(페이지/갯수)
+    useEffect(() => {
+        fetchTourData();
+    }, [currentPage, list, searchType, code, keyword]);
+
+    //키워드 검색 후 다른 타입으로 여행지 조회하면 지역/키워드 부분 값 없어짐
+    useEffect(() => {
+        if (searchType !== "지역 검색") {
+            setCode(0);
+        } else if (searchType !== "키워드 검색") {
+            setKeyword("");
         }
-    }
+    }, [searchType]);
 
-    //각 투어 데이터 클릭시 실행
+    //각 투어 데이터 클릭시 실행(클릭된 스케줄 오른쪽 화면에 추가해서 보여주기기)
     const handleTourClick = async (tour) => {
         console.log("클릭된 스케줄 id(placeCode) : ", tour.tourId);
         setSelectedTours(prevTours => [...prevTours, tour]);
     }
 
-    // 선택한 투어가 변경될 때마다 마지막 요소만 true로 설정
+    //선택한 투어가 변경될 때마다 마지막 요소만 true로 설정
     useEffect(() => {
         if (selectedTours.length > 0) {
             const lastTour = selectedTours[selectedTours.length - 1];
@@ -163,16 +148,12 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const token = cookies.get('access_token');
-            console.log("현재 플랜 id값 : ", id);
-
             const response = await axios.post(`http://localhost:3000/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
+                        Authorization: cookies.Authorization
+                    }, withCredentials: true
                 });
             console.log("생성된 스케줄 데이터 : ", response.data);
 
@@ -223,15 +204,42 @@ function Schedule() {
             <div className="schedule-container">
                 <div className="header">
                     <h1>스케줄 추가</h1>
-                    <button onClick={tourlist}>여행지 전체 조회하기</button>
+                    <button onClick={() => {
+                        setSearchType("전체 조회");
+                        setCurrentPage(1);
+                    }}>여행지 전체 조회하기</button>
                     <div className="search-container">
                         <div className="search-group">
-                            <input type="number" id="searchCode" value={code} onChange={handleCode} placeholder="지역코드 입력" />
-                            <button onClick={searchCode}>지역코드 검색</button>
+                            <select
+                                value={code}
+                                onChange={handleCode}
+                            >
+                                <option value="">
+                                    지역 선택
+                                </option>
+                                {REGIONS.map((region) => (
+                                    <option key={region.areaCode} value={region.areaCode}>
+                                        {region.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <button onClick={searchCode}>지역 검색</button>
                         </div>
-                        <div className="search-group">
-                            <input type="text" id="searchKeyword" value={keyword} onChange={handleKeyword} placeholder="키워드 입력" />
-                            <button onClick={searchKeyword}>키워드 검색</button>
+                        <div className="flex-search">
+                            <div className="search-group">
+                                <input type="text" id="searchKeyword" value={keyword} onChange={handleKeyword} placeholder="키워드 입력" />
+                                <button onClick={searchKeyword}>키워드 검색</button>
+                            </div>
+                            <div className="pagination-controls">
+                                <label htmlFor="page-size">페이지 갯수:</label>
+                                <select id="page-size" value={list} onChange={handlePageSize}>
+                                    <option value={10}>10</option>
+                                    <option value={20}>20</option>
+                                    <option value={30}>30</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,11 +249,17 @@ function Schedule() {
                         <div key={item.id} className="tour-item" onClick={() => handleTourClick(item)}>
                             <h2>{item.title}</h2>
                             <p>{item.addr1}</p>
-                            <p>{item.areaCode}</p>
                             {item.firstImage && <img src={item.firstImage} alt={item.title} />}
                         </div>
                     ))}
                 </div>
+
+                <Page
+                    totalItems={total}
+                    itemsPerPage={list}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
             </div>
 
             <div className="tour-details">

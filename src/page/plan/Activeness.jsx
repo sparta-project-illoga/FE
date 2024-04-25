@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
@@ -10,7 +10,7 @@ import Member from "../member/Member";
 import { useNavigate } from "react-router-dom";
 
 function Activeness() {
-    const cookies = new Cookies();
+    const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
 
     //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
@@ -26,13 +26,10 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
-            const token = cookies.get('access_token');
-
             const response = await axios.get(`http://localhost:3000/plan/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                withCredentials: true
+                    Authorization: cookies.Authorization
+                }, withCredentials: true
             });
 
             const plan = response.data.findOnePlan;
@@ -77,7 +74,6 @@ function Activeness() {
     //등록 버튼 누르면 빈 플랜에 변경한 이름, 파일 수정해서 저장
     const handleActiveness = async () => {
         try {
-            const token = cookies.get('access_token');
             console.log("id값 : ", id);
             console.log("name : ", name);
 
@@ -91,10 +87,8 @@ function Activeness() {
                 formData,
                 {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
+                        Authorization: cookies.Authorization
+                    }, withCredentials: true
                 });
             console.log("activeness-response.data : ", response.data);
             alert("플랜을 등록하였습니다.");
@@ -119,14 +113,11 @@ function Activeness() {
     //플랜 생성 취소 버튼 누르면 이미 전 단계에서 생성된 빈 plan 지우고 다시 home 화면으로 돌아감
     const handleDelete = async () => {
         try {
-            const token = cookies.get('access_token');
-
             await axios.delete(`http://localhost:3000/plan/${id}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
+                        Authorization: cookies.Authorization
+                    }, withCredentials: true
                 });
             alert("플랜이 삭제되었습니다.");
         } catch (error) {
@@ -146,14 +137,11 @@ function Activeness() {
 
     const deleteSchedule = async (scheduleId) => {
         try {
-            const token = cookies.get('access_token');
-
             await axios.delete(`http://localhost:3000/${id}/schedule/${scheduleId}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    },
-                    withCredentials: true
+                        Authorization: cookies.Authorization
+                    }, withCredentials: true
                 });
             alert("스케줄이 삭제되었습니다.");
 
