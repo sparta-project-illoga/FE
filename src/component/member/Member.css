@@ -1,0 +1,76 @@
+.add-member-container {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .add-member-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .add-member-input {
+    display: block; 
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .add-member-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: -5px;
+  }
+  
+  .add-member-button:hover {
+    background-color: #0056b3; /* Hover 효과 */
+  }
+  
+  .member-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .member-info {
+    font-size: 18px;
+  }
+  
+  .delete-member-button {
+    padding: 8px 16px;
+    background-color: #dc3545; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .delete-member-button:hover {
+    background-color: #c82333; /* Hover 효과 */
+  }
+  
+  .passivity-member-container {
+    width: 700px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+  }
