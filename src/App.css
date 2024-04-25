@@ -1,7 +1,7 @@
 .main_nav {
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: midnightblue;
 }
 
 .logo_section, .links_section, .auth_links {
@@ -70,4 +70,27 @@
 
 .logout_button:hover {
   cursor: pointer;
+}
+
+.my-swal .swal2-popup {
+  background-color: white !important;
+  border-color: #1a202c !important;
+  color: black !important;
+  font-size: 0.76rem !important;
+  text-align: center !important;
+}
+.my-swal .swal2-html-container {
+  width:fit-content !important;
+  margin: 0 auto !important;
+}
+
+@keyframes move-up {
+  0% {
+      bottom: -50px;
+      opacity: 0;
+  }
+  100% {
+      bottom: 0px;
+      opacity: 1;
+  }
 }

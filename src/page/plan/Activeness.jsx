@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
 import Member from "../member/Member";
+import { useNavigate } from "react-router-dom";
 
 function Activeness() {
     const [cookies] = useCookies(['Authorization']);
@@ -15,6 +16,8 @@ function Activeness() {
     //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
     const [plan, setPlan] = useState([]);
     const [schedule, setSchedule] = useState([]);
+    const navigate = useNavigate();
+
 
     const [name, setName] = useState('');
     const [file, setFile] = useState(null);
@@ -90,6 +93,7 @@ function Activeness() {
             console.log("activeness-response.data : ", response.data);
             alert("플랜을 등록하였습니다.");
             getPlan();
+            navigate("/"); // 메인 페이지로 이동 
 
         } catch (error) {
             if (error.response) {

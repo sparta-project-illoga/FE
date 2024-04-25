@@ -23,6 +23,9 @@ import Chat from "./page/chat/Chat";
 import MyPlanNRooms from "./page/MyPlanNRooms";
 import MyPlan from "./page/plan/MyPlan";
 import Local from "./page/local/Local";
+import LocalPost from "./page/LocalPost";
+import LocalPostContent from "./page/LocalPostContent";
+import LocalPostWrite from "./page/LocalPostWrite";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -69,7 +72,7 @@ function App() {
           </Link>
 
           <Link
-            to="/plan"
+            to="/post"
             style={{ color: "white", fontSize: "35px", textDecoration: "none" }}
           >
             지역 게시판
@@ -139,6 +142,18 @@ function App() {
         <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
         <Route path="/plan/:id" element={<MyPlan />} key="myPlan-link" />
         <Route path="/chat/:id" element={<Chat />} key="chat-link" />
+
+        <Route path="/post" element={<LocalPost />} key="local-post" />
+        <Route
+          path="/post/:id"
+          element={<LocalPostContent />}
+          key="local-post-detail"
+        />
+        <Route
+          path="/post/write"
+          element={<LocalPostWrite />}
+          key="local-post-write"
+        />
       </Routes>
     </div>
   );

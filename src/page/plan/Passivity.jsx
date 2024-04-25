@@ -6,6 +6,8 @@ import { useCookies } from 'react-cookie';
 
 import Member from "../member/Member";
 import "../../component/plan/Passivity.css"
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function Passivity() {
     const [cookies] = useCookies(['Authorization']);
@@ -16,6 +18,9 @@ function Passivity() {
     const [category, setCategory] = useState("");
     const [money, setMoney] = useState(0);
     const [date, setDate] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+    
 
     //추천받은 플랜 저장
     const [plan, setPlan] = useState([]);
@@ -114,6 +119,31 @@ function Passivity() {
             }
         }
     }
+// 여기서부터 모달 내용
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+    
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleConfirmPlan = () => {
+        Swal.fire({
+          title: "플랜 확정",
+          text: "현재 추천된 플랜으로 확정하시겠습니까?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "확인",
+          cancelButtonText: "취소",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          } else {
+            handleCloseModal();
+          }
+        });
+      };
 
     return (
         <div className="passivity-container">
@@ -143,13 +173,14 @@ function Passivity() {
 
             <div className="passivity-plan-results">
                 <h2 className="passivity-subtitle">추천된 플랜</h2>
+                <button className="confirm_button" onClick={handleOpenModal}>확정하기</button>
                 {plan.length > 0 ? (
                     <ul className="passivity-plan-list">
                         {plan.map((item) => (
                             <li key={item.id} className="passivity-plan-item">
                                 <div className="passivity-plan-details">
                                     <span className="plan-place">장소: {item.place}</span>
-                                    <span className="plan-date">날짜: {item.date}</span>
+                                    <span className="plan-date">{item.date}일차</span>
                                     <span className="plan-money">금액: {item.money}</span>
                                 </div>
                             </li>
@@ -158,6 +189,7 @@ function Passivity() {
                 ) : (
                     <p className="passivity-no-plan">추천된 플랜이 없습니다.</p>
                 )}
+                {showModal && handleConfirmPlan()}
             </div>
         </div>
     );
