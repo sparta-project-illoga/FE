@@ -15,12 +15,14 @@
     width: 400px;
     height: 40px;
     border-radius: 30px;
+    padding-left: 10px;
 }
 
 .password_input {
     width: 400px;
     height: 40px;
     border-radius: 30px;
+    padding-left: 10px;
 }
 
 .sns_kakao {

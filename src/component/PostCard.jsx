@@ -35,7 +35,7 @@ function PostCard() {
             <div className='post_footer'>
             <Link to={`/plan/${plan.id}`}>
               <div className='footer_contents'>
-                <p>{plan.name} <span>{plan.totaldate}일</span></p>
+                <p>{plan.name} <span className="date_length">{plan.totaldate}일</span></p>
                 <p>{plan.totalmoney}</p>
               </div>
             </Link>

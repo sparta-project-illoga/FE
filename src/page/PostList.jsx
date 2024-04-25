@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../style/PostList.css'
 import PostCard from "../component/PostCard";
-import HomePost from "../component/HomePost";
+import HomePost from "../component/HomeBoard";
+import { Link } from "react-router-dom";
   
   export default function App() {
 
@@ -44,8 +45,13 @@ import HomePost from "../component/HomePost";
       <div className="like_plan_container">
       <p className="new_plan_title">인기 플랜</p>
       <ul>
-      {plans.slice(0, 5).map((plan, index) => (
-        <li key={index}>{plan.name}</li>
+      {plans.filter(plan => plan.name).slice(0, 5).map((plan, index) => (
+        
+        <li key={index}>
+          <Link to={`/plan/${plan.id}`}>
+            {plan.name}
+          </Link>
+        </li>
       ))}
     </ul>
       </div>
@@ -54,4 +60,3 @@ import HomePost from "../component/HomePost";
 </div>
     );
   }
-  

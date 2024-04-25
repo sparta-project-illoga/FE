@@ -23,10 +23,14 @@ input[type="text"] {
   height: 40px;
   width: 60%;
   margin-bottom: 20px;
+  border: none; /* 테두리 제거 */
+  border-bottom: 1px solid #000; /* 하단 테두리만 남기기 */
+  background-color: transparent;
 }
 
 textarea {
   height: 200px;
+  border-radius: 10px;
 }
 
 button {

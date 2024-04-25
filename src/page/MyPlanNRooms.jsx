@@ -1,9 +1,8 @@
-//내가 속해있는 플랜 보여주고 플랜 수정/채팅방 생성하기
-
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import Swal from "sweetalert2";
 
 import '../style/MyPlanRooms.css'
 
@@ -65,7 +64,17 @@ function MyPlanNRooms() {
             });
 
             console.log("채팅방 생성 내용들 : ", response.data);
-            alert(`${response.data.room.name} 채팅방을 생성하였습니다.`);
+            Swal.fire({
+                text: `${response.data.room.name} 채팅방을 생성하였습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
 
             // 채팅방 생성 후 페이지 새로고침
             window.location.reload();

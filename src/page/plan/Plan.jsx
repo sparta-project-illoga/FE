@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import Swal from "sweetalert2";
 
 import "../../component/plan/Plan.css";
 
@@ -23,7 +24,17 @@ function Plan() {
 
             const plan = response.data.createPlan.createPlan;
             console.log("Plan - id : ", plan.id);
-            alert("플랜이 생성되었습니다.");
+            Swal.fire({
+                text: `플랜이 생성되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                  container: 'my-swal',
+                },
+              });
 
             //직접인지 추천인지 나눠서 주소 이동
             let url;

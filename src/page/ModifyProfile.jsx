@@ -4,7 +4,7 @@ import axios from "axios";
 import { Cookies } from 'react-cookie';
 import BlueButton from "../component/BlueButton";
 import { useEffect } from 'react';
-
+import Swal from "sweetalert2";
 
 export default function ModifyProfile() {
   const cookies = new Cookies();
@@ -86,7 +86,17 @@ export default function ModifyProfile() {
         withCredentials: true
       })
       console.log('업로드 성공:', response.data);
-      alert("개인 정보를 변경하였습니다.");
+      Swal.fire({
+        text: `개인 정보를 변경하였습니다.`,
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+          container: 'my-swal',
+        },
+      });
     } catch (error) {
       console.error("에러 발생:", error);
       alert("오류가 발생했습니다. 다시 시도해주세요.");
