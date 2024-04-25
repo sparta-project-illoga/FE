@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 
 import { Cookies } from 'react-cookie';
 
+import "../../component/category/Category.css"
+
 function Category({ planId }) {
     const cookies = new Cookies();
 
@@ -132,9 +134,13 @@ function Category({ planId }) {
     }
 
     return (
-        <div>
-            <h2>카테고리 추가하기</h2>
-            <select value={selectedOption} onChange={handleCategory}>
+        <div className="category-container">
+            <h2 className="category-header">카테고리 추가하기</h2>
+            <select
+                value={selectedOption}
+                onChange={handleCategory}
+                className="category-select"
+            >
                 <option value="">카테고리 선택</option>
                 <option value="MOUNTAIN">MOUNTAIN</option>
                 <option value="OCEAN">OCEAN</option>
@@ -146,15 +152,18 @@ function Category({ planId }) {
                 <option value="QUIET">QUIET</option>
                 <option value="NOISY">NOISY</option>
             </select>
-            <button onClick={handleAddCategory}>추가</button>
-            {categories.map((item) => (
-                <div key={item.categoryId}>
-                    {item.category_name}
-                    <button onClick={() => handleDeleteCategory(item.categoryId)}>삭제</button>
-                </div>
-            ))}
+            <button onClick={handleAddCategory} className="category-button">추가</button>
+
+            <div className="category-list">
+                {categories.map((item) => (
+                    <div key={item.categoryId} className="category-item">
+                        {item.category_name}
+                        <button onClick={() => handleDeleteCategory(item.categoryId)}>삭제</button>
+                    </div>
+                ))}
+            </div>
         </div>
-    )
+    );
 }
 
 export default Category;
