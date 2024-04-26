@@ -54,7 +54,7 @@
   &:active,
   &.active{
     background-color: #64b5f6;
-    color: $white
+    color: white
   }
 
 a {
@@ -73,4 +73,8 @@ a {
 
 .post_table tbody tr {
   height: 50px;
+}
+
+.title-centered {
+  text-align: center; /* 텍스트 가운데 정렬 */
 }
