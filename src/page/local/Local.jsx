@@ -62,7 +62,7 @@ function Local() {
     //화면에 보이는 여행지 상태 바뀜(페이지/갯수)
     useEffect(() => {
         fetchTourData();
-    }, [currentPage, list, searchType, searchValue, keyword]);
+    }, [currentPage, list, searchType, searchValue]);
 
     //키워드 검색 후 다른 타입으로 여행지 조회하면 키워드 부분 값 없어짐
     useEffect(() => {
@@ -85,6 +85,7 @@ function Local() {
     const searchKeyword = async () => {
         setCurrentPage(1);  // 검색 시 1페이지로 설정
         setSearchType("키워드 검색");  // 키워드 검색으로 설정
+        fetchTourData();
     };
 
 
