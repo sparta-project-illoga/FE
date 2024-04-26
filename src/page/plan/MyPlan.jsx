@@ -98,6 +98,8 @@ function MyPlan() {
             url = `/plan/activeness/${plan.id}`;
         } else if (plan.type === "Auto") {
             url = `/plan/passivity/${plan.id}`;
+        } else {
+            url = `/plan/activeness/${plan.id}`;
         }
         window.location.href = url;
 

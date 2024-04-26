@@ -262,6 +262,13 @@ function Schedule() {
                             <h2>{item.title}</h2>
                             <p>{item.addr1}</p>
                             {item.firstImage && <img src={item.firstImage} alt={item.title} />}
+                            <div className="tag-container">
+                                {item.tourSpotTags.length > 0 ? (
+                                    item.tourSpotTags.map(tag => (
+                                        <span className="tag">#{tag}</span>
+                                    ))
+                                ) : ("")}
+                            </div>
                         </div>
                     ))}
                 </div>

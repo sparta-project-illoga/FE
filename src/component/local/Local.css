@@ -145,3 +145,19 @@
 .getAll:active {
     background-color: #1565C0;
 }
+
+.tag {
+    display: inline-block;
+    background-color: rgba(240, 240, 240, 0.5);
+    color: #969696;
+    font-size: 10px;
+    padding: 2px 4px;
+    margin: 2px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+}
