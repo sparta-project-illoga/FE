@@ -156,7 +156,7 @@ function Passivity() {
             cancelButtonText: "취소",
         }).then((result) => {
             if (result.isConfirmed) {
-                navigate(`plan/${id}`);
+                navigate(`/plan/${id}`);
             } else {
                 handleCloseModal();
             }
