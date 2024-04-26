@@ -38,7 +38,7 @@ function Local() {
                 );
             } else if (searchType === "키워드 검색") {
                 response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/keyword?keyword=${keyword}&page=${currentPage}&limit=${list}`
                 );
             }
 

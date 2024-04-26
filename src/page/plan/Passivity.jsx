@@ -70,7 +70,7 @@ function Passivity() {
                 requestData.date = date;
             }
             const token = cookies.Authorization.replace('Bearer ', ''); 
-            const response = await axios.patch(`{process.env.REACT_APP_API_URL}/plan/${id}/passivity`,
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/passivity`,
                 requestData, {
                 headers: {
                     Authorization: `Bearer ${token}`
