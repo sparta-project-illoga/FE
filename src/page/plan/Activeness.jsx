@@ -26,12 +26,7 @@ function Activeness() {
     //새로고침 시 한 번씩 실행
     const getPlan = async () => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', '');
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }, withCredentials: true
-            });
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`);
 
             const plan = response.data.findOnePlan;
             const schedule = response.data.findSchedule.schedule;
@@ -41,13 +36,12 @@ function Activeness() {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("플랜 조회 에러:", error);
             }
         }
@@ -127,13 +121,12 @@ function Activeness() {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("직접 등록 에러:", error);
             }
         }
@@ -163,13 +156,12 @@ function Activeness() {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("플랜 삭제 에러:", error);
             }
         }
@@ -201,13 +193,12 @@ function Activeness() {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("스케줄 삭제 에러:", error);
             }
         }
