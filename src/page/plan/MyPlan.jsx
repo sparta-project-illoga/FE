@@ -19,15 +19,40 @@ function MyPlan() {
     const [schedule, setSchedule] = useState([]);
     const [member, setMember] = useState([]);
 
-    //플랜 1개 조회
-    const getPlan = async () => {
+    const [planId, setPlanId] = useState([]);
+
+    //현재 조회한 플랜이 유저가 작성한 플랜들에 해당되는지 찾기
+    const myPlans = async () => {
         try {
             const token = cookies.Authorization.replace('Bearer ', '');
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/planNchat`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
+
+            const plans = response.data.myPlanChats;
+            const pId = plans.map(item => item.PlanRoom.plan.id);
+
+            setPlanId(pId);
+        } catch (error) {
+            if (error.response) {
+                // 서버로부터 응답이 도착한 경우
+                console.log("서버 오류: " + error.response.data.message);
+            } else if (error.request) {
+                // 요청이 서버에 도달하지 않은 경우
+                console.log("서버에 요청할 수 없습니다.");
+            } else {
+                // 그 외의 경우
+                console.error("플랜 조회 에러:", error);
+            }
+        }
+    }
+
+    //플랜 1개 조회
+    const getPlan = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/${id}`);
 
             const { findOnePlan, findPlace, category, findSchedule } = response.data;
 
@@ -36,20 +61,15 @@ function MyPlan() {
             setCategory(category);
             setSchedule(findSchedule.schedule);
 
-            console.log("플랜 조회 내용들 : ", findOnePlan);
-            console.log("지역 조회 내용들 : ", findPlace);
-            console.log("카테고리 조회 내용들 : ", category);
-            console.log("스케줄 조회 내용들 : ", findSchedule);
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("플랜 조회 에러:", error);
             }
         }
@@ -67,18 +87,15 @@ function MyPlan() {
             const members = response.data.members;
 
             setMember(members);
-
-            console.log("멤버 조회 내용들 : ", members);
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("멤버 조회 에러:", error);
             }
         }
@@ -88,6 +105,7 @@ function MyPlan() {
     useEffect(() => {
         getPlan();
         getMember();
+        myPlans();
     }, [id]);
 
     const planUpdate = async () => {
@@ -109,7 +127,9 @@ function MyPlan() {
         <div className="my-plan-container">
             <h2>플랜 세부 정보</h2>
 
-            <button onClick={planUpdate} className="my-plan-edit-button">플랜 수정하기</button>
+            {planId.includes(parseInt(id)) && (
+                <button onClick={planUpdate} className="my-plan-edit-button">플랜 수정하기</button>
+            )}
 
             <div className="my-plan-box">
                 <div className="my-plan-detail">
@@ -133,19 +153,23 @@ function MyPlan() {
                     )}
                 </div>
             </div>
+            {planId.includes(parseInt(id, 10)) && (
+                <div className="my-plan-box">
+                    <>
+                        <h3 className="my-plan-member">플랜 멤버</h3>
+                        <ul className="my-plan-list">
+                            {member.map((m) => (
+                                <li key={m.memberId} className="my-plan-list-item">
+                                    <strong className="my-plan-nickname">닉네임:</strong> {m.nickname} <br />
+                                    <hr />
+                                    <strong>타입:</strong> {m.type} <br />
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                </div>
+            )}
 
-            <div className="my-plan-box">
-                <h3 className="my-plan-member">플랜 멤버</h3>
-                <ul className="my-plan-list">
-                    {member.map((m) => (
-                        <li key={m.memberId} className="my-plan-list-item">
-                            <strong className="my-plan-nickname">닉네임:</strong> {m.nickname} <br />
-                            <hr />
-                            <strong>타입:</strong> {m.type} <br />
-                        </li>
-                    ))}
-                </ul>
-            </div>
 
             <div className="my-plan-box">
                 <h3 className="my-plan-subtitle">플랜 장소</h3>

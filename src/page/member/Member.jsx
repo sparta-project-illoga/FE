@@ -29,13 +29,12 @@ function Member({ planId }) {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("플랜 멤버 조회 에러:", error);
             }
         }

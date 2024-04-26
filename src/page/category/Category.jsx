@@ -13,12 +13,8 @@ function Category({ planId }) {
     //해당 플랜에 저장된 카테고리들 조회에서 밑에 보여주기
     const getCategories = async () => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', '');
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }, withCredentials: true
-            });
+            //  const token = cookies.Authorization.replace('Bearer ', '');
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/category/plan/${planId}`);
 
             const category = response.data.categories;
 
@@ -28,13 +24,12 @@ function Category({ planId }) {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("카테고리 목록 가져오기 에러:", error);
             }
         }
@@ -78,13 +73,12 @@ function Category({ planId }) {
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
-                alert("서버 오류: " + error.response.data.message);
+                console.log("서버 오류: " + error.response.data.message);
             } else if (error.request) {
                 // 요청이 서버에 도달하지 않은 경우
-                alert("서버에 요청할 수 없습니다.");
+                console.log("서버에 요청할 수 없습니다.");
             } else {
                 // 그 외의 경우
-                alert("오류가 발생했습니다: " + error.message);
                 console.error("카테고리 생성 에러:", error);
             }
         }
