@@ -27,19 +27,23 @@ function PostCard() {
 
   return (
     <div className="card_container">
-      {plans.map((plan, index) => (
+      {plans.filter(plan => plan.name).map((plan, index) => (
           <div key={index} className='post_card'>
           <Link to={`/plan/${plan.id}`}>
             <img src={plans.image !== undefined ? fullURL : defaultImg} alt="썸네일" className='post_thumbnail' />
           </Link>
             <div className='post_footer'>
-            <Link to={`/plan/${plan.id}`}>
               <div className='footer_contents'>
-                <p>{plan.name} <span className="date_length">{plan.totaldate}일</span></p>
-                <p>{plan.totalmoney}</p>
-              </div>
+            <Link to={`/plan/${plan.id}`} className="link-text">
+                <p>{plan.name}</p>
             </Link>
-              <LikeButton planId={plan.id} />
+                <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
+              </div>
+
+                <div className="like_button">
+                <LikeButton planId={plan.id} />
+                </div>
+
             </div>
           </div>
       ))}

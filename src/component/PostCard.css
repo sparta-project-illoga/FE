@@ -7,7 +7,6 @@
 
 .card_container > * {
     display: inline-block;
-    direction: rtl; /* 오른쪽에서 왼쪽으로 */
 }
 
 .post_card {
@@ -23,27 +22,51 @@
     height: 300px;
 }
 
-.post_footer {
+.post_like {
+    width: 40px;
+    height: 40px;
+}
+
+  .link-text {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post_footer {
+    width: 280px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     padding: 5px 10px;
-}
+    align-items: center;
+    flex-wrap: nowrap;
+  }
 
-.footer_contents {
-    display: flex;
-    flex-direction: column;
-}
-
-.post_like {
-    width: 50px;
-    height: 50px;
-}
-
+  .footer_contents > a > p,
 .footer_contents > p {
-    margin: 0;
-    padding-top: 3px;
+  margin: 0;
+  padding-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.date_length {
-    padding-raght: 30px;
+.footer_contents{
+flex-grow: 1; 
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
 }
+
+.like_button {
+    width:50px;
+}
+
+  .like_button_wrapper {
+    width: 30%; /* 추가 */
+  }
+
+  .footer_info {
+    font-weight: bold;
+    color: #767676;
+  }
