@@ -105,6 +105,19 @@ function Passivity() {
                 }, withCredentials: true
             });
 
+            Swal.fire({
+                text: `플랜이 삭제되었습니다.`,
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                customClass: {
+                    container: 'my-swal',
+                },
+            })
+
+            navigate('/');
         } catch (error) {
             if (error.response) {
                 // 서버로부터 응답이 도착한 경우
@@ -121,8 +134,6 @@ function Passivity() {
     }
     // 여기서부터 모달 내용
     const handleOpenModal = () => {
-
-
         if (!name) {
             alert("플랜 이름을 입력해 주세요.");
             return;
@@ -145,7 +156,7 @@ function Passivity() {
             cancelButtonText: "취소",
         }).then((result) => {
             if (result.isConfirmed) {
-                navigate("/");
+                navigate(`plan/${id}`);
             } else {
                 handleCloseModal();
             }
