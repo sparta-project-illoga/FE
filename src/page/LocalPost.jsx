@@ -10,7 +10,7 @@ const LocalPost = () => {
   const [page, setPage] = useState(1) // 현재 페이지 번호
 
   const postPerPage = 5
-  const indexOfLastPost = page*postPerPage
+  const indexOfLastPost = page * postPerPage
   const indexOfFirstPost = indexOfLastPost - postPerPage
 
   const boardLength = boardList.length
@@ -20,13 +20,13 @@ const LocalPost = () => {
   }
 
   useEffect(() => {
-    try{
-    axios.get(`${process.env.REACT_APP_API_URL}/post`)
-    .then((response) => {
-      setBoardList([...response.data].reverse())
-    })
+    try {
+      axios.get(`${process.env.REACT_APP_API_URL}/post`)
+        .then((response) => {
+          setBoardList([...response.data].reverse())
+        })
 
-  } catch(error) {
+    } catch (error) {
       console.log(error)
     }
   }, [])
@@ -41,10 +41,10 @@ const LocalPost = () => {
 
       <table className="post_table">
         <colgroup>
-          <col width="15%"/>
-          <col width="10%"/>
-          <col width="65%"/>
-          <col width="10%"/>
+          <col width="15%" />
+          <col width="10%" />
+          <col width="65%" />
+          <col width="10%" />
         </colgroup>
 
         <thead>
@@ -66,7 +66,9 @@ const LocalPost = () => {
                 <tr key={index}>
                   <td className="centered">{index + 1}</td>
                   <td className="centered">{board.region}</td>
-                  <td><Link to={`/post/${board.id}`}>{board.title}</Link></td>
+                  <td className="title-centered">
+                    <Link to={`/post/${board.id}`}>{board.title}</Link>
+                  </td>
                   <td className="centered">{date}</td>
                 </tr>
               )
@@ -76,16 +78,16 @@ const LocalPost = () => {
       </table>
 
       <Pagination
-      activePage={page}
-      itemsCountPerPage={postPerPage}
-      totalItemsCount={boardList.length}
-      pageRangeDisplayed={5}
-      prevPageText={"<"}
-      nextPageText={">"}
-      onChange={handlePageChange}/>
+        activePage={page}
+        itemsCountPerPage={postPerPage}
+        totalItemsCount={boardList.length}
+        pageRangeDisplayed={5}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={handlePageChange} />
 
       <Link to="/post/write">
-      <button>글쓰기</button>
+        <button>글쓰기</button>
       </Link>
     </div>
   )
