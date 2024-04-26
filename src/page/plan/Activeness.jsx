@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import Category from "../category/Category";
 import "../../component/plan/Activeness.css"
@@ -13,6 +13,7 @@ const NAME_STORAGE_KEY = "planName";
 function Activeness() {
     const [cookies] = useCookies(['Authorization']);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     //처음에 플랜에 저장된 내용 조회(내용/스케줄 같이 가져옴)
     const [plan, setPlan] = useState([]);
@@ -119,6 +120,9 @@ function Activeness() {
 
             //플랜 등록하고 나서 로컬스토리지에 있던 플랜이름 삭제
             localStorage.removeItem(NAME_STORAGE_KEY);
+
+            //플랜 등록 후에 플랜 개별 조회 페이지로 이동
+            navigate(`/plan/${id}`)
 
         } catch (error) {
             if (error.response) {
