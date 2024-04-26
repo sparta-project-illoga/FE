@@ -20,9 +20,9 @@ function HomePost() {
   return (
     <div>
       <ul>
-      {boardList.map((board, index) => (
-      <Link to={`/post/${board.id}`}>
-      <li key={index}>[{board.region}] {board.title}</li>
+      {boardList.map((board) => (
+      <Link to={`/post/${board.id}`} key={board.id}>
+      <li>[{board.region}] {board.title}</li>
       </Link>
     ))}
     </ul>

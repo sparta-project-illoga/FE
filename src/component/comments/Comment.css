@@ -67,7 +67,10 @@
 
 .comment_footer button {
   border: none;
+  color: red !important;
   background-color: transparent;
+  margin-top: 0;
+  padding: 0 !important;
 }
 
 .comment_write button {
@@ -86,10 +89,12 @@
 }
 
 .comment_footer button:hover {
-  color: green;
-  font-weight: bold;
+  color: green !important; /* hover 시 버튼 색상 변경 */
+  background-color: transparent !important; /* hover 시에도 투명한 배경 유지 */
+  padding: 0 !important; /* hover 시에도 패딩 유지 */
+  font-size: 13px !important;
 }
 
 .comment_date {
-  font-size: 10px;
+  font-size: 16px !important;
 }
