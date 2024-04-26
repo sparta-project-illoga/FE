@@ -72,7 +72,7 @@ function Activeness() {
     }
 
     const handleFileChange = (event) => {
-        setFile(event.target.value);
+        setFile(event.target.files[0]);
     };
 
     const handleLinkClick = () => {
