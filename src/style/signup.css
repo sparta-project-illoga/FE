@@ -67,6 +67,7 @@
     height: 40px;
     border: none; 
     border-bottom: 1px solid #000;
+    padding-left: 10px;
 }
 
 #verify-btn {
@@ -78,4 +79,13 @@
     border: none;
     font-weight: semibold;
     width: 100px;
+}
+
+.register_phone,
+.register_nickname,
+.register_check_pw,
+.register_password,
+.register_name,
+.register_email {
+    padding-left: 10px;
 }

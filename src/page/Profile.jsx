@@ -1,5 +1,4 @@
 import React from 'react';
-import profileImg from '../logo.svg';
 import '../style/Profile.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -25,7 +24,7 @@ function Profile() {
           }, withCredentials: true
         }
       );
-
+console.log(userInfo)
         setUserInfo(response.data);
         console.log(response)
       } catch (error) {
@@ -72,6 +71,7 @@ function Profile() {
         <p>이름: {userInfo.name}</p>
         <p>휴대폰 번호: {userInfo.phone}</p>
         <p>가입일: {date}</p>
+        <p>지역: {userInfo.region !== null ? userInfo.region : '인증전'}</p>
       </div>
 
       <div className='profile_actions'>

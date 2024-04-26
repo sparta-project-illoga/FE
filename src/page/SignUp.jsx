@@ -25,6 +25,15 @@ function SignUp() {
       alert("정보를 모두 기입해 주셔야 회원가입을 완료하실 수 있습니다.");
       return;
     }
+    if (userData.password !== userData.check_pw) {
+      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return;
+    }
+    const phoneRegex = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
+    if (!phoneRegex.test(userData.phone)) {
+      alert("전화번호 형식이 올바르지 않습니다. 000-0000-0000 형식으로 입력해주세요.");
+      return;
+    }
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/register`, userData);
       console.log(response.data);
@@ -160,7 +169,7 @@ function SignUp() {
         />
         <p>비밀번호를 입력해주세요 <span className="star">*</span></p>
         <input
-          type="input"
+          type="password"
           className="register_password"
           placeholder="8자리의 숫자와 영문의 조합으로 입력해주세요."
           name="password"
@@ -169,7 +178,7 @@ function SignUp() {
         />
         <p>비밀번호를 확인해주세요 <span className="star">*</span></p>
         <input
-          type="input"
+          type="password"
           className="register_check_pw"
           placeholder="비밀번호와 동일하게 입력해주세요."
           name="check_pw"
