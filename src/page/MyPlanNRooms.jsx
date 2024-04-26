@@ -14,10 +14,10 @@ function MyPlanNRooms() {
     //유저 해당되는 플랜과 채팅방 가져오기
     const getPlanRooms = async () => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/planNchat`, {
                 headers: {
-                   Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }, withCredentials: true
             });
 
@@ -56,7 +56,7 @@ function MyPlanNRooms() {
 
         try {
             console.log("플랜의 채팅방 생성하기 planId", planId);
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat/plan/${planId}`,
                 { "name": roomName }, {
                 headers: {
@@ -73,9 +73,9 @@ function MyPlanNRooms() {
                 timer: 2000,
                 timerProgressBar: true,
                 customClass: {
-                  container: 'my-swal',
+                    container: 'my-swal',
                 },
-              });
+            });
 
             // 채팅방 생성 후 페이지 새로고침
             window.location.reload();
@@ -113,7 +113,7 @@ function MyPlanNRooms() {
                                 <Link to={`/chat/${pr.PlanRoom.room.roomId}`} className="myplanroom-chat-link">채팅방 이동하기</Link>
                             ) : (
                                 // 새로운 채팅방 생성을 위한 버튼 표시(버튼 클릭 시 이름 입력할 창 뜸)
-                                <button onClick={() => handleCreateRoom(pr.PlanRoom.plan.id)}className="myplanroom-create-chat-button">채팅방 생성하기</button>
+                                <button onClick={() => handleCreateRoom(pr.PlanRoom.plan.id)} className="myplanroom-create-chat-button">채팅방 생성하기</button>
                             )}
                         </div>
                     </li>

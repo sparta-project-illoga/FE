@@ -6,14 +6,17 @@ import Swal from "sweetalert2";
 
 import "../../component/plan/Plan.css";
 
+// 로컬 스토리지 키
+const NAME_STORAGE_KEY = "planName";
+
 function Plan() {
     const [cookies] = useCookies(['Authorization']);
     //직접 생성/자동 생성 버튼 누르면 빈 plan 생성
     const handleSubmit = async (type) => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/plan`,{},
+                `${process.env.REACT_APP_API_URL}/plan`, {},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -31,9 +34,11 @@ function Plan() {
                 timer: 2000,
                 timerProgressBar: true,
                 customClass: {
-                  container: 'my-swal',
+                    container: 'my-swal',
                 },
-              });
+            });
+
+            localStorage.removeItem(NAME_STORAGE_KEY);
 
             //직접인지 추천인지 나눠서 주소 이동
             let url;

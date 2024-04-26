@@ -55,7 +55,7 @@ function Schedule() {
                 );
             } else if (searchType === "키워드 검색") {
                 response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/location/tourSpot/search?keyword=${keyword}&page=${currentPage}&limit=${list}`
+                    `${process.env.REACT_APP_API_URL}/location/tourSpot/keyword?keyword=${keyword}&page=${currentPage}&limit=${list}`
                 );
             }
 
@@ -149,7 +149,7 @@ function Schedule() {
     //스케줄 생성 누르면 날짜, 여행지코드, 금액 플랜에 저장됨
     const handleSchedule = async (tourspotId) => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/${id}/schedule`,
                 { "date": date, "placecode": tourspotId, "money": money },
                 {
@@ -167,9 +167,9 @@ function Schedule() {
                 timer: 2000,
                 timerProgressBar: true,
                 customClass: {
-                  container: 'my-swal',
+                    container: 'my-swal',
                 },
-              });
+            });
 
             //다시 date/money 세팅 초기화
             setDate(1);

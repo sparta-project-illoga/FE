@@ -20,7 +20,7 @@ function Passivity() {
     const [date, setDate] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    
+
 
     //추천받은 플랜 저장
     const [plan, setPlan] = useState([]);
@@ -46,7 +46,6 @@ function Passivity() {
         setDate(parseInt(event.target.value));
     }
 
-
     const handlePassivity = async () => {
         try {
             const requestData = {
@@ -69,7 +68,7 @@ function Passivity() {
             if (date) {
                 requestData.date = date;
             }
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/passivity`,
                 requestData, {
                 headers: {
@@ -99,7 +98,7 @@ function Passivity() {
 
     const handleDelete = async () => {
         try {
-            const token = cookies.Authorization.replace('Bearer ', ''); 
+            const token = cookies.Authorization.replace('Bearer ', '');
             await axios.delete(`${process.env.REACT_APP_API_URL}/plan/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -120,31 +119,38 @@ function Passivity() {
             }
         }
     }
-// 여기서부터 모달 내용
+    // 여기서부터 모달 내용
     const handleOpenModal = () => {
+
+
+        if (!name) {
+            alert("플랜 이름을 입력해 주세요.");
+            return;
+        }
+
         setShowModal(true);
     };
-    
+
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
     const handleConfirmPlan = () => {
         Swal.fire({
-          title: "플랜 확정",
-          text: "현재 추천된 플랜으로 확정하시겠습니까?",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: "확인",
-          cancelButtonText: "취소",
+            title: "플랜 확정",
+            text: "현재 추천된 플랜으로 확정하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
         }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/");
-          } else {
-            handleCloseModal();
-          }
+            if (result.isConfirmed) {
+                navigate("/");
+            } else {
+                handleCloseModal();
+            }
         });
-      };
+    };
 
     return (
         <div className="passivity-container">
