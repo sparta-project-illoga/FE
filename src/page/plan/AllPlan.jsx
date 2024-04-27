@@ -5,6 +5,8 @@ import LikeButton from '../../component/Likebutton'
 // import './PostCard.css'
 import defaultImg from "../../asset/profileDefault.jpg"
 
+import "../../style/AllPlan.css"
+
 
 function AllPlan() {
     const [plans, setPlans] = useState([]);
@@ -29,27 +31,32 @@ function AllPlan() {
 
     return (
         <div className="card_container">
-            <p><h1>플랜 전체 조회하기</h1></p>
-            {plans.filter(plan => plan.name).map((plan, index) => (
-                <div key={index} className='post_card'>
-                    <Link to={`/plan/${plan.id}`}>
-                        <img src={plan.image && !plan.image.includes("null") ? `${process.env.REACT_APP_baseURL}${plan.image}` : defaultImg} alt="썸네일" className='post_thumbnail' />
-                    </Link>
-                    <div className='post_footer'>
-                        <div className='footer_contents'>
-                            <Link to={`/plan/${plan.id}`} className="link-text">
-                                <p>{plan.name}</p>
+            <div className="Allplan-container">
+                <p className="Allplan-title"><h1>플랜 전체 조회하기</h1></p>
+                <div className="Allplan-planzip">
+                    {plans.filter(plan => plan.name).map((plan, index) => (
+                        <div key={index} className='post_card'>
+                            <Link to={`/plan/${plan.id}`}>
+                                <img src={plan.image && !plan.image.includes("null") ? `${process.env.REACT_APP_baseURL}${plan.image}` : defaultImg} alt="썸네일" className='post_thumbnail' />
                             </Link>
-                            <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
-                        </div>
+                            <div className='post_footer'>
+                                <div className='footer_contents'>
+                                    <Link to={`/plan/${plan.id}`} className="link-text">
+                                        <p>{plan.name}</p>
+                                    </Link>
+                                    <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
+                                </div>
 
-                        <div className="like_button">
-                            <LikeButton planId={plan.id} />
-                        </div>
+                                <div className="like_button">
+                                    <LikeButton planId={plan.id} />
+                                </div>
 
-                    </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            ))}
+
+            </div>
         </div>
     );
 }
