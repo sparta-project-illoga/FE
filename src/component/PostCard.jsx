@@ -21,6 +21,8 @@ function PostCard() {
     fetchPlans();
   }, [])
 
+  console.log("plans", plans);
+
   const imageName = plans ? plans.image : '';
   const fullURL = `${process.env.REACT_APP_baseURL}${imageName}`;
   console.log(fullURL)
@@ -28,24 +30,24 @@ function PostCard() {
   return (
     <div className="card_container">
       {plans.filter(plan => plan.name).map((plan, index) => (
-          <div key={index} className='post_card'>
+        <div key={index} className='post_card'>
           <Link to={`/plan/${plan.id}`}>
-            <img src={plans.image !== undefined ? fullURL : defaultImg} alt="썸네일" className='post_thumbnail' />
+            <img src={plan.image && !plan.image.includes("null") ? `${process.env.REACT_APP_baseURL}${plan.image}` : defaultImg} alt="썸네일" className='post_thumbnail' />
           </Link>
-            <div className='post_footer'>
-              <div className='footer_contents'>
-            <Link to={`/plan/${plan.id}`} className="link-text">
+          <div className='post_footer'>
+            <div className='footer_contents'>
+              <Link to={`/plan/${plan.id}`} className="link-text">
                 <p>{plan.name}</p>
-            </Link>
-                <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
-              </div>
-
-                <div className="like_button">
-                <LikeButton planId={plan.id} />
-                </div>
-
+              </Link>
+              <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
             </div>
+
+            <div className="like_button">
+              <LikeButton planId={plan.id} />
+            </div>
+
           </div>
+        </div>
       ))}
     </div>
   );
