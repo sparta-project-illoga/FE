@@ -44,6 +44,16 @@ const handleCloseModal = () => {
 };
 
 const handleConfirmLocation = () => {
+  if (currentError) {
+    Swal.fire({
+      title: '위치 정보 공유 거부',
+      text: currentError,
+      icon: 'error',
+      confirmButtonText: '확인',
+    });
+    handleCloseModal();
+    return;
+  }
   Swal.fire({
     title: "지역인증 확인",
     html: `사용자의 현재 위치 정보(위도: ${currentLocation.latitude}, 경도: ${currentLocation.longitude})를 서버에 저장하시겠습니까?`,
