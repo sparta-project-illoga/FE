@@ -21,8 +21,6 @@ function PostCard() {
     fetchPlans();
   }, [])
 
-  console.log("plans", plans);
-
   const imageName = plans ? plans.image : '';
   const fullURL = `${process.env.REACT_APP_baseURL}${imageName}`;
   console.log(fullURL)

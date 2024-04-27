@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import { REGIONS } from "../../component/Regions";
 import Member from "../member/Member";
 import "../../component/plan/Passivity.css"
 import { useNavigate } from "react-router-dom";
@@ -46,15 +47,25 @@ function Passivity() {
         setDate(parseInt(event.target.value));
     }
 
+    console.log("category : ", category);
+    console.log("region : ", placeCode);
+
     const handlePassivity = async () => {
         try {
             const requestData = {
                 "name": name,
             };
 
+            if (!name) {
+                alert("플랜의 이름을 입력해주세요.")
+                return;
+            }
+
+            console.log("추천할 때 placeCode : ", placeCode);
+
             // 선택적 필드 추가
-            if (placeCode) {
-                requestData.placeCode = placeCode;
+            if (!Number.isNaN(placeCode) && placeCode > 0) {
+                requestData.placecode = placeCode;
             }
 
             if (category.trim()) {
@@ -68,6 +79,8 @@ function Passivity() {
             if (date) {
                 requestData.date = date;
             }
+
+            console.log("requestData : ", requestData);
             const token = cookies.Authorization.replace('Bearer ', '');
             const response = await axios.patch(`${process.env.REACT_APP_API_URL}/plan/${id}/passivity`,
                 requestData, {
@@ -168,10 +181,38 @@ function Passivity() {
 
             <div className="passivity-input-section">
                 <input type="text" value={name} onChange={handleName} placeholder="플랜 이름" className="passivity-input" />
-                <li>추천받고 싶은 지역(코드)를 입력하세요. (선택)</li>
-                <input type="number" value={placeCode} onChange={handlePlaceCode} placeholder="추천받고 싶은 지역" className="passivity-input" />
-                <li>추천받고 싶은 플랜의 카테고리를 입력하세요. (선택)</li>
-                <input type="text" value={category} onChange={handleCategory} placeholder="추천받고 싶은 카테고리" className="passivity-input" />
+                <li>추천받고 싶은 지역을 고르세요. (선택)</li>
+                <select
+                    className="passivity-input"
+                    value={placeCode}
+                    onChange={handlePlaceCode}
+                >
+                    <option value="">
+                        지역 선택
+                    </option>
+                    {REGIONS.map((region) => (
+                        <option key={region.areaCode} value={region.areaCode}>
+                            {region.name}
+                        </option>
+                    ))}
+                </select>
+                <li>추천받고 싶은 플랜의 카테고리를 고르세요. (선택)</li>
+                <select
+                    value={category}
+                    onChange={handleCategory}
+                    className="passivity-input"
+                >
+                    <option value="">카테고리 선택</option>
+                    <option value="MOUNTAIN">MOUNTAIN</option>
+                    <option value="OCEAN">OCEAN</option>
+                    <option value="REST">REST</option>
+                    <option value="TOUR">TOUR</option>
+                    <option value="SINGLE">SINGLE</option>
+                    <option value="COUPLE">COUPLE</option>
+                    <option value="TEAM">TEAM</option>
+                    <option value="QUIET">QUIET</option>
+                    <option value="NOISY">NOISY</option>
+                </select>
                 <li>추천받고 싶은 플랜의 최대금액을 입력하세요. (선택)</li>
                 <input type="number" value={money} onChange={handleMoney} placeholder="추천받고 싶은 금액" className="passivity-input" />
                 <li>추천받고 싶은 플랜의 여행날짜를 입력하세요. (선택)</li>
