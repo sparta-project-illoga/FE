@@ -46,7 +46,7 @@ export default function App() {
         {/* 조건부 렌더링: 로그인 여부에 따라 버튼을 표시 */}
         {isLoggedIn && (
           <Link to="/all/plan">
-            <button>전체 보기</button>
+            <button className="Allplan-button">전체 보기</button>
           </Link>
         )}
 
