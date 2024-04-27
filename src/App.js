@@ -26,6 +26,7 @@ import Local from "./page/local/Local";
 import LocalPost from "./page/LocalPost";
 import LocalPostContent from "./page/LocalPostContent";
 import LocalPostWrite from "./page/LocalPostWrite";
+import AllPlan from "./page/plan/AllPlan";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -139,6 +140,7 @@ function App() {
           key="schedule-link"
         />
 
+        <Route path="/all/plan" element={<AllPlan />} key="allPlan-link" />
         <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
         <Route path="/plan/:id" element={<MyPlan />} key="myPlan-link" />
         <Route path="/chat/:id" element={<Chat />} key="chat-link" />
