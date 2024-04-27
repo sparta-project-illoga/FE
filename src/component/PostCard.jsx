@@ -14,6 +14,7 @@ function PostCard() {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/new`)
         setPlans([...response.data].reverse().slice(0, 8));
+        console.log(plans)
       } catch (error) {
         console.log('정보를 불러오는 데에 실패하였습니다.')
       }
@@ -22,6 +23,7 @@ function PostCard() {
   }, [])
 
   const imageName = plans ? plans.image : '';
+  console.log(imageName)
   const fullURL = `${process.env.REACT_APP_baseURL}${imageName}`;
   console.log(fullURL)
 

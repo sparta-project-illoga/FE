@@ -22,9 +22,23 @@ const useGeoLocation = (options = {}) => {
     const { geolocation } = navigator;
     // 사용된 브라우저에서 지리적 위치(Geolocation)가 정의되지 않은 경우 오류로 처리
     if (!geolocation) {
-      setError("Geolocation is not supported.");
+      setError("지원되지 않는 지역입니다.");
       return;
     }
+    const handleSuccess = (pos) => {
+      const { latitude, longitude } = pos.coords;
+      setLocation({ latitude, longitude });
+    };
+
+    const handleError = (err) => {
+      if (err.code === 1) {
+        setError(
+          "사용자가 요청을 거부했습니다. 주소창 왼쪽 버튼을 눌러 허용해주세요."
+        );
+      } else {
+        setError(`Geolocation error (code ${err.code}): ${err.message}`);
+      }
+    };
     // Geolocation API 호출
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
   }, [options]);
