@@ -1,0 +1,18 @@
+.Allplan-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;    
+}
+
+.Allplan-title {
+  text-align: center;  
+  margin-bottom: 20px; 
+  font-size: 24px;    
+}
+
+.Allplan-planzip {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 20px;       
+}
