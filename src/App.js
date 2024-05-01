@@ -27,6 +27,7 @@ import LocalPost from "./page/LocalPost";
 import LocalPostContent from "./page/LocalPostContent";
 import LocalPostWrite from "./page/LocalPostWrite";
 import AllPlan from "./page/plan/AllPlan";
+import PrivateRoute from "./component/PrivateRoute";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -122,7 +123,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} key="signup-link" />
         <Route path="/profile" element={<Profile />} key="profile-link" />
         <Route path="/profile/modifyprofile" element={<ModifyProfile />} />
-        <Route path="/plan" element={<Plan />} key="plan-link" />
+        <Route element={<PrivateRoute />}>
+          <Route path="/plan" element={<Plan />} key="plan-link" />
+        </Route>
         <Route path="/local" element={<Local />} key="local-link" />
         <Route
           path="/plan/activeness/:id"
