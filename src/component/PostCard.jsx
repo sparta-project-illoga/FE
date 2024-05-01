@@ -13,7 +13,7 @@ function PostCard() {
     const fetchPlans = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/plan/new`)
-        setPlans([...response.data].reverse().slice(0, 8));
+        setPlans([...response.data].reverse());
         console.log(plans)
       } catch (error) {
         console.log('정보를 불러오는 데에 실패하였습니다.')
@@ -27,9 +27,11 @@ function PostCard() {
   const fullURL = `${process.env.REACT_APP_baseURL}${imageName}`;
   console.log(fullURL)
 
+  const filteredPlans = plans.filter(plan => plan.type === 'Self').slice(0, 8);
+
   return (
     <div className="card_container">
-      {plans.filter(plan => plan.name).map((plan, index) => (
+      {filteredPlans.map((plan, index) => (
         <div key={index} className='post_card'>
           <Link to={`/plan/${plan.id}`}>
             <img src={plan.image && !plan.image.includes("null") ? `${process.env.REACT_APP_baseURL}${plan.image}` : defaultImg} alt="썸네일" className='post_thumbnail' />
