@@ -5,15 +5,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { CookiesProvider } from "react-cookie";
+import ScrollToTop from "./component/ScrollToTop";
+import { RecoilRoot } from "recoil";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </CookiesProvider>
+    <RecoilRoot>
+      <CookiesProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <App />
+        </BrowserRouter>
+      </CookiesProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
 

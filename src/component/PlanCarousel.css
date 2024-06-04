@@ -1,0 +1,110 @@
+.carousel_container{ 
+  width: 100%;
+}
+
+.carousel_card {
+  margin: 0 auto -50px auto;
+  width: 70%;
+  height: 500px;
+  position: relative; /* 부모 요소에 relative 설정 */
+}
+
+/* PlanCarousel.css */
+.carousel_card a {
+  text-decoration: none; /* 밑줄 없애기 */
+  color: black; /* 링크의 색상을 검정색으로 설정 */
+}
+
+.carousel_card a:hover {
+  color: grey; /* 마우스를 올렸을 때의 색상을 회색으로 설정 */
+}
+
+
+.img_sec {
+  position: absolute; /* 이미지 섹션을 absolute로 설정 */
+  top: -90px;
+  left: 500px;
+  width: 700px;
+  height: 200px;
+  z-index: 1; /* 이미지 섹션을 맨 아래로 */
+}
+
+.img_sec img {
+  width: 700px;
+  height: auto;
+  border-radius: 20px; 
+}
+
+.inform_sec {
+  position: relative; /* 정보 섹션을 relative로 설정 */
+  z-index: 2; /* 정보 섹션을 이미지 섹션 위로 */
+  background-color: rgba(255, 255, 255, 0.4); /* bg-white/40 */
+  backdrop-filter: blur(10px);
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  margin-left: 5%; /* 정보 섹션을 이미지 섹션의 오른쪽으로 10% 이동 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: -40px;
+  display: flex !important;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.slick-dots li {
+  margin: 0 1px;
+}
+
+.slick-dots li button {
+  display: block;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #ccc;
+  text-indent: -9999px;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #767676;
+}
+
+.slick-slide:not(.slick-active) {
+  opacity: 0.5;
+}
+
+.like_sec {
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrow_sec {
+  position: absolute;
+  top: 500px;
+  left: 300px;
+  width: 300px;
+}
+
+.arrow_sec button {
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  color: #767676;
+  border: solid 3px #DCDCDC;
+  font-size: 20px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.arrow_sec button:hover {
+  background-color: white;
+}

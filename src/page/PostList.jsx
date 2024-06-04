@@ -41,22 +41,25 @@ export default function App() {
   return (
     <div className="main_page">
       <div className="new_plan_container">
-        <p className="new_plan_title">최신 플랜</p>
+        {/* <p className="new_plan_title">최신 플랜</p> */}
 
         {/* 조건부 렌더링: 로그인 여부에 따라 버튼을 표시 */}
-        {isLoggedIn && (
+        {/* {isLoggedIn && (
           <Link to="/all/plan">
             <button className="Allplan-button">전체 보기</button>
           </Link>
         )}
+        <div>
+        <PostCard />
+        </div> */}
 
-        <div id="tabs">
+        {/* <div id="tabs">
           <div id="tab-content">
             <div className="card_box">
               <PostCard />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div>

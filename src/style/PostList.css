@@ -43,6 +43,7 @@
 .local_container,
 .like_plan_container {
   flex: 1;
+  background-color: white;
   /* 두 컨테이너가 공간을 균등하게 차지하도록 함 */
 }
 

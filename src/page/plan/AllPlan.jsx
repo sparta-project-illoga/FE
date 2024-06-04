@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LikeButton from '../../component/Likebutton'
+import LoadingSpinner from "../../component/LodingSpinner.jsx"
 // import './PostCard.css'
 import defaultImg from "../../asset/profileDefault.jpg"
 
 import "../../style/AllPlan.css"
 
+const LikeButton = lazy(() => import('../../component/Likebutton'));
 
 function AllPlan() {
     const [plans, setPlans] = useState([]);
@@ -47,9 +48,11 @@ function AllPlan() {
                                     <p className="footer_info">{plan.totaldate}일 · {plan.totalmoney}원</p>
                                 </div>
 
-                                <div className="like_button">
-                                    <LikeButton planId={plan.id} />
-                                </div>
+                        <div className="like_button">
+                            <Suspense fallback={<div><LoadingSpinner/></div>}>
+                                <LikeButton planId={plan.id} />
+                            </Suspense>
+                        </div>
 
                             </div>
                         </div>
