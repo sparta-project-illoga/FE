@@ -1,14 +1,8 @@
-.Allplan-container {
+.infinite_container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.Allplan-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
 }
 
 .Allplan-planzip {

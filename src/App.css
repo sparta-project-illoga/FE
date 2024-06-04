@@ -1,7 +1,7 @@
 .main_nav {
   display: flex;
   justify-content: space-between;
-  background-color: midnightblue;
+  background-color: white;
 }
 
 .logo_section, .links_section, .auth_links {
@@ -10,11 +10,13 @@
 }
 
 .links_section {
-  width: 75%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: left;
-  gap: 20px
+  gap: 50px;
+  background-color:	#FEEFDB;
+  height: 50px;
+  color: #007957;
 }
 
 @keyframes fadeIn {
@@ -29,7 +31,7 @@
 .main_logo {
   height: 90px;
   width: auto;
-  margin-left: 100px;
+  margin-left: 300px;
   border-radius: 10px;
   animation: fadeIn 2s ease-in-out;
 }
@@ -45,22 +47,39 @@
 
 .nav_links {
   display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: center; /* 가로 중앙 정렬 */
+  height: 100px;
+  margin-right: 400px;
+  gap: 10px;
 }
 
-.login_button {
-  height: 40px;
-  margin-right: 40px
+.login_button, .regiester_button {
+  width: 100px;
+  background-color: transparent; /* 배경색을 투명하게 설정 */
+  color: #007957; 
+  border: 1px solid #007957; 
+  border-radius: 4px; /* 버튼 모서리 둥글게 처리 */
+  padding: 8px 16px; /* 버튼 내부 여백 추가 */
 }
 
-.profile_logo{
-  height: 40px;
+.login_button:hover, .regiester_button:hover {
+  background-color: #FEEFDB;
+  cursor: pointer; /* hover 시 커서 모양 변경 */
+}
+
+/* .login_button {
+  width: 100px;
+  background-color: none;
+  color: black;
 }
 
 .regiester_button {
+  width: 100px;
+  background-color: none;
+  color: black;
+} */
+
+.profile_logo{
   height: 40px;
-  margin-top: 3px;
 }
 
 .logout_button {

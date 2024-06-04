@@ -6,11 +6,10 @@ import SignUp from "./page/SignUp";
 import Profile from "./page/Profile";
 import Plan from "./page/plan/Plan";
 import "./App.css";
-import mainlogo from "./asset/illoga_logo.jpg";
-import loginLogo from "./asset/login.svg";
-import registerLogo from "./asset/app_registration.svg";
+import mainlogo from "./asset/illoga_logo 1.png";
 import profileLogo from "./asset/account_circle.svg";
 import logoutLogo from "./asset/logout.svg";
+import SearchBar from "./component/SearchBar";
 
 import ModifyProfile from "./page/ModifyProfile";
 import Activeness from "./page/plan/Activeness";
@@ -26,8 +25,8 @@ import Local from "./page/local/Local";
 import LocalPost from "./page/LocalPost";
 import LocalPostContent from "./page/LocalPostContent";
 import LocalPostWrite from "./page/LocalPostWrite";
-import AllPlan from "./page/plan/AllPlan";
 import PrivateRoute from "./component/PrivateRoute";
+import InfinitePlan from "./page/plan/InfinitePlan";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["Authorization"]);
@@ -58,35 +57,14 @@ function App() {
             <img src={mainlogo} alt="메인로고" className="main_logo" />
           </Link>
         </div>
-        <div className="links_section">
-          <Link
-            to="/plan"
-            style={{ color: "white", fontSize: "35px", textDecoration: "none" }}
-          >
-            플랜 생성
-          </Link>
-
-          <Link
-            to="/local"
-            style={{ color: "white", fontSize: "35px", textDecoration: "none" }}
-          >
-            지역 정보
-          </Link>
-
-          <Link
-            to="/post"
-            style={{ color: "white", fontSize: "35px", textDecoration: "none" }}
-          >
-            지역 게시판
-          </Link>
-        </div>
+        <SearchBar />
         <div className="auth_links">
           {isLoggedIn ? (
             <div className="nav_links">
               <Link
                 to="/profile"
                 className="profile_button"
-                style={{ color: "white", fontSize: "20px" }}
+                style={{ fontSize: "20px" }}
               >
                 <img src={profileLogo} alt="프로필" className="profile_logo" />
               </Link>
@@ -99,24 +77,83 @@ function App() {
             </div>
           ) : (
             <div className="nav_links">
-              <Link to="/signup" style={{ color: "white", fontSize: "20px" }}>
-                <img
+              <Link to="/signup">
+                {/* <img
                   src={registerLogo}
                   alt="회원가입"
                   className="regiester_button"
-                />
+                /> */}
+                <button className="regiester_button">회원가입</button>
               </Link>
-              <Link
-                to="/login"
-                className="login_button"
-                style={{ color: "white", fontSize: "20px" }}
-              >
-                <img src={loginLogo} alt="로그인" className="login_button" />
+              <Link to="/login">
+                {/* <img src={loginLogo} alt="로그인" className="login_button" /> */}
+                <button className="login_button">로그인</button>
               </Link>
             </div>
           )}
         </div>
       </nav>
+      <div className="links_section">
+        <Link
+          to="/plan"
+          style={{
+            color: "#007957",
+            fontSize: "20px",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
+        >
+          플랜 생성
+        </Link>
+
+        <Link
+          to="/local"
+          style={{
+            color: "#007957",
+            fontSize: "20px",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
+        >
+          사이트 소개
+        </Link>
+
+        <Link
+          to="/all/plan"
+          style={{
+            color: "#007957",
+            fontSize: "20px",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
+        >
+          전체 플랜
+        </Link>
+
+        <Link
+          to="/local"
+          style={{
+            color: "#007957",
+            fontSize: "20px",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
+        >
+          지역 정보
+        </Link>
+
+        <Link
+          to="/post"
+          style={{
+            color: "#007957",
+            fontSize: "20px",
+            textDecoration: "none",
+            fontWeight: 600,
+          }}
+        >
+          지역 게시판
+        </Link>
+      </div>
       <Routes>
         <Route path="/" element={<Home />} key="home-link" />
         <Route path="/login" element={<Login />} key="login-link" />
@@ -143,7 +180,7 @@ function App() {
           key="schedule-link"
         />
 
-        <Route path="/all/plan" element={<AllPlan />} key="allPlan-link" />
+        <Route path="/all/plan" element={<InfinitePlan />} key="allPlan-link" />
         <Route path="/my/plan/room" element={<MyPlanNRooms />} key="my-link" />
         <Route path="/plan/:id" element={<MyPlan />} key="myPlan-link" />
         <Route path="/chat/:id" element={<Chat />} key="chat-link" />
