@@ -2,6 +2,22 @@ import { selector } from "recoil";
 import axios from "axios";
 
 import { plansState } from "./atoms";
+import { boardListState } from "./atoms";
+
+export const fetchBoardListSelector = selector({
+  key: "fetchBoardListSelector",
+  get: async ({ get }) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`);
+      return [...response.data].reverse().slice(0, 5);
+    } catch (error) {
+      throw error;
+    }
+  },
+  set: ({ set }, newValue) => {
+    set(boardListState, newValue);
+  },
+});
 
 export const filteredPlansSelector = selector({
   key: "filteredPlansSelector",
@@ -11,8 +27,8 @@ export const filteredPlansSelector = selector({
   },
 });
 
-export const fetchPlans = selector({
-  key: "fetchPlans",
+export const fetchPlansNew = selector({
+  key: "fetchPlansNew",
   get: async () => {
     try {
       const response = await axios.get(

@@ -1,33 +1,44 @@
-import React, {useState, useEffect} from 'react'
-import axios from "axios";
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom';
+import { useRecoilValueLoadable, useSetRecoilState } from 'recoil';
+import { fetchBoardListSelector } from '../recoil/selectors';
 
 function HomePost() {
-  const [boardList, setBoardList] = useState([])
+  const boardListLoadable = useRecoilValueLoadable(fetchBoardListSelector);
+  const setBoardList = useSetRecoilState(fetchBoardListSelector);
 
   useEffect(() => {
-    try{
-    axios.get(`${process.env.REACT_APP_API_URL}/post`)
-    .then((response) => {
-      setBoardList([...response.data].reverse().slice(0, 5))
-    })
-
-  } catch(error) {
-      console.log(error)
+    if (boardListLoadable.state === 'loading') {
+      setBoardList([]);
     }
-  }, [])
+  }, [boardListLoadable.state, setBoardList]);
+
+  let content;
+  switch (boardListLoadable.state) {
+    case 'hasValue':
+      content = boardListLoadable.contents.map((board) => (
+        <Link to={`/post/${board.id}`} key={board.id}>
+          <li>[{board.region}] {board.title}</li>
+        </Link>
+      ));
+      break;
+    case 'loading':
+      content = <div>Loading...</div>;
+      break;
+    case 'hasError':
+      content = <div>Error loading board list</div>;
+      break;
+    default:
+      content = <div>Unknown state</div>;
+  }
 
   return (
     <div>
       <ul>
-      {boardList.map((board) => (
-      <Link to={`/post/${board.id}`} key={board.id}>
-      <li>[{board.region}] {board.title}</li>
-      </Link>
-    ))}
-    </ul>
+        {content}
+      </ul>
     </div>
-  )
+  );
 }
 
-export default HomePost
+export default HomePost;
