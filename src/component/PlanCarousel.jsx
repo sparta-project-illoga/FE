@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { plansState }  from '../recoil/atoms';
-import { filteredPlansSelector, fetchPlans } from '../recoil/selectors'
+import { filteredPlansSelector, fetchPlansNew } from '../recoil/selectors'
 import axios from "axios";
 import logoImg from "../logo.svg";
 import LikeButton from './Likebutton';
@@ -15,7 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 function PlanCarousel() {
   const [plans, setPlans] = useRecoilState(plansState);
   const filteredPlans = useRecoilValue(filteredPlansSelector);
-  const plansFromApi = useRecoilValue(fetchPlans);
+  const plansFromApi = useRecoilValue(fetchPlansNew);
   
   useEffect(() => {
     setPlans(plansFromApi);
